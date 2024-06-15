@@ -40,17 +40,17 @@ function QR() {
           }
      }, []);
     
-     const sound='./pay_success.wav'
-     // const audioRef = useRef(null);
+     // const sound='./pay_success.wav'
+     // // const audioRef = useRef(null);
    
-     useEffect(() => {
-       //음성 재생
-       const audio = new Audio(sound); 
-       audio.muted=true
-       audio.play()
-       audio.muted=false
+     // useEffect(() => {
+     //   //음성 재생
+     //   const audio = new Audio(sound); 
+     //   audio.muted=true
+     //   audio.play()
+     //   audio.muted=false
    
-     }, []);
+     // }, []);
      const hoverContinueButton = () => {
           const storedLanguage = sessionStorage.getItem('language');
           if (storedLanguage === 'en') {

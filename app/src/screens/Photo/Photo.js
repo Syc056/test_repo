@@ -1885,7 +1885,7 @@ function Photo() {
 
     const startLiveView = async () => {
         try {
-            await axios.get('http://172.22.247.48:5000/start_live_view');
+            await axios.get('http://118.33.212.138:5000/start_live_view');
         } catch (error) {
             console.error('Failed to start live view:', error);
         }
@@ -1982,7 +1982,7 @@ function Photo() {
             <div className="middle-photo-div">
                 {!capturing && (
                     <img
-                        src={`http://172.22.247.48:5000/video_feed`}
+                        src={`http://118.33.212.138:5000/video_feed`}
                         alt="Live View"
                         className='photo-webcam'
                     />
