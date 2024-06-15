@@ -1,0 +1,714 @@
+.photo-container {
+     position: relative;
+     width: 100vw;
+     /* Full width of the viewport */
+     height: 100vh;
+     /* Full height of the viewport */
+     /* Specify the path to your background image */
+     background-size: contain;
+     background-repeat: no-repeat;
+     /* Cover the entire container */
+     background-position: center;
+     /* Center the background image */
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     /* Add additional styles for your payment content if needed */
+}
+
+.go-back {
+     position: absolute;
+     top: 4.1%;
+     left: 11.6%;
+     width: 9%;
+     height: 10%;
+     /* Set height of the div */
+     background-image: url('../assets/Common/goback.png');
+     /* Specify the path to your initial background image */
+     background-size: contain;
+     background-repeat: no-repeat;
+     /* Cover the entire div */
+     transition: background-image 0.3s;
+     /* Add transition for smooth effect */
+}
+
+.go-back:hover {
+     background-image: url('../assets/Common/gobackhover.png');
+     /* Specify the path to your hover background image */
+     cursor: pointer;
+     /* Change cursor on hover */
+}
+
+.left-big-frame {
+     position: absolute;
+     top: 20%;
+     left: 3%;
+     width: 45%;
+     height: 75%;
+     background-image: url('../assets/Common/frame.png');
+     background-size: contain;
+     background-repeat: no-repeat;
+     background-position: center;
+}
+
+.left-photo-div {
+     position: absolute;
+     top: 14%;
+     left: 0;
+     width: 33%;
+     height: 20%;
+     background-size: contain;
+     background-repeat: no-repeat;
+     background-position: center;
+}
+
+.right-photo-div {
+     position: absolute;
+     top: 10%;
+     right: 9%;
+     width: 12%;
+     height: 18%;
+     background-size: contain;
+     background-repeat: no-repeat;
+     background-position: center;
+}
+
+.middle-photo-div {
+     position: absolute;
+     top: 1%;
+     left: 51%;
+     transform: translateX(-50%);
+     width: 51%;
+     height: 97%;
+     background-size: contain;
+     background-repeat: no-repeat;
+     background-position: center;
+}
+
+.photo-camera {
+     width: 100%;
+     height: auto;
+}
+
+.photo-webcam {
+     text-align: center;
+     top: 15%;
+     position: relative;
+     font-size: 51px;
+     font-family: fantasy;
+     width: 100%;
+     left: 1%;
+}
+
+.photo-count {
+     text-align: center;
+     top: 33%;
+     position: relative;
+     font-size: 51px;
+     font-family: fantasy;
+}
+
+.photo-countdown {
+     text-align: center;
+     top: 30%;
+     position: relative;
+     font-size: 88px;
+     font-family: fantasy;
+}
+
+/** Choose **/
+.photo-choose-container {
+     position: relative;
+     width: 100vw;
+     /* Full width of the viewport */
+     height: 100vh;
+     /* Full height of the viewport */
+     /* Specify the path to your background image */
+     background-size: contain;
+     background-repeat: no-repeat;
+     /* Cover the entire container */
+     background-position: center;
+     /* Center the background image */
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     /* Add additional styles for your payment content if needed */
+}
+
+.left-choose-container {
+     position: absolute;
+     top: 16%;
+     left: 12%;
+     width: 79%;
+     height: 79%;
+     background-size: contain;
+     background-repeat: no-repeat;
+     background-position: center;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+}
+
+.left-choose-container-2cut {
+     position: absolute;
+     top: 24%;
+     left: 23%;
+     width: 54%;
+     height: 45%;
+     opacity: 0.5;
+     background-size: contain;
+     background-repeat: no-repeat;
+     background-position: center;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+}
+
+.left-choose-container-4cut {
+     position: absolute;
+     top: 5%;
+     left: 21%;
+     width: 59%;
+     height: 86%;
+     background-size: contain;
+     background-repeat: no-repeat;
+     background-position: center;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+}
+
+.left-choose-container-5cut {
+     position: absolute;
+     top: 7%;
+     left: 12%;
+     width: 79%;
+     height: 86%;
+     background-size: contain;
+     background-repeat: no-repeat;
+     background-position: center;
+
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+}
+
+.right-choose-container {
+     position: absolute;
+     top: 40%;
+     right: 8%;
+     display: flex;
+     flex-direction: column;
+     gap: 10px;
+     width: 45%;
+     /* background-color: red; */
+}
+
+.choose-line {
+     height: 160px;
+     display: flex;
+     flex-direction: row;
+     gap: 10px;
+     /* flex-wrap: wrap; */
+}
+
+.choose-image {
+     width: 100%;
+     /* height: 250px; */
+     background-size: contain;
+     background-image: url('../assets/Photo/Choose/photo_box.png');
+     background-repeat: no-repeat;
+     background-position: center;
+     margin: 10px auto;
+}
+
+.bottom_choose_container {
+     position: absolute;
+     top: 77%;
+     right: 20%;
+     width: 20%;
+     height: 20%;
+     background-size: contain;
+     background-repeat: no-repeat;
+     background-position: center;
+}
+
+.choose-photo-row {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     
+}
+
+.choose-photo-item {
+     width: 190px;
+     height: 122px;
+     background-size: cover;
+     background-repeat: no-repeat;
+     margin: 1%;
+}
+
+/* Frame 5 cut **/
+
+.choose-photo-item-5cut {
+     width: 190px;
+     height: 122px;
+     background-size: cover;
+     background-repeat: no-repeat;
+     margin: 1%;
+}
+
+.choose-photo-item-5cut-0-0 {
+     width: 210px;
+     height: 210px;
+     background-size: cover;
+     background-repeat: no-repeat;
+     margin: 1%;
+     position: fixed;
+     top: 26%;
+     left: 16%;
+}
+
+.choose-photo-item-5cut-0-1 {
+     width: 210px;
+     height: 210px;
+     background-size: cover;
+     background-repeat: no-repeat;
+     margin: 1%;
+     position: fixed;
+     top: 26%;
+     left: 25.5%;
+}
+
+.choose-photo-item-5cut-1-0 {
+     width: 210px;
+     height: 210px;
+     background-size: cover;
+     background-repeat: no-repeat;
+     margin: 1%;
+     position: fixed;
+     top: 45%;
+     left: 16%;
+}
+
+.choose-photo-item-5cut-1-1 {
+     width: 210px;
+     height: 210px;
+     background-size: cover;
+     background-repeat: no-repeat;
+     margin: 1%;
+     position: fixed;
+     top: 45%;
+     left: 25.5%;
+}
+
+.choose-photo-item-5cut-last-line {
+     width: 439px;
+     height: 250px;
+     background-size: cover;
+     background-repeat: no-repeat;
+     margin: 1%;
+     position: fixed;
+     top: 64%;
+     left: 15.9%;
+}
+
+/** Frame 4cut **/
+
+.choose-photo-item-4cut-0-0 {
+     width: 210px;
+     height: 158px;
+     background-size: cover;
+     background-repeat: no-repeat;
+     background-position: center;
+     margin: 1%;
+     position: fixed;
+     top: 33%;
+     left: 13.3%;
+}
+
+.choose-photo-item-4cut-0-1 {
+     width: 210px;
+     height: 158px;
+     background-size: cover;
+     background-repeat: no-repeat;
+     background-position: center;
+     margin: 1%;
+     position: fixed;
+     top: 33%;
+     left: 25.4%;
+}
+
+.choose-photo-item-4cut-1-0 {
+     width: 210px;
+     height: 158px;
+     background-size: cover;
+     background-repeat: no-repeat;
+     background-position: center;
+     margin: 1%;
+     position: fixed;
+     top: 52%;
+     left: 13.3%;
+}
+
+.choose-photo-item-4cut-1-1 {
+     width: 210px;
+     height: 158px;
+     background-size: cover;
+     background-repeat: no-repeat;
+     background-position: center;
+     margin: 1%;
+     position: fixed;
+     top: 52%;
+     left: 25.4%;
+}
+
+/** Frame 3cut **/
+
+.choose-photo-item-3cut-top-line {
+     width: 450px;
+     height: 255px;
+     background-size: cover;
+     background-repeat: no-repeat;
+     background-position: center;
+     margin: 1%;
+     position: fixed;
+     top: 33%;
+     left: 16%;
+}
+
+.choose-photo-item-3cut-0-0 {
+     width: 210px;
+     height: 310px;
+     background-size: cover;
+     background-repeat: no-repeat;
+     background-position: center;
+     margin: 1%;
+     position: fixed;
+     top: 57%;
+     left: 16%;
+}
+
+.choose-photo-item-3cut-0-1 {
+     width: 210px;
+     height: 310px;
+     background-size: cover;
+     background-repeat: revert-layer;
+     background-position: center;
+     margin: 1%;
+     position: fixed;
+     top: 57%;
+     left: 26%;
+}
+
+/** Frame 2cut **/
+.choose-photo-item-2cut-0-0 {
+     width: 298px;
+     height: 340px;
+     background-size: cover;
+     background-repeat: revert-layer;
+     background-position: center;
+     margin: 1%;
+     position: fixed;
+     top: 10%;
+     left: 8%;
+}
+
+.choose-photo-item-2cut-0-1 {
+     width: 298px;
+     height: 340px;
+     background-size: cover;
+     background-repeat: no-repeat;
+     background-position: center;
+     margin: 1%;
+     position: fixed;
+     top: 10%;
+     left:50%;
+}
+
+/** Frame 6 cut **/
+.choose-photo-item6-0-0 {
+     width: 250px;
+     height: 250px;
+     background-size: cover;
+     background-repeat: no-repeat;
+     background-position: center;
+     margin: 1%;
+     position: fixed;
+     top: 24%;
+     left: 14%;
+}
+
+.choose-photo-item6-0-1 {
+     width: 250px;
+     height: 250px;
+     background-size: cover;
+     background-repeat: no-repeat;
+     background-position: center;
+     margin: 1%;
+     position: fixed;
+     top: 24%;
+     left: 24%;
+}
+
+.choose-photo-item6-1-0 {
+     width: 250px;
+     height: 250px;
+     background-size: cover;
+     background-repeat: no-repeat;
+     background-position: center;
+     margin: 1%;
+     position: fixed;
+     top: 45%;
+     left: 14%;
+}
+
+.choose-photo-item6-1-1 {
+     width: 250px;
+     height: 250px;
+     background-size: cover;
+     background-repeat: no-repeat;
+     background-position: center;
+     margin: 1%;
+     position: fixed;
+     top: 45%;
+     left: 24%;
+}
+
+.choose-photo-item6-2-0 {
+     width: 250px;
+     height: 250px;
+     background-size: cover;
+     background-repeat: no-repeat;
+     background-position: center;
+     margin: 1%;
+     position: fixed;
+     top: 65%;
+     left: 14%;
+}
+
+.choose-photo-item6-2-1 {
+     width: 250px;
+     height: 250px;
+     background-size: cover;
+     background-repeat: no-repeat;
+     background-position: center;
+     margin: 1%;
+     position: fixed;
+     top: 65%;
+     left: 24%;
+     
+}
+
+/** Frame 6 cut-end **/
+
+/** Frame 8 cut **/
+.choose-photo-item-0-0 {
+     width: 219px;
+     height: 150px;
+     background-size: cover;
+     background-repeat: no-repeat;
+     background-position: center;
+     margin: 1%;
+     position: fixed;
+     top: 27%;
+     left: 14.5%;
+     transform: scale(0.8);
+}
+
+.choose-photo-item-0-1 {
+     width: 219px;
+     height: 150px;
+     background-size: cover;
+     background-repeat: no-repeat;
+     margin: 1%;
+     position: fixed;
+     top: 27%;
+     left: 24.7%;
+     transform: scale(0.8);
+}
+
+.choose-photo-item-1-0 {
+     width: 219px;
+     height: 150px;
+     background-size: cover;
+     background-repeat: no-repeat;
+     margin: 1%;
+     position: fixed;
+     top: 41%;
+     left: 14.5%;
+     transform: scale(0.8);
+}
+
+.choose-photo-item-1-1 {
+     width: 219px;
+     height: 150px;
+     background-size: cover;
+     background-repeat: no-repeat;
+     margin: 1%;
+     position: fixed;
+     top: 41%;
+     left: 24.7%;
+     transform: scale(0.8);
+}
+
+.choose-photo-item-2-0 {
+     width: 219px;
+     height: 150px;
+
+     background-size: cover;
+     background-repeat: no-repeat;
+     margin: 1%;
+     position: fixed;
+     top: 55.5%;
+     left: 14.5%;
+     transform: scale(0.8);
+}
+
+.choose-photo-item-2-1 {
+     width: 219px;
+     height: 150px;
+     background-size: cover;
+     background-repeat: no-repeat;
+     margin: 1%;
+     position: fixed;
+     top: 55.5%;
+     left: 24.7%;
+     transform: scale(0.8);
+}
+
+.choose-photo-item-3-0 {
+     width: 219px;
+     height: 150px;
+  transform: scale(0.8);
+     background-size: cover;
+     background-repeat: no-repeat;
+     margin: 1%;
+     position: fixed;
+     top: 69.5%;
+     left: 14.5%;
+}
+
+.choose-photo-item-3-1 {
+     width: 219px;
+     height: 150px;
+  transform: scale(0.8);
+     background-size: cover;
+     background-repeat: no-repeat;
+     margin: 1%;
+     position: fixed;
+     top: 69.5%;
+      left: 24.7%;
+}
+
+/** Frame 8 cut end **/
+
+.choose-photo-item-alone {
+     width: 190px;
+     height: 122px;
+     background-size: cover;
+     background-repeat: no-repeat;
+     margin: 1%;
+     margin-right: 25%;
+}
+
+.left-choose-images-container {
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+}
+
+.left-choose-photos {
+     margin-top: 8%;
+     margin-left: 24%;
+     width: 55%;
+     height: 86%;
+     position: initial;
+     background-size: contain;
+     background-repeat: no-repeat;
+     background-position: center;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+}
+
+.left-choose-photos-2cut {
+     margin-top: 11%;
+     margin-left: 7%;
+     width: 86%;
+     height: 66%;
+     position: initial;
+     background-size: contain;
+     background-repeat: no-repeat;
+     background-position: center;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+     transform: scale(0.7);
+}
+
+.left-choose-photos-4cut {
+     margin-top: 12%;
+     margin-left: 8%;
+     width: 85%;
+     height: 59%;
+     position: initial;
+     background-size: contain;
+     background-repeat: no-repeat;
+     background-position: center;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+}
+
+.left-choose-photos-5cut {
+     margin-top: 4%;
+     margin-left: 12%;
+     width: 79%;
+     height: 88%;
+     position: initial;
+     background-size: contain;
+     background-repeat: no-repeat;
+     background-position: center;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+}
+
+/** Choose **/
+
+.flash {
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     background: white;
+     /* Adjust color as needed */
+     opacity: 0;
+     pointer-events: none;
+     /* Prevents clicks on the flash div */
+}
+
+.animate {
+     animation: flashAnimation 0.2s ease-out forwards;
+}
+
+@keyframes flashAnimation {
+     0% {
+          opacity: 1;
+     }
+
+     100% {
+          opacity: 0;
+     }
+}
