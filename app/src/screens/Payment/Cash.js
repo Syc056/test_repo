@@ -53,18 +53,6 @@ function Cash() {
   const [paidImage, setPaidImage] = useState(null);
   const [doneImage, setDoneImage] = useState(null);  
 
-  const sound='./insert_cash.wav'
-  // const audioRef = useRef(null);
-
-  useEffect(() => {
-    //음성 재생
-    const audio = new Audio(sound); 
-    audio.muted=true
-    audio.play()
-    audio.muted=false
-
-  }, []);
-
   useEffect(() => {
     const storedLanguage = sessionStorage.getItem('language');
     if (storedLanguage) {
@@ -90,7 +78,17 @@ function Cash() {
       }
     }
   }, []);
+  const sound='./insert_cash.wav'
+  // const audioRef = useRef(null);
 
+  useEffect(() => {
+    //음성 재생
+    const audio = new Audio(sound); 
+    audio.muted=true
+    audio.play()
+    audio.muted=false
+
+  }, []);
   useEffect(() => {
     const startCashPayment = async () => {
       try {

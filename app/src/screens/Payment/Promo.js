@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import i18n from '../../translations/i18n';
-import "../../css/Payment.css"; 
+import "../../css/Payment.css";
+
 // Image
 import promo_form from '../../assets/Payment/Promo/promo_form.png';
 import promo_form_kr from '../../assets/Payment/Promo/kr/promo_form.png';
@@ -56,15 +57,12 @@ import goback_vn from '../../assets/Common/vn/goback.png';
 import goback_vn_hover from '../../assets/Common/vn/gobackhover.png';
 
 import axios from 'axios';
-import { checkPromotionCode } from '../../api/config';
 
 function Cash() {
      const { t } = useTranslation();
      const navigate = useNavigate();
      const [hoveredImage, setHoveredImage] = useState(null);
      const [hoveredRedeem, setHoveredRedeem] = useState(null);
-     // const deviceId = process.env.DEVICE_ID;
-     const deviceId = 34;
      const [redeemCode, setRedeemCode] = useState('');
      const [frameAmount, setFrameAmount] = useState(0);
      const [background, setBackground] = useState(background_en);       
@@ -72,18 +70,6 @@ function Cash() {
      const [redeemButton, setRedeemButton] = useState(redeem);
      const [language, setLanguage] = useState('en');
      const [goBackButton, setGoBackButton] = useState(null);
-
-     const sound='./enter_pro.wav'
-     // const audioRef = useRef(null);
-   
-     useEffect(() => {
-       //음성 재생
-       const audio = new Audio(sound); 
-       audio.muted=true
-       audio.play()
-       audio.muted=false
-   
-     }, []);
 
      useEffect(() => {
           const storedLanguage = sessionStorage.getItem('language');
@@ -107,7 +93,17 @@ function Cash() {
                }
           }
      }, []);
-
+     const sound='./enter_pro.wav'
+     // const audioRef = useRef(null);
+   
+     useEffect(() => {
+       //음성 재생
+       const audio = new Audio(sound); 
+       audio.muted=true
+       audio.play()
+       audio.muted=false
+   
+     }, []);
      const handleMouseEnter = (image) => {
           setHoveredImage(image);
      }
@@ -174,17 +170,15 @@ function Cash() {
           }
      }, []);
 
-
      const checkReedeem = async () => {
           try {
                // const deviceNumber = process.env.REACT_APP_DEVICE_NUMBER;
                // const response = await fetch(`${process.env.REACT_APP_BE_PROD}/payments/api/redeem?device=${deviceNumber}&code=${redeemCode}&amount=${frameAmount}`);
               const response=await checkPromotionCode({
-               code:redeemCode,
-               id:deviceId
-              });
+               code:redeemCode
+              })
                const paymentData = await response[0];
-               console.log("체크 프로모션 코드",paymentData)
+               // console.log("체크 프로모션 코드",paymentData)
                if (paymentData.message==="Promotion code is valid") {
                     sessionStorage.setItem('orderCodeNum', redeemCode);
                          navigate("/payment-result");
@@ -199,20 +193,6 @@ function Cash() {
                console.error(error);
           }
      }
-
-     // const checkReedeem = async () => {
-     //      try {
-     //           const deviceNumber = process.env.REACT_APP_DEVICE_NUMBER;
-     //           const response = await fetch(`${process.env.REACT_APP_BE_PROD}/payments/api/redeem?device=${deviceNumber}&code=${redeemCode}&amount=${frameAmount}`);
-     //           const paymentData = await response.json();
-     //           if (paymentData.status === "OK") {
-     //                sessionStorage.setItem('orderCodeNum', paymentData.order_code);
-     //                navigate("/payment-result");
-     //           }
-     //      } catch (error) {
-     //           console.error(error);
-     //      }
-     // }
 
      return (
           <div className='promo-container' style={{ backgroundImage: `url(${background})` }}>

@@ -62,7 +62,7 @@ function Payment() {
   const [zalopayButton, setZalopayButton] = useState(zalopay);
   const [vnpayButton, setVnpayButton] = useState(vnpay);
   const [promoButton, setPromoButton] = useState(promo);
-
+    
   const sound='./choose_pay_method.wav'
   // const audioRef = useRef(null);
 
@@ -74,7 +74,6 @@ function Payment() {
     audio.muted=false
 
   }, []);
-
   useEffect(() => {
     const storedLanguage = sessionStorage.getItem('language');
     if (storedLanguage) {

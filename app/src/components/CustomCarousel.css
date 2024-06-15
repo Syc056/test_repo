@@ -1,11 +1,10 @@
 .v-carousel-container{
     /* z-index: 0; */
-    /* background-color: red; */
-    width:48%;
-    height: 90%;
+    width: 50%;
+    height: 68%;
     overflow: hidden;
-    right: 20%;
-    bottom: 4%;
+    right: 18%;
+    bottom: 22%;
     position: absolute;
 }
 .v-carousel-images{

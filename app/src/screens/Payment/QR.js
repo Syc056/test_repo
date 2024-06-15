@@ -28,18 +28,6 @@ function QR() {
      const [goBackBg, setGoBackBg] = useState([]);
      const [background, setBackground] = useState(background_en);
 
-     const sound='./scan_qr.wav'
-     // const audioRef = useRef(null);
-   
-     useEffect(() => {
-       //음성 재생
-       const audio = new Audio(sound); 
-       audio.muted=true
-       audio.play()
-       audio.muted=false
-   
-     }, []);
-
      useEffect(() => {
           const storedLanguage = sessionStorage.getItem('language');
           if (storedLanguage === 'ko') {
@@ -53,7 +41,17 @@ function QR() {
                setBackground(background_en);
           }
      })
-
+     const sound='./scan_qr.wav'
+     // const audioRef = useRef(null);
+   
+     useEffect(() => {
+       //음성 재생
+       const audio = new Audio(sound); 
+       audio.muted=true
+       audio.play()
+       audio.muted=false
+   
+     }, []);
      useEffect(() => {
           const fetchQRPayment = async () => {
                try {

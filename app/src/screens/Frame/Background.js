@@ -32,8 +32,6 @@ function Background() {
      // This to save the selected frame in session storage
      const [selectedFrame, setSelectedFrame] = useState(null);
 
-     
-
      useEffect(() => {
           const storedLanguage = sessionStorage.getItem('language');
           if (storedLanguage) {
@@ -113,8 +111,6 @@ function Background() {
     audio.muted=false
 
   }, []);
-
-  
 console.log("백그라운드s >>>",backgrounds)
      return (
           <div className='style-container' style={{ backgroundImage: `url(${backgroundContainer})` }}>

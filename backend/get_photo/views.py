@@ -1,13 +1,11 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import os
-from django.conf import settings
-from urllib.parse import unquote
 
 @csrf_exempt
 def get_photos(request):
     if request.method == 'GET':
-        upload_dir = os.path.join(settings.MEDIA_ROOT, 'uploads')  # 파일을 저장할 디렉터리 경로 설정
+        upload_dir = os.path.join('uploads')  # 파일을 저장할 디렉터리 경로 설정
         # 디렉터리 내의 모든 파일 목록을 가져옴
         try:
             file_list = os.listdir(upload_dir)
@@ -25,19 +23,11 @@ from urllib.parse import quote
 
 @csrf_exempt    
 def serve_photo(request, file_path):
-    file_path = unquote(file_path)  # URL 디코딩
-    file_path = os.path.join(settings.MEDIA_ROOT, 'uploads', file_path)
+    file_path = os.path.join('uploads', file_path)
     if os.path.exists(file_path):
         with open(file_path, 'rb') as f:
-            return HttpResponse(f.read(), content_type="image/jpeg")
+            response = HttpResponse(f.read(), content_type="image/jpeg")
+            response['Content-Disposition'] = f'inline; filename={quote(os.path.basename(file_path))}'
+            return response
     else:
-        raise Http404("Photo not found")
-# def serve_photo(request, file_path):
-#     file_path = os.path.join('uploads', file_path)
-#     if os.path.exists(file_path):
-#         with open(file_path, 'rb') as f:
-#             response = HttpResponse(f.read(), content_type="image/jpeg")
-#             response['Content-Disposition'] = f'inline; filename={quote(os.path.basename(file_path))}'
-#             return response
-#     else:
-#         raise Http404("File not found")
+        raise Http404("File not found")

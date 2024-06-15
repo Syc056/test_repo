@@ -43,7 +43,6 @@ function Frame() {
   const [frameBackground, setFrameBackground] = useState([]);
 
   const [goBackBg, setGoBackBg] = useState([]);
-  
 const src='./choose_frame_layout.wav'
   // const audioRef = useRef(null);
 
