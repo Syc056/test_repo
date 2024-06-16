@@ -1260,13 +1260,10 @@ console.log("photos in filter>>>>",photos)
                       <div key={rowIndex} className="choose-photo-row">
                           {row.map((selectedIndex, photoIndex) =>
                              {
-                              console.log("photos[selectedIndex]",photos[selectedIndex].url.split('/').pop())
                               return <div
                                   key={photoIndex}
                                   className={displayClassNameForPhoto(rowIndex, photoIndex)}
-                                  onClick={()=>{
-                                   window.confirm("photos[selectedIndex].url")
-                                  }}
+                                  
                                   style={{ 
                                    transform: "scale(0.7)",
                                    // backgroundImage: `url(${process.env.REACT_APP_BACKEND}/serve_photo/${encodeURIComponent(photos[selectedIndex].url.split('/').pop())})`, filter: getImageStyle() }}
@@ -1358,25 +1355,22 @@ console.log("photos in filter>>>>",photos)
                       <div key={rowIndex} className="choose-photo-row">
                           {row.map((selectedIndex, photoIndex) =>
                              {
-                              console.log("photos[selectedIndex]",photos[selectedIndex].url.split('/').pop())
                               return <div
                                   key={photoIndex}
                                   className={displayClassNameForPhoto(rowIndex, photoIndex)}
                                   onClick={()=>{
-                                   window.confirm(selectedIndex)
                                   if (selectedId.includes(selectedIndex)) {
                                    const filtered=selectedId.filter(item=>item!=selectedIndex)
                                     setSelectedId(filtered)
                                   } else {
                                    setSelectedId(p=>[...p,selectedIndex])
                                   }
-                                  console.log(selectedId)
                                   }}
                                   style={{ 
                                    transform: "scale(0.7)",
                                    // backgroundImage: `url(${process.env.REACT_APP_BACKEND}/serve_photo/${encodeURIComponent(photos[selectedIndex].url.split('/').pop())})`, filter: getImageStyle() }}
-                                   opacity:0.5,
-                                   border:selectedId.includes(selectedIndex)?"6px solid red":null
+                                   boxSizing:"border-box",
+                                   // border:selectedId.includes(selectedIndex)?"6px solid red":null
                               
                               }}
                               />}
