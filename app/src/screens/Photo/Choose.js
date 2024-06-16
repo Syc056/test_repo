@@ -1457,7 +1457,7 @@ function Choose() {
                 <div className={displayClassNameForLayout()} style={{ backgroundImage: `url(${selectedLayout})` }}></div>
             </div>
             <div className="right-choose-container">
-                {chunkArray(formattedPhotos, 4).map((group, index) => (
+                {chunkArray(formattedPhotos.slice(-8), 4).map((group, index) => (
                     <div key={index} className="choose-line">
                         {group.map((photo, photoIndex) => (
                             <div

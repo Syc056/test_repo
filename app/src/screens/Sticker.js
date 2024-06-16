@@ -87,7 +87,7 @@ function Sticker() {
      const [clickPrint, setClickPrint] = useState(false);
      const [orderCode, setOrderCode] = useState(null);
      const [language, setLanguage] = useState('en');
-
+   
      const [backgroundImage, setBackgroundImage] = useState(background_en);
      //스크롤 인덱스
      const [scrollIdx, setScrollIdx] = useState(0)
@@ -117,6 +117,7 @@ const [height,setHeight]=useState(0)
      const [tempImage,setTempImage]=useState()
      // const stageRef = useRef(null);
      const [stageRefs,setStageRefs]=useState([])
+     const [printRefs,setPrintRefs]=useState([])
      const [frameSize,setFrameSize]=useState({
           width:"",
           height:""
@@ -176,6 +177,10 @@ if (photos===null)return;
                setSelectedLayout(parsedSelectedLayout.map(it=>it.photo_cover));
                setMyBackgrounds(parsedSelectedLayout.map(it=>it.photo));
                setStageRefs((refs) =>
+                    parsedSelectedLayout
+                      .map((_, i) => refs[i] || createRef()),
+                  );
+                  setPrintRefs((refs) =>
                     parsedSelectedLayout
                       .map((_, i) => refs[i] || createRef()),
                   );
@@ -395,8 +400,9 @@ if (photos===null)return;
           try {
                // for (let i = 0; i < stageRefs.length; i++) {
                     // for (let i = 0; i < 1; i++) {
-                         const stageRef = stageRefs[bgIdx];
-                    const originalDataURL = stageRef.current.toDataURL();
+                        // const stageRef = stageRefs[bgIdx];
+                        const stageRef = printRefs[bgIdx];
+                        const originalDataURL = stageRef.current.toDataURL();
                     let rotated=null
                     rotateImageDataURL(originalDataURL, 90)
                     .then(rotatedDataURL => {
@@ -418,6 +424,7 @@ if (photos===null)return;
                         .then(response => {
                              const data = response.data;
                              if (data.photo_url) {
+                                console.log(data.photo_url)
                                   sessionStorage.setItem('uploadedCloudPhotoUrl', data.photo_url);
                              }
                         })
@@ -440,7 +447,7 @@ if (photos===null)return;
      const callPrinter = async() => {
           alert("callPrinter");
           // for (let i = 0; i < stageRefs.length; i++) {
-              const stageRef = stageRefs[bgIdx];
+              const stageRef = printRefs[bgIdx];
               if (!stageRef.current) {
                   alert("stageRef.current is null");
                   return;
@@ -867,10 +874,11 @@ src={selectedItems[3].url}
          
           return { x: newStickerX, y: newStickerY, width: newStickerWidth, height: newStickerHeight };
       }
+      
      //백그라운드
      useEffect(() => {
           if (frameSize.width === "" || frameSize.height === "") return;
-      
+        
           const loadImages = () => {
       //
               const tempImgs = selectedPhotos.map(index => {
@@ -878,7 +886,7 @@ src={selectedItems[3].url}
                   const tempImg = new Image();
                   tempImg.crossOrigin = 'Anonymous';
                   tempImg.src = photo.url;
-                  applyStyles(tempImg, { width: 800, height: 800, filter: photo.filter });
+                //   applyStyles(tempImg, { width: 800, height: 800, filter: photo.filter });
                   return tempImg;
               });
       
@@ -936,466 +944,145 @@ src={selectedItems[3].url}
       
           loadImages();
       }, [selectedPhotos,myBackgrounds]);
-      //레이아웃 선택
-      useEffect(() => {
-          if (frameSize.width === "" || frameSize.height === "") return;
-      
-          const loadImages = () => {
-           
-      
-          //     if (selectedLayout.length === 0 || !backgroundList[0]?.src) {
-                  const element = document.querySelector('.image');
-                  if (element) {
-                      const targetWidth = frameSize.width;
-                      const targetHeight = frameSize.height;
-      
-                      const loadedImages = selectedLayout.map((imageUrl) => {
-                          return new Promise((resolve, reject) => {
-                              const img = new Image();
-                              img.crossOrigin = 'Anonymous';
-                              img.src = imageUrl;
-      
-                              img.onload = () => {
-                                  const aspectRatio = img.width / img.height;
-      
-                                  let width, height;
-                                  if (aspectRatio > 1) {
-                                      // Landscape
-                                      width = targetWidth;
-                                      height = targetWidth / aspectRatio;
-                                  } else {
-                                      // Portrait or square
-                                      height = targetHeight;
-                                      width = targetHeight * aspectRatio;
-                                  }
-      
-                                  setWidth(width);
-                                  setHeight(height);
-      
-                                  resolve({
-                                      img,
-                                      width,
-                                      height
-                                  });
-                              };
-                              img.onerror = (err) => reject(err);
-                          });
-                      });
-      
-                      Promise.all(loadedImages)
-                          .then((images) => {
-                              setLayoutList(images)
-                          })
-                          .catch((error) => {
-                              console.error("Error loading images:", error);
-                          });
-                  }
-          //     }
-          };
-      
-          loadImages();
-      }, [selectedLayout]);
-    
-      //정사각형에 가까운거
- 
-     //  const showKonvaImgLayout=(selectedFrame,width,height,imgTag)=>{
-     //      if (selectedFrame==="6-cutx2") {
-     //           const calcedWidth=width/2 -22
-     //           const calcedHeight=height/3 - 28
-     //           const x11=17
-     //           const x12=calcedWidth+x11+10
-     //           const y1=18
-     //           //
-     //           const x21=20
-     //           const x22=x12
-     //           const y2=calcedHeight+y1+10 
-     //            //
-     //            const x31=20
-     //            const x32=x22
-     //            const y3=calcedHeight+y2+10 
-     //           return   imgTag.length===0?<></>:   <>
-     //           {/* 11 */}
-     //           <KonvaImage
-     //           width={calcedWidth}
-     //           height={calcedHeight}
-     //           x={x11}
-     //           y={y1}
-     //           image={applyFilters(imgTag[0], imgTag[0].filter)}
-            
-     //        />
-     //      {/* 12 */}
-     //        <KonvaImage
-     //           width={calcedWidth}
-     //           height={calcedHeight}
-     //           x={x12}
-     //           y={y1}
-     //           image={applyFilters(imgTag[1], imgTag[1].filter)}
-            
-     //        />
-     //         {/* 21 */}
-     //         <KonvaImage
-     //           width={calcedWidth}
-     //           height={calcedHeight}
-     //           x={x21}
-     //           y={y2}
-     //           image={applyFilters(imgTag[2], imgTag[2].filter)}
-            
-     //        />
-     //      {/* 22 */}
-     //        <KonvaImage
-     //           width={calcedWidth}
-     //           height={calcedHeight}
-     //           x={x22}
-     //           y={y2}
-     //           image={applyFilters(imgTag[3], imgTag[3].filter)}
-            
-     //        />
-     //           {/* 31 */}
-     //           <KonvaImage
-     //           width={calcedWidth}
-     //           height={calcedHeight}
-     //           x={x31}
-     //           y={y3}
-     //           image={applyFilters(imgTag[4], imgTag[4].filter)}
-            
-     //        />
-     //      {/* 32 */}
-     //        <KonvaImage
-     //           width={calcedWidth}
-     //           height={calcedHeight}
-     //           x={x32}
-     //           y={y3}
-     //           image={applyFilters(imgTag[5], imgTag[5].filter)}
-            
-     //        />
-     //        </>  
-     //      }
-     //     else if (selectedFrame==="Stripx2") {
-     //           const calcedWidth=width/2 - 18
-     //           const calcedHeight=height/4 - 20
-     //           //1 row
-     //           const x11=8
-     //           const x12=calcedWidth+x11+20
-     //           const y1=22 
-     //           //2 row
-     //           const x21=x11
-     //           const x22=x12
-     //           const y2=calcedHeight+y1+8 
-     //            //3 row
-     //            const x31=x11
-     //            const x32=x22
-     //            const y3=calcedHeight+y2+8 
-     //                         //4 row
-     //                         const x41=x11
-     //                         const x42=x32
-     //                         const y4=calcedHeight+y3+6 
-     //           return    imgTag.length===0?<></>:   <>
-     //           {/* 11 */}
-     //           <KonvaImage
-     //           width={calcedWidth}
-     //           height={calcedHeight}
-     //           x={x11}
-     //           y={y1}
-     //           image={applyFilters(imgTag[0], imgTag[0].filter)}
-            
-     //        />
-     //      {/* 12 */}
-     //        <KonvaImage
-     //           width={calcedWidth}
-     //           height={calcedHeight}
-     //           x={x12}
-     //           y={y1}
-     //           image={applyFilters(imgTag[1], imgTag[1].filter)}
-            
-     //        />
-     //         {/* 21 */}
-     //         <KonvaImage
-     //           width={calcedWidth}
-     //           height={calcedHeight}
-     //           x={x21}
-     //           y={y2}
-     //           image={applyFilters(imgTag[2], imgTag[2].filter)}
-            
-     //        />
-     //      {/* 22 */}
-     //        <KonvaImage
-     //           width={calcedWidth}
-     //           height={calcedHeight}
-     //           x={x22}
-     //           y={y2}
-     //           image={applyFilters(imgTag[3], imgTag[3].filter)}
-            
-     //        />
-     //           {/* 31 */}
-     //           <KonvaImage
-     //           width={calcedWidth}
-     //           height={calcedHeight}
-     //           x={x31}
-     //           y={y3}
-     //           image={applyFilters(imgTag[4], imgTag[4].filter)}
-            
-     //        />
-     //      {/* 32 */}
-     //        <KonvaImage
-     //           width={calcedWidth}
-     //           height={calcedHeight}
-     //           x={x32}
-     //           y={y3}
-     //           image={applyFilters(imgTag[5], imgTag[5].filter)}
-            
-     //        />
-     //          {/* 41 */}
-     //          <KonvaImage
-     //           width={calcedWidth}
-     //           height={calcedHeight}
-     //           x={x41}
-     //           y={y4}
-     //           image={applyFilters(imgTag[6], imgTag[6].filter)}
-     //        />
-     //      {/* 42 */}
-     //        <KonvaImage
-     //           width={calcedWidth}
-     //           height={calcedHeight}
-     //           x={x42}
-     //           y={y4}
-     //           image={applyFilters(imgTag[7], imgTag[7].filter)}
-            
-     //        />
-     //        </>  
-     //      }
-     //      else if(selectedFrame==="2cut-x2"){
-     //           const calcedWidth=width/2 - 32
-     //           const calcedHeight=height-90
-     //           const x11=26
-     //           const x12=calcedWidth+x11+14
-     //           const y1=48
-     //           //
-     //           const x21=36
-     //           const x22=x12
-     //           const y2=calcedHeight+y1+10 
-     //            //
-     //            const x31=36
-     //            const x32=x22
-     //            const y3=calcedHeight+y2+10 
-     //           return   imgTag.length===0?<></>:    <>
-     //           {/* 11 */}
-     //           <KonvaImage
-     //           width={calcedWidth}
-     //           height={calcedHeight}
-     //           x={x11}
-     //           y={y1}
-     //        image={applyFilters(imgTag[0], imgTag[0].filter)}
-            
-     //        />
-     //      {/* 12 */}
-     //        <KonvaImage
-     //           width={calcedWidth}
-     //           height={calcedHeight}
-     //           x={x12}
-     //           y={y1}
-     //           image={applyFilters(imgTag[1], imgTag[1].filter)}
-            
-     //        /></>
-     //      }
-     //      else if(selectedFrame==="4-cutx2"){
-     //           const calcedWidth=width/2 - 70
-     //           const calcedHeight=height/2 - 30
-     //           //1 row
-     //           const x11=62
-     //           const x12=calcedWidth+x11+18
-     //           const y1=25
-     //           //2 row
-     //           const x21=x11
-     //           const x22=x12
-     //           const y2=calcedHeight+y1+10
-     //            //
-     //            const x31=36
-     //            const x32=x22
-     //            const y3=calcedHeight+y2+10 
-     //           return   imgTag.length===0?<></>:    <>
-     //           {/* 11 */}
-     //           <KonvaImage
-     //           width={calcedWidth}
-     //           height={calcedHeight}
-     //           x={x11}
-     //           y={y1}
-     //           image={applyFilters(imgTag[0], imgTag[0].filter)}
-            
-     //        />
-     //      {/* 12 */}
-     //        <KonvaImage
-     //           width={calcedWidth}
-     //           height={calcedHeight}
-     //           x={x12}
-     //           y={y1}
-     //           image={applyFilters(imgTag[1], imgTag[1].filter)}
-            
-     //        />
-     //        {/* 21 */}
-     //        <KonvaImage
-     //           width={calcedWidth}
-     //           height={calcedHeight}
-     //           x={x21}
-     //           y={y2}
-     //           image={applyFilters(imgTag[2], imgTag[2].filter)}
-            
-     //        />
-     //      {/* 22 */}
-     //        <KonvaImage
-     //           width={calcedWidth}
-     //           height={calcedHeight}
-     //           x={x22}
-     //           y={y2}
-     //           image={applyFilters(imgTag[3], imgTag[3].filter)}
-            
-     //        />
-     //        </>
-     //      }
-     //      else {
-     //            return        <></>
-     //      }
-         
-     //  }
-     const showKonvaImgLayout = (selectedFrame, width, height, imgTag) => {
-          if (selectedFrame === "3-cutx2") {
-              const calcedWidth = width / 2 - 22;
-              const calcedHeight = height / 2 - 30;
-              const x11 = 17;
-              const x12 = calcedWidth + x11 + 10;
-              const y1 = 18;
-      
-              // First row
-              return imgTag.length === 0 ? <></> : (
-                  <>
-                      {/* 11 */}
-                      <KonvaImage
-                          width={calcedWidth * 2 + 10}
-                          height={calcedHeight}
-                          x={x11}
-                          y={y1}
-                          image={applyFilters(imgTag[0], imgTag[0].filter)}
-                      />
-                      {/* Rest rows */}
-                      {chunkArray(imgTag.slice(1), 2).map((row, rowIndex) => (
-                          row.map((tag, photoIndex) => {
-                              const x = photoIndex === 0 ? x11 : x12;
-                              const y = calcedHeight + y1 + 10 + rowIndex * (calcedHeight + 10);
-                              return (
-                                  <KonvaImage
-                                   //    key={`${rowIndex}-${photoIndex}`}
-                                      width={calcedWidth}
-                                      height={calcedHeight}
-                                      x={x}
-                                      y={y}
-                                      image={applyFilters(tag, tag.filter)}
-                                  />
-                              );
-                          })
-                      ))}
-                  </>
-              );
-          } else if (selectedFrame === "5-cutx2") {
-              const calcedWidth = width / 2 - 22;
-              const calcedHeight = height / 2 - 30;
-              const x11 = 17;
-              const x12 = calcedWidth + x11 + 10;
-              const y1 = 18;
-      
-              return imgTag.length === 0 ? <></> : (
-                  <>
-                      {chunkArray(imgTag.slice(0, 4), 2).map((row, rowIndex) => (
-                          row.map((tag, photoIndex) => {
-                              const x = photoIndex === 0 ? x11 : x12;
-                              const y = y1 + rowIndex * (calcedHeight + 10);
-                              return (
-                                  <KonvaImage
-                                   //    key={`${rowIndex}-${photoIndex}`}
-                                      width={calcedWidth}
-                                      height={calcedHeight}
-                                      x={x}
-                                      y={y}
-                                      image={applyFilters(tag, tag.filter)}
-                                  />
-                              );
-                          })
-                      ))}
-                      {/* 마지막 줄 */}
-                      <KonvaImage
-                          width={calcedWidth * 2 + 10}
-                          height={calcedHeight}
-                          x={x11}
-                          y={y1 + 2 * (calcedHeight + 10)}
-                          image={applyFilters(imgTag[4], imgTag[4].filter)}
-                      />
-                  </>
-              );
-          } 
-          else if(selectedFrame==="Stripx2"){
 
-               const calcedWidth = width / 2.2 - 18;
-               const calcedHeight = calcedWidth/1.5;
-               const x11 = 22;
-               const x12 = calcedWidth + x11 + 22;
-               const y1 = 40;
-       
-               return imgTag.length === 0 ? <></> : (
-                   <>
-                 
-                       {chunkArray(imgTag, 2).map((row, rowIndex) => (
-                           row.map((tag, photoIndex) => {
-                               const x = photoIndex === 0 ? x11 : x12;
-                               const y = y1 + rowIndex * (calcedHeight + 22);
-                               return (
-                                   <KonvaImage
-                                   //     key={`${rowIndex}-${photoIndex}`}
-                                       width={calcedWidth}
-                                       height={calcedHeight}
-                                       x={x}
-                                       y={y}
-                                       image={applyFilters(tag, tag.filter)}
-                                   />
-                               );
-                           })
-                       ))}
-                   </>
-               );
-          }
-          else {
-              const calcedWidth = width / 2.5 - 18;
-              const calcedHeight = calcedWidth;
-              const x11 = 12;
-              const x12 = calcedWidth + x11 + 12;
-              const y1 = 22;
-      
-              return imgTag.length === 0 ? <></> : (
-                  <>
-                
-                      {chunkArray(imgTag, 2).map((row, rowIndex) => (
-                          row.map((tag, photoIndex) => {
-                              const x = photoIndex === 0 ? x11 : x12;
-                              const y = y1 + rowIndex * (calcedHeight + 12);
-                              return (
-                                  <KonvaImage
-                                   //    key={`${rowIndex}-${photoIndex}`}
-                                      width={calcedWidth}
-                                      height={calcedHeight}
-                                      x={x}
-                                      y={y}
-                                      image={applyFilters(tag, tag.filter)}
-                                  />
-                              );
-                          })
-                      ))}
-                  </>
-              );
-          }
-      };
+      const showKonvaImgLayout = (selectedFrame, width, height, imgTag) => {
+        if (selectedFrame === "3-cutx2") {
+            const calcedWidth = width / 2 - 22;
+            const calcedHeight = height / 2 - 30;
+            const x11 = 17;
+            const x12 = calcedWidth + x11 + 10;
+            const y1 = 18;
+    
+            // First row
+            return imgTag.length === 0 ? <></> : (
+                <>
+                    {/* 11 */}
+                    <KonvaImage
+                        width={calcedWidth * 2 + 10}
+                        height={calcedHeight}
+                        x={x11}
+                        y={y1}
+                        image={applyFilters(imgTag[0], imgTag[0].filter)}
+                    />
+                    {/* Rest rows */}
+                    {chunkArray(imgTag.slice(1), 2).map((row, rowIndex) => (
+                        row.map((tag, photoIndex) => {
+                            const x = photoIndex === 0 ? x11 : x12;
+                            const y = calcedHeight + y1 + 10 + rowIndex * (calcedHeight + 10);
+                            return (
+                                <KonvaImage
+                                 //    key={`${rowIndex}-${photoIndex}`}
+                                    width={calcedWidth}
+                                    height={calcedHeight}
+                                    x={x}
+                                    y={y}
+                                    image={applyFilters(tag, tag.filter)}
+                                />
+                            );
+                        })
+                    ))}
+                </>
+            );
+        } else if (selectedFrame === "5-cutx2") {
+            const calcedWidth = width / 2 - 22;
+            const calcedHeight = height / 2 - 30;
+            const x11 = 17;
+            const x12 = calcedWidth + x11 + 10;
+            const y1 = 18;
+    
+            return imgTag.length === 0 ? <></> : (
+                <>
+                    {chunkArray(imgTag.slice(0, 4), 2).map((row, rowIndex) => (
+                        row.map((tag, photoIndex) => {
+                            const x = photoIndex === 0 ? x11 : x12;
+                            const y = y1 + rowIndex * (calcedHeight + 10);
+                            return (
+                                <KonvaImage
+                                 //    key={`${rowIndex}-${photoIndex}`}
+                                    width={calcedWidth}
+                                    height={calcedHeight}
+                                    x={x}
+                                    y={y}
+                                    image={applyFilters(tag, tag.filter)}
+                                />
+                            );
+                        })
+                    ))}
+                    {/* 마지막 줄 */}
+                    <KonvaImage
+                        width={calcedWidth * 2 + 10}
+                        height={calcedHeight}
+                        x={x11}
+                        y={y1 + 2 * (calcedHeight + 10)}
+                        image={applyFilters(imgTag[4], imgTag[4].filter)}
+                    />
+                </>
+            );
+        } 
+        else if(selectedFrame==="Stripx2"){
+
+             const calcedWidth = width / 2.2 - 18;
+             const calcedHeight = calcedWidth/1.5;
+             const x11 = 22;
+             const x12 = calcedWidth + x11 + 22;
+             const y1 = 40;
      
-      //프레임 유형별로 stageWidth, height
+             return imgTag.length === 0 ? <></> : (
+                 <>
+               
+                     {chunkArray(imgTag, 2).map((row, rowIndex) => (
+                         row.map((tag, photoIndex) => {
+                             const x = photoIndex === 0 ? x11 : x12;
+                             const y = y1 + rowIndex * (calcedHeight + 22);
+                             return (
+                                 <KonvaImage
+                                 //     key={`${rowIndex}-${photoIndex}`}
+                                     width={calcedWidth}
+                                     height={calcedHeight}
+                                     x={x}
+                                     y={y}
+                                     image={applyFilters(tag, tag.filter)}
+                                 />
+                             );
+                         })
+                     ))}
+                 </>
+             );
+        }
+        else {
+            const calcedWidth = width / 2.5 - 18;
+            const calcedHeight = calcedWidth;
+            const x11 = 12;
+            const x12 = calcedWidth + x11 + 12;
+            const y1 = 22;
+    
+            return imgTag.length === 0 ? <></> : (
+                <>
+              
+                    {chunkArray(imgTag, 2).map((row, rowIndex) => (
+                        row.map((tag, photoIndex) => {
+                            const x = photoIndex === 0 ? x11 : x12;
+                            const y = y1 + rowIndex * (calcedHeight + 12);
+                            return (
+                                <KonvaImage
+                                 //    key={`${rowIndex}-${photoIndex}`}
+                                    width={calcedWidth}
+                                    height={calcedHeight}
+                                    x={x}
+                                    y={y-720}
+                                    image={applyFilters(tag, tag.filter)}
+                                />
+                            );
+                        })
+                    ))}
+                </>
+            );
+        }
+    };
       useEffect(()=>{
 //ui 프레임 크기 조정
 const smallRatio=0.8
-const largeRatio=1.45//1.2
+const largeRatio=1.2
 if (selectedFrame==="6-cutx2") {
      
      setFrameSize({width:257.79*largeRatio,height:384*largeRatio})
@@ -1421,281 +1108,87 @@ else{
                return "konva-horizontal-image"
           }
       }
-     //  386.68
-     //  alert(selectedFrame)
-     //기존
-//      return (
-// <div className='sticker-container' style={{ backgroundImage: `url(${backgroundImage})` }}>
-//     <div className="go-back" style={{ backgroundImage: `url(${goBackButton})` }} onClick={() => navigate("/filter")} onMouseEnter={hoverGoBackButton} onMouseLeave={hoverGoBackButton}></div>
-//     <div className="left-sticker">
-//         <div className='frame-box' style={{ backgroundImage: `url(${frame_box})` }} />
-       
-//         <div className='v-carousel-container' ref={carouselRef}>
-//             <div className='v-carousel-images'>
-//                 {myBackgrounds.map((src, index) => (
-//                     <div className='image' style={{}}>
-//                         {/* ui용 */}
-//                         <Stage
-//                             width={frameSize.width} // Adjusted stage width
-//                             height={frameSize.height} // Adjusted stage height
-//                             scale={{ x: 1  , y: 1 }} // Ensure the scale is 1:1
-//                             onClick={handleCanvasClick}
-//                             onTap={handleCanvasClick}
-//                             className={getKonvaClassName(selectedFrame)}
-//                             onMouseDown={checkDeselect}
-//                             onTouchStart={checkDeselect}
-//                             ref={stageRefs[index]}
-//                         >
-//                             <Layer
-//                             scale={{ x:1, y:1 }}
-//                             >
-//                               {/* 레이어 */}
-//                               {backgroundList[bgIdx] && (
-//                                     <KonvaImage
-//                                     scale={{ x:1, y:1 }}
-//                                         image={backgroundList[bgIdx].img}
-//                                         width={frameSize.width} // Adjusted stage width
-//                                         height={frameSize.height} // Adjusted stage height
-//                                         x={(frameSize.width - backgroundList[bgIdx].width) / 2} // Center the image horizontally
-//                                         y={(frameSize.height - backgroundList[bgIdx].height) / 2} // Center the image vertically
-//                                     />
-//                                 )}
-                           
-//                       {tempImage&&showKonvaImgLayout(selectedFrame, frameSize.width, frameSize.height, tempImage)}
-//                                 {images[bgIdx] && images[bgIdx].map((image, i) => (
-//                                     <StickerItem
-//                                         isStickerDrag={stickerDrag}
-//                                         isSelected={isSel}
-//                                         setStickerDrag={setStickerDrag}
-//                                         onTransform={() => console.log("이미지 리사이징 중")}
-//                                         onSelect={() => {
-//                                             setIsSel(p => !p);
-//                                         }}
-//                                         onDelete={() => {
-//                                             const newImages = [...images];
-//                                             newImages.splice(i, 1);
-//                                             setImages(newImages);
-//                                         }}
-//                                         onDragEnd={(event) => {
-//                                             image.x = event.target.x();
-//                                             image.y = event.target.y();
-//                                         }}
-//                                         onChange={(x, y, width, height) => {
-//                                         }}
-//                                         key={i}
-//                                         image={image}
-//                                         shapeProps={image}
-//                                     />
-//                                 ))}
-//                                  {layoutList[bgIdx] && (
-//                                     <KonvaImage
-//                                     scale={{ x:1, y:1 }}
-                                    
-//                                         image={layoutList[bgIdx].img}
-//                                         width={frameSize.width} // Adjusted stage width
-//                                         height={frameSize.height} // Adjusted stage height
-//                                         x={(frameSize.width - layoutList[bgIdx].width) / 2} // Center the image horizontally
-//                                         y={(frameSize.height - layoutList[bgIdx].height) / 2} // Center the image vertically
-//                                     />
-//                                 )} 
-//                             </Layer>
-//                         </Stage>
 
-//                         {/* //프린트용 */}
-
-//                     </div>
-//                 ))}
-//             </div>
-//         </div>
-//     </div>
-
-//     <div className="middle-sticker"
-//         draggable={true}
-//         onDragStart={onDragStart}
-//         onDrag={() => {
-//         }}
-//         onDragEnd={onDragEnd}
-
-//         style={{
-//             backgroundImage: `url(${sticker_frame})`
-//         }}>
-//         {myStickers.map((group, index) => (
-//             <div key={index} className={index === 0 ? 'sticker-line-1' : 'sticker-line'}>
-//                 {group.map((mySticker, photoIndex) => (
-//                     <div
-//                         key={photoIndex}
-//                         className="sticker"
-//                         onClick={() => {
-//                             const element = document.querySelector('.image');
-//                             const width = element.offsetWidth; // 요소의 너비
-//                             const height = element.offsetHeight; // 요소의 높이  
-//                             addStickerToPanel({
-//                                 bgIdx: bgIdx,
-//                                 src: mySticker.photo,
-//                                 width: 100,
-//                                 ...adjustStickerToBackgroundSize(width, height, 500, 500, 200, 200) // 스티커의 초기 위치와 크기를 지정
-//                             });
-//                         }}
-//                     >
-//                         <img className="sticker-image"
-//                             alt={mySticker.title} src={mySticker.photo} width='90px' height='90px' />
-//                     </div>
-//                 ))}
-//             </div>
-//         ))}
-//     </div>
-//     <div className="right-sticker" style={{ backgroundImage: `url(${sticker_taskbar})` }}>
-//         <div className="sticker-category">
-//             <div className="sticker-category-item" style={{ backgroundImage: `url(${mood})` }} onClick={() => filterStickerByCategory('MOOD')} onMouseEnter={() => hoverStickerButton('mood')} onMouseLeave={() => hoverStickerButton('mood')}></div>
-//             <div className="sticker-category-item" style={{ backgroundImage: `url(${lovely})` }} onClick={() => filterStickerByCategory('LOVELY')} onMouseEnter={() => hoverStickerButton('lovely')} onMouseLeave={() => hoverStickerButton('lovely')}></div>
-//             <div className="sticker-category-item" style={{ backgroundImage: `url(${cartoon})` }} onClick={() => filterStickerByCategory('CARTOON')} onMouseEnter={() => hoverStickerButton('cartoon')} onMouseLeave={() => hoverStickerButton('cartoon')}></div>
-//             <div className="sticker-category-item" style={{ backgroundImage: `url(${y2k})` }} onClick={() => filterStickerByCategory('Y2K')} onMouseEnter={() => hoverStickerButton('y2k')} onMouseLeave={() => hoverStickerButton('y2k')}></div>
-//         </div>
-//         <div className="sticker-print-btn" style={{ backgroundImage: `url(${printButton})` }} onClick={printFrameWithSticker} onMouseEnter={hoverPrintButton} onMouseLeave={hoverPrintButton}></div>
-//     </div>
-// </div>
-//      );
-// return (
-//      <div className='sticker-container' style={{ backgroundImage: `url(${backgroundImage})` }}>
-//          <div className="go-back" style={{ backgroundImage: `url(${goBackButton})` }} onClick={() => navigate("/filter")} onMouseEnter={hoverGoBackButton} onMouseLeave={hoverGoBackButton}></div>
-//          <div className="left-sticker">
-//              <div className='frame-box' style={{ backgroundImage: `url(${frame_box})` }} />
- 
-//              <div className='v-carousel-container' ref={carouselRef}>
-//                  <div className='v-carousel-images'>
-//                      {myBackgrounds.map((src, index) => (
-//                          <div className='image' style={{}} key={index}>
-//                              {/* ui용 */}
-//                              <Stage
-//                                  width={frameSize.width} // Adjusted stage width
-//                                  height={frameSize.height} // Adjusted stage height
-//                                  scale={{ x: 1, y: 1 }} // Ensure the scale is 1:1
-//                                  onClick={handleCanvasClick}
-//                                  onTap={handleCanvasClick}
-//                                  className={getKonvaClassName(selectedFrame)}
-//                                  onMouseDown={checkDeselect}
-//                                  onTouchStart={checkDeselect}
-//                                  ref={stageRefs[index]}
-//                              >
-//                                  <Layer
-//                                      scale={{ x: 1, y: 1 }}
-//                                  >
-//                                      {/* 레이어 */}
-//                                      {backgroundList[bgIdx] && (
-//                                          <KonvaImage
-//                                              scale={{ x: 1, y: 1 }}
-//                                              image={backgroundList[bgIdx].img}
-//                                              width={frameSize.width} // Adjusted stage width
-//                                              height={frameSize.height} // Adjusted stage height
-//                                              x={(frameSize.width - backgroundList[bgIdx].width) / 2} // Center the image horizontally
-//                                              y={(frameSize.height - backgroundList[bgIdx].height) / 2} // Center the image vertically
-//                                          />
-//                                      )}
-//                                      {tempImage && showKonvaImgLayout(selectedFrame, frameSize.width, frameSize.height, tempImage)}
-//                                  </Layer>
-//                                  <Layer
-//                                      scale={{ x: 1, y: 1 }}
-//                                  >
-//                                      {layoutList[bgIdx] && (
-//                                          <KonvaImage
-//                                              scale={{ x: 1, y: 1 }}
-//                                              image={layoutList[bgIdx].img}
-//                                              width={frameSize.width} // Adjusted stage width
-//                                              height={frameSize.height} // Adjusted stage height
-//                                              x={(frameSize.width - layoutList[bgIdx].width) / 2} // Center the image horizontally
-//                                              y={(frameSize.height - layoutList[bgIdx].height) / 2} // Center the image vertically
-//                                          />
-//                                      )}
-//                                  </Layer>
-//                                  <Layer
-//                                      scale={{ x: 1, y: 1 }}
-//                                  >
-//                                      {images[bgIdx] && images[bgIdx].map((image, i) => (
-//                                          <StickerItem
-//                                              isStickerDrag={stickerDrag}
-//                                              isSelected={isSel}
-//                                              setStickerDrag={setStickerDrag}
-//                                              onTransform={() => console.log("이미지 리사이징 중")}
-//                                              onSelect={() => {
-//                                                  setIsSel(p => !p);
-//                                              }}
-//                                              onDelete={() => {
-//                                                  const newImages = [...images];
-//                                                  newImages.splice(i, 1);
-//                                                  setImages(newImages);
-//                                              }}
-//                                              onDragEnd={(event) => {
-//                                                  image.x = event.target.x();
-//                                                  image.y = event.target.y();
-//                                              }}
-//                                              onChange={(x, y, width, height) => {
-//                                              }}
-//                                              key={i}
-//                                              image={image}
-//                                              shapeProps={image}
-//                                          />
-//                                      ))}
-//                                  </Layer>
-                                
-//                              </Stage>
- 
-//                              {/* //프린트용 */}
- 
-//                          </div>
-//                      ))}
-//                  </div>
-//              </div>
-//          </div>
- 
-//          <div className="middle-sticker"
-//              draggable={true}
-//              onDragStart={onDragStart}
-//              onDrag={() => {
-//              }}
-//              onDragEnd={onDragEnd}
- 
-//              style={{
-//                  backgroundImage: `url(${sticker_frame})`
-//              }}>
-//              {myStickers.map((group, index) => (
-//                  <div key={index} className={index === 0 ? 'sticker-line-1' : 'sticker-line'}>
-//                      {group.map((mySticker, photoIndex) => (
-//                          <div
-//                              key={photoIndex}
-//                              className="sticker"
-//                              onClick={() => {
-//                                  const element = document.querySelector('.image');
-//                                  const width = element.offsetWidth; // 요소의 너비
-//                                  const height = element.offsetHeight; // 요소의 높이  
-//                                  addStickerToPanel({
-//                                      bgIdx: bgIdx,
-//                                      src: mySticker.photo,
-//                                      width: 100,
-//                                      ...adjustStickerToBackgroundSize(width, height, 500, 500, 200, 200) // 스티커의 초기 위치와 크기를 지정
-//                                  });
-//                              }}
-//                          >
-//                              <img className="sticker-image"
-//                                  alt={mySticker.title} src={mySticker.photo} width='90px' height='90px' />
-//                          </div>
-//                      ))}
-//                  </div>
-//              ))}
-//          </div>
-//          <div className="right-sticker" style={{ backgroundImage: `url(${sticker_taskbar})` }}>
-//              <div className="sticker-category">
-//                  <div className="sticker-category-item" style={{ backgroundImage: `url(${mood})` }} onClick={() => filterStickerByCategory('MOOD')} onMouseEnter={() => hoverStickerButton('mood')} onMouseLeave={() => hoverStickerButton('mood')}></div>
-//                  <div className="sticker-category-item" style={{ backgroundImage: `url(${lovely})` }} onClick={() => filterStickerByCategory('LOVELY')} onMouseEnter={() => hoverStickerButton('lovely')} onMouseLeave={() => hoverStickerButton('lovely')}></div>
-//                  <div className="sticker-category-item" style={{ backgroundImage: `url(${cartoon})` }} onClick={() => filterStickerByCategory('CARTOON')} onMouseEnter={() => hoverStickerButton('cartoon')} onMouseLeave={() => hoverStickerButton('cartoon')}></div>
-//                  <div className="sticker-category-item" style={{ backgroundImage: `url(${y2k})` }} onClick={() => filterStickerByCategory('Y2K')} onMouseEnter={() => hoverStickerButton('y2k')} onMouseLeave={() => hoverStickerButton('y2k')}></div>
-//              </div>
-//              <div className="sticker-print-btn" style={{ backgroundImage: `url(${printButton})` }} onClick={printFrameWithSticker} onMouseEnter={hoverPrintButton} onMouseLeave={hoverPrintButton}></div>
-//          </div>
-//      </div>
-//  );
 return (
      <div className='sticker-container' style={{ backgroundImage: `url(${backgroundImage})` }}>
          <div className="go-back" style={{ backgroundImage: `url(${goBackButton})` }} onClick={() => navigate("/filter")} onMouseEnter={hoverGoBackButton} onMouseLeave={hoverGoBackButton}></div>
+        {/* 프린트용 */}
+         <Stage
+                                 width={600} // Adjusted stage width
+                                 height={720} // Adjusted stage height
+                                 scale={{ x: 1, y: 1 }} // Ensure the scale is 1:1
+                                 x={0}
+                                 y={0}
+                                
+                                 onClick={handleCanvasClick}
+                                 onTap={handleCanvasClick}
+                                 className={getKonvaClassName(selectedFrame)}
+                                 onMouseDown={checkDeselect}
+                                 onTouchStart={checkDeselect}
+                                 ref={printRefs[bgIdx]}
+                             >
+                                 <Layer
+                                   //   width={frameSize.width}
+                                   //   height={frameSize.height}
+                                 >
+                                     {/* 레이어 */}
+                                     {backgroundList[bgIdx] && (
+                                         <KonvaImage
+                                             image={backgroundList[bgIdx].img}
+                                             width={600} // Adjusted stage width
+                                             height={720} // Adjusted stage height
+                                             x={0}
+                                             y={-720}
+                                         />
+                                     )}
+                                     {tempImage && showKonvaImgLayout(selectedFrame, frameSize.width, frameSize.height, tempImage)}
+                                 </Layer>
+                                 <Layer
+                                   //   width={frameSize.width}
+                                   //   height={frameSize.height}
+                                 >
+                                     {layoutList[bgIdx] && (
+                                         <KonvaImage
+                                             image={layoutList[bgIdx].img}
+                                             width={frameSize.width} // Adjusted stage width
+                                             height={frameSize.height} // Adjusted stage height
+                                             x={0}
+                                             y={0}
+                                         />
+                                     )}
+                                 </Layer>
+                                 <Layer
+                                   //   width={frameSize.width}
+                                   //   height={frameSize.height}
+                                 >
+                                     {images[bgIdx] && images[bgIdx].map((image, i) => (
+                                         <StickerItem
+                                             isStickerDrag={stickerDrag}
+                                             isSelected={isSel}
+                                             setStickerDrag={setStickerDrag}
+                                             onTransform={() => console.log("이미지 리사이징 중")}
+                                             onSelect={() => {
+                                                 setIsSel(p => !p);
+                                             }}
+                                             onDelete={() => {
+                                                 const newImages = [...images];
+                                                 newImages.splice(i, 1);
+                                                 setImages(newImages);
+                                             }}
+                                             onDragEnd={(event) => {
+                                                 image.x = event.target.x();
+                                                 image.y = event.target.y();
+                                             }}
+                                             onChange={(x, y, width, height) => {
+                                             }}
+                                             key={i}
+                                             image={image}
+                                             shapeProps={image}
+                                         />
+                                     ))}
+                                 </Layer>
+                             
+                             </Stage>
          <div className="left-sticker">
              <div className='frame-box' style={{ backgroundImage: `url(${frame_box})` }} />
  
