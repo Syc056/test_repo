@@ -809,7 +809,8 @@ function Filter() {
      const [continueButton, setContinueButton] = useState(continue_en);
      const [goBackButton, setGoBackButton] = useState(goback_en);
      const [clickedButton, setClickedButton] = useState(false);
-
+     //사진 하나씩 필터 조절
+     const [selectedId,setSelectedId]=useState([])
      const selectedFilterEffects = [
           {
                id: 1,
@@ -967,7 +968,7 @@ console.log("photos in filter>>>>",photos)
      const increasePercentage = () => {
           setSliderChange(true);
           if (percentage < 570) {
-               setPercentage(percentage + 10);
+               setPercentage(percentage + 50);
           }
 
 
@@ -1001,8 +1002,8 @@ console.log("photos in filter>>>>",photos)
 
      const decreasePercentage = () => {
           setSliderChange(true);
-          if (percentage > 10) {
-               setPercentage(percentage - 10);
+          if (percentage > 50) {
+               setPercentage(percentage - 50);
           }
 
           if (filterEffect == null) {
@@ -1181,7 +1182,105 @@ console.log("photos in filter>>>>",photos)
      }
      const      showSelectedPhotos = () => {
           //여기가 Filter화면 왼쪽부분에서 사진찍은거 보여주는 곳
-          console.log("show select>>>",photos[selectedPhotos[0]])
+          // console.log("show select>>>",photos[selectedPhotos[0]])
+          if (selectedFrame == '3-cutx2' && selectedPhotos.length > 0) {
+              const firstPhotoTpl = (
+                  <div className="choose-photo-row">
+                      <div
+                          className="choose-photo-item-3cut-top-line"
+                          style={{ backgroundImage: `url(${photos[selectedPhotos[0]].url})`, filter:selectedId.includes(0)? getImageStyle():null }}
+                      />
+                  </div>
+              )
+              const selectedPhotoRows = chunkArray(selectedPhotos.slice(1), 2);
+              return (
+                  [firstPhotoTpl, ...selectedPhotoRows.map((row, rowIndex) => (
+                      <div key={rowIndex} className="choose-photo-row">
+                          {row.map((selectedIndex, photoIndex) => (
+                              <div
+                                  key={photoIndex}
+                                  className={displayClassNameForPhoto(rowIndex, photoIndex)}
+                                  style={{ backgroundImage: `url(${process.env.REACT_APP_BACKEND}/serve_photo/${encodeURIComponent(photos[selectedIndex].url.split('/').pop())})`, filter:selectedId.includes(selectedIndex)? getImageStyle() :null}}
+                              />
+                          ))}
+                      </div>
+                  ))]
+              );
+          } else if (selectedFrame == '5-cutx2' && selectedPhotos.length > 0) {
+              if (selectedPhotos.length == 5) {
+                  const lastPhotoTpl = (
+                      <div className="choose-photo-row">
+                          <div
+                              className="choose-photo-item-5cut-last-line"
+                              style={{ backgroundImage: `url(${photos[selectedPhotos[selectedPhotos.length - 1]].url})`, filter:selectedId.includes(selectedPhotos[selectedPhotos.length - 1])? getImageStyle():null }}
+                          />
+                      </div>
+                  )
+                  const selectedPhotoRows = chunkArray(selectedPhotos.slice(0, selectedPhotos.length - 1), 2);
+                  return (
+                      [selectedPhotoRows.map((row, rowIndex) => (
+                          <div key={rowIndex} className="choose-photo-row">
+                              {row.map((selectedIndex, photoIndex) => (
+                                  <div
+                                      key={photoIndex}
+                                      onClick={()=>{
+                                        window.confirm(selectedIndex)
+                                       }}
+                                      className={displayClassNameForPhoto(rowIndex, photoIndex)}
+                                      style={{ backgroundImage: `url(${process.env.REACT_APP_BACKEND}/serve_photo/${encodeURIComponent(photos[selectedIndex].url.split('/').pop())})`, filter:selectedId.includes(selectedIndex)? getImageStyle():null }}
+                                  />
+                              ))}
+                          </div>
+                      )), lastPhotoTpl]
+                  );
+              } else {
+                  const selectedPhotoRows = chunkArray(selectedPhotos, 2);
+                  return (
+                      [selectedPhotoRows.map((row, rowIndex) => (
+                          <div key={rowIndex} className="choose-photo-row">
+                              {row.map((selectedIndex, photoIndex) => (
+                                  <div
+                                      key={photoIndex}
+                                      onClick={()=>{
+                                        window.confirm(selectedIndex)
+                                       }}
+                                      className={displayClassNameForPhoto(rowIndex, photoIndex)}
+                                      style={{ backgroundImage: `url(${process.env.REACT_APP_BACKEND}/serve_photo/${encodeURIComponent(photos[selectedIndex].url.split('/').pop())})`, filter:selectedId.includes(selectedIndex)? getImageStyle() :null}}
+                                  />
+                              ))}
+                          </div>
+                      ))]
+                  );
+              }
+          } else {
+              const selectedPhotoRows = chunkArray(selectedPhotos, 2);
+              return (
+               //2
+                  selectedPhotoRows.map((row, rowIndex) => (
+                      <div key={rowIndex} className="choose-photo-row">
+                          {row.map((selectedIndex, photoIndex) =>
+                             {
+                              console.log("photos[selectedIndex]",photos[selectedIndex].url.split('/').pop())
+                              return <div
+                                  key={photoIndex}
+                                  className={displayClassNameForPhoto(rowIndex, photoIndex)}
+                                  onClick={()=>{
+                                   window.confirm("photos[selectedIndex].url")
+                                  }}
+                                  style={{ 
+                                   transform: "scale(0.7)",
+                                   // backgroundImage: `url(${process.env.REACT_APP_BACKEND}/serve_photo/${encodeURIComponent(photos[selectedIndex].url.split('/').pop())})`, filter: getImageStyle() }}
+                                   backgroundImage: `url(${photos[selectedIndex].url})`, filter:selectedId.includes(selectedIndex)? getImageStyle():null }}
+                              />}
+                          )}
+                      </div>
+                  ))
+              );
+          }
+      }
+      const      showClickArea = () => {
+          //여기가 Filter화면 왼쪽부분에서 사진찍은거 보여주는 곳
+          // console.log("show select>>>",photos[selectedPhotos[0]])
           if (selectedFrame == '3-cutx2' && selectedPhotos.length > 0) {
               const firstPhotoTpl = (
                   <div className="choose-photo-row">
@@ -1222,6 +1321,9 @@ console.log("photos in filter>>>>",photos)
                               {row.map((selectedIndex, photoIndex) => (
                                   <div
                                       key={photoIndex}
+                                      onClick={()=>{
+                                        window.confirm(selectedIndex)
+                                       }}
                                       className={displayClassNameForPhoto(rowIndex, photoIndex)}
                                       style={{ backgroundImage: `url(${process.env.REACT_APP_BACKEND}/serve_photo/${encodeURIComponent(photos[selectedIndex].url.split('/').pop())})`, filter: getImageStyle() }}
                                   />
@@ -1237,6 +1339,9 @@ console.log("photos in filter>>>>",photos)
                               {row.map((selectedIndex, photoIndex) => (
                                   <div
                                       key={photoIndex}
+                                      onClick={()=>{
+                                        window.confirm(selectedIndex)
+                                       }}
                                       className={displayClassNameForPhoto(rowIndex, photoIndex)}
                                       style={{ backgroundImage: `url(${process.env.REACT_APP_BACKEND}/serve_photo/${encodeURIComponent(photos[selectedIndex].url.split('/').pop())})`, filter: getImageStyle() }}
                                   />
@@ -1257,10 +1362,23 @@ console.log("photos in filter>>>>",photos)
                               return <div
                                   key={photoIndex}
                                   className={displayClassNameForPhoto(rowIndex, photoIndex)}
+                                  onClick={()=>{
+                                   window.confirm(selectedIndex)
+                                  if (selectedId.includes(selectedIndex)) {
+                                   const filtered=selectedId.filter(item=>item!=selectedIndex)
+                                    setSelectedId(filtered)
+                                  } else {
+                                   setSelectedId(p=>[...p,selectedIndex])
+                                  }
+                                  console.log(selectedId)
+                                  }}
                                   style={{ 
                                    transform: "scale(0.7)",
                                    // backgroundImage: `url(${process.env.REACT_APP_BACKEND}/serve_photo/${encodeURIComponent(photos[selectedIndex].url.split('/').pop())})`, filter: getImageStyle() }}
-                                   backgroundImage: `url(${photos[selectedIndex].url})`, filter: getImageStyle() }}
+                                   opacity:0.5,
+                                   border:selectedId.includes(selectedIndex)?"6px solid red":null
+                              
+                              }}
                               />}
                           )}
                       </div>
@@ -1386,6 +1504,7 @@ console.log("photos in filter>>>>",photos)
                          {showSelectedPhotos()}
                     </div>
                     <div className={displayClassNameForLayout()} style={{ backgroundImage: `url(${selectedLayout})` }}></div>
+               {showClickArea()}
                </div>
                <div className="middle-filter">
                     <div className="pink-section" style={{ height: `${percentage}px`, maxHeight: 1000 }}></div>

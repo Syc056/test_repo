@@ -1141,7 +1141,7 @@ return (
                                              y={-720}
                                          />
                                      )}
-                                     {tempImage && showKonvaImgLayout(selectedFrame, frameSize.width, frameSize.height, tempImage)}
+                                     {/* {tempImage && showKonvaImgLayout(selectedFrame, frameSize.width, frameSize.height, tempImage)} */}
                                  </Layer>
                                  <Layer
                                    //   width={frameSize.width}
@@ -1222,7 +1222,7 @@ return (
                                              y={0}
                                          />
                                      )}
-                                     {tempImage && showKonvaImgLayout(selectedFrame, frameSize.width, frameSize.height, tempImage)}
+                                     {/* {tempImage && showKonvaImgLayout(selectedFrame, frameSize.width, frameSize.height, tempImage)} */}
                                  </Layer>
                                  <Layer
                                    //   width={frameSize.width}
