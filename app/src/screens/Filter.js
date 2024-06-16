@@ -1761,6 +1761,7 @@ function Filter() {
         const sessionSelectedLayout = sessionStorage.getItem('selectedLayout');
         const parsedSelectedLayout = JSON.parse(sessionSelectedLayout);
         const layoutData = parsedSelectedLayout[0];
+        console.log("프레임 in 필터>>>",JSON.parse(sessionStorage.getItem('selectedFrame')))
         if (layoutData) {
             setMyBackground(layoutData.photo);
         }

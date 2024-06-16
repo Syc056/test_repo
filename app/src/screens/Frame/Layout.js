@@ -171,7 +171,7 @@ function Layout() {
      const handleClick = (index,clickedTitle) => {
           if (draging)return
          //라우팅 할 때 리스트 한번에 보내기
-          // sessionStorage.setItem('selectedLayout', JSON.stringify(layouts[index]));
+          // sessionStorage.setItem('selectedLayout', JSON.stringify(layouts));
           // setClickedIndex(index === clickedIndex ? null : index);
           if (clickedTitles.includes(clickedTitle)) {
                setClickedTitles(prevTitles => prevTitles.filter(clickedTitle => clickedTitle != clickedTitle));
@@ -190,7 +190,7 @@ function Layout() {
          
           if (confirmClick === confirmButton) {
                const selectedLayouts=[]
-            console.log("버튼 클릭",layouts,clickedTitles)
+       
             for (let i = 0; i < layouts.length; i++) {
                     const fiveLayout = layouts[i];
                     for (let j = 0; j < fiveLayout.length; j++) {
@@ -212,7 +212,8 @@ function Layout() {
                     }
                     
                }
-               sessionStorage.setItem('selectedLayout', JSON.stringify(selectedLayouts));
+               console.log("버튼 클릭",clickedTitles,layouts.filter(layout=>clickedTitles.includes(layout.title)))
+               sessionStorage.setItem('selectedLayout', JSON.stringify(layouts.filter(layout=>clickedTitles.includes(layout.title))));
                // sessionStorage.setItem('selectedLayout', JSON.stringify(layouts[index]));
           
                // navigate('/payment');
