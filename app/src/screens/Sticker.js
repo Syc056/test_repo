@@ -1349,20 +1349,6 @@ return (
                                    //   width={frameSize.width}
                                    //   height={frameSize.height}
                                  >
-                                     {layoutList[bgIdx] && (
-                                         <KonvaImage
-                                             image={layoutList[bgIdx].img}
-                                             width={frameSize.width} // Adjusted stage width
-                                             height={frameSize.height} // Adjusted stage height
-                                             x={0}
-                                             y={0}
-                                         />
-                                     )}
-                                 </Layer>
-                                 <Layer
-                                   //   width={frameSize.width}
-                                   //   height={frameSize.height}
-                                 >
                                      {images[bgIdx] && images[bgIdx].map((image, i) => (
                                          <StickerItem
                                              isStickerDrag={stickerDrag}
@@ -1389,6 +1375,21 @@ return (
                                          />
                                      ))}
                                  </Layer>
+                                 <Layer
+                                   //   width={frameSize.width}
+                                   //   height={frameSize.height}
+                                 >
+                                     {layoutList[bgIdx] && (
+                                         <KonvaImage
+                                             image={layoutList[bgIdx].img}
+                                             width={frameSize.width} // Adjusted stage width
+                                             height={frameSize.height} // Adjusted stage height
+                                             x={0}
+                                             y={0}
+                                         />
+                                     )}
+                                 </Layer>
+                           
                              
                              </Stage>
  
