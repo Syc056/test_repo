@@ -1312,7 +1312,7 @@ return (
                     
                              <div className="left-sticker">
              <div className='frame-box' style={{ backgroundImage: `url(${frame_box})` }} />
- 
+ {/* //merge */}
              <div className='v-carousel-container' ref={carouselRef}>
                  <div className='v-carousel-images'>
                      {myBackgrounds.map((src, index) => (
