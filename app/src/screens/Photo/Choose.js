@@ -1063,15 +1063,15 @@ function Choose() {
 
     const [formattedPhotos, setFormattedPhotos] = useState([]);
 
-    const sound = './choose_photos.wav';
+    // const sound = './choose_photos.wav';
 
-    useEffect(() => {
-        //음성 재생
-        const audio = new Audio(sound);
-        audio.muted = true;
-        audio.play();
-        audio.muted = false;
-    }, []);
+    // useEffect(() => {
+    //     //음성 재생
+    //     const audio = new Audio(sound);
+    //     audio.muted = true;
+    //     audio.play();
+    //     audio.muted = false;
+    // }, []);
 
     const testGetPhotos = async () => {
         const photos = await getPhotos();
@@ -1234,11 +1234,12 @@ function Choose() {
             hoverContinueButton();
             setClickedButton(true);
             const result = await copyImageApi();
-            if (result) {
+            console.log("go to filter before>>>",result)
+            // if (result) {
                 navigate("/filter");
-            } else {
-                setClickedButton(false);
-            }
+            // } else {
+            //     setClickedButton(false);
+            // }
         }
     }
 
@@ -1456,7 +1457,7 @@ function Choose() {
                 <div className={displayClassNameForLayout()} style={{ backgroundImage: `url(${selectedLayout})` }}></div>
             </div>
             <div className="right-choose-container">
-                {chunkArray(formattedPhotos, 4).map((group, index) => (
+                {chunkArray(formattedPhotos.slice(-8), 4).map((group, index) => (
                     <div key={index} className="choose-line">
                         {group.map((photo, photoIndex) => (
                             <div

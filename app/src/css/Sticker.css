@@ -1,4 +1,5 @@
 .sticker-container {
+     overflow: hidden;
      position: relative;
      width: 100vw;
      /* Full width of the viewport */
@@ -412,4 +413,10 @@ gap: 6%;
      background-size: cover; /* 이미지가 부모 요소에 꽉 차게 나타나도록 설정 */
      background-position: center;
 
+}
+.print{
+     /* 프린트용은 화면밖으로 밀어내기 */
+     margin-left: -1500px ;
+     width: 200vw;
+     /* background-color: red; */
 }

@@ -61,11 +61,125 @@
      background-repeat: no-repeat;
      background-position: center;
 }
-
-.right-photo-div {
+.right-preview-ul{
+     position: absolute;
+     top: 12%;
+     right: 9%;
+     width: 15%;
+     height: 75%;
+     overflow: hidden;
+}
+.right-preview-div{
+     position: absolute;
+     top: 12%;
+     right: 9%;
+     width: 15%;
+     height: 80%;
+     background-size: contain;
+     background-repeat: no-repeat;
+     background-position: center;
+     overflow: hidden;
+}
+.preview-default-0{
+     z-index: 900;
      position: absolute;
      top: 10%;
-     right: 9%;
+     left: 8%;
+     width: 85%;
+     height: 20%;
+     background-size: contain;
+     background-repeat: no-repeat;
+     background-position: center;
+}
+.preview-default-1{
+     z-index: 900;
+     position: absolute;
+     top: 31%;
+     left: 8%;
+     width: 85%;
+     height: 20%;
+     background-size: contain;
+     background-repeat: no-repeat;
+     background-position: center;
+}
+.preview-default-2{
+     z-index: 900;
+     position: absolute;
+     top: 52%;
+     left: 8%;
+     width: 85%;
+     height: 20%;
+     background-size: contain;
+     background-repeat: no-repeat;
+     background-position: center;
+}
+.preview-default-3{
+     z-index: 900;
+     position: absolute;
+     top: 73%;
+     left: 8%;
+     width: 85%;
+     height: 20%;
+     background-size: contain;
+     background-repeat: no-repeat;
+     background-position: center;
+}
+.preview-default-4{
+     z-index: 900;
+     position: absolute;
+     top: 94%;
+     left: 8%;
+     width: 85%;
+     height: 20%;
+     background-size: contain;
+     background-repeat: no-repeat;
+     background-position: center;
+}
+.preview-default-5{
+     z-index: 900;
+     position: absolute;
+     top:115%;
+     left: 8%;
+     width: 85%;
+     height: 20%;
+     background-size: contain;
+     background-repeat: no-repeat;
+     background-position: center;
+}
+.preview-default-6{
+     z-index: 900;
+     position: absolute;
+     top:136%;
+     left: 8%;
+     width: 85%;
+     height: 20%;
+     background-size: contain;
+     background-repeat: no-repeat;
+     background-position: center; 
+}
+.preview-default-7{
+     z-index: 900;
+     position: absolute;
+     top:157%;
+     left: 8%;
+     width: 85%;
+     height: 20%;
+     background-size: contain;
+     background-repeat: no-repeat;
+     background-position: center;
+}
+.preview-cnt{
+     text-align: start;
+     left: 12%;
+     top: 0%;
+     position: relative;
+     font-size: 40px;
+     font-family: fantasy;
+}
+.right-photo-div {
+     position: absolute;
+     top: 32%;
+     left: 11%;
      width: 12%;
      height: 18%;
      background-size: contain;
@@ -212,7 +326,7 @@
 
 .right-choose-container {
      position: absolute;
-     top: 40%;
+     top: 30%;
      right: 8%;
      display: flex;
      flex-direction: column;
@@ -226,7 +340,7 @@
 
 .choose-image {
      width: 100%;
-     height: 250px;
+     height: 200px;
      background-size: contain;
      background-image: url('../assets/Photo/Choose/photo_box.png');
      background-repeat: no-repeat;
@@ -334,8 +448,8 @@
      background-position: center;
      margin: 1%;
      position: fixed;
-     top: 32%;
-     left: 11%;
+     top: 28%;
+     left: 10%;
 }
 
 .choose-photo-item-4cut-0-1 {
@@ -346,8 +460,8 @@
      background-position: center;
      margin: 1%;
      position: fixed;
-     top: 32%;
-     left: 25%;
+     top: 28%;
+     left: 24%;
 }
 
 .choose-photo-item-4cut-1-0 {
@@ -358,8 +472,8 @@
      background-position: center;
      margin: 1%;
      position: fixed;
-     top: 52%;
-     left: 11%;
+     top: 50%;
+     left: 10%;
 }
 
 .choose-photo-item-4cut-1-1 {
@@ -370,8 +484,8 @@
      background-position: center;
      margin: 1%;
      position: fixed;
-     top: 52%;
-     left: 25%;
+     top: 50%;
+     left: 24%;
 }
 
 /** Frame 3cut **/
@@ -414,15 +528,15 @@
 
 /** Frame 2cut **/
 .choose-photo-item-2cut-0-0 {
-     width: 350px;
+     width: 380px;
      height: 480px;
      background-size: cover;
      background-repeat: revert-layer;
      background-position: center;
      margin: 1%;
      position: fixed;
-     top: 32%;
-     left: 9%;
+     top: 28%;
+     left: 7%;
 }
 
 .choose-photo-item-2cut-0-1 {
@@ -433,8 +547,8 @@
      background-position: center;
      margin: 1%;
      position: fixed;
-     top: 32%;
-     left: 26%;
+     top: 28%;
+     left: 24%;
 }
 
 /** Frame 6 cut **/
@@ -446,8 +560,8 @@
      background-position: center;
      margin: 1%;
      position: fixed;
-     top: 33.5%;
-     left: 16%;
+     top: 28%;
+     left: 15%;
 }
 
 .choose-photo-item6-0-1 {
@@ -458,8 +572,8 @@
      background-position: center;
      margin: 1%;
      position: fixed;
-     top: 33.5%;
-     left: 25.9%;
+     top: 28%;
+     left: 25%;
 }
 
 .choose-photo-item6-1-0 {
@@ -470,8 +584,8 @@
      background-position: center;
      margin: 1%;
      position: fixed;
-     top: 52%;
-     left: 16%;
+     top: 48%;
+     left: 15%;
 }
 
 .choose-photo-item6-1-1 {
@@ -482,8 +596,8 @@
      background-position: center;
      margin: 1%;
      position: fixed;
-     top: 52%;
-     left: 25.9%;
+     top: 48%;
+     left: 25%;
 }
 
 .choose-photo-item6-2-0 {
@@ -494,8 +608,8 @@
      background-position: center;
      margin: 1%;
      position: fixed;
-     top: 71.3%;
-     left: 16%;
+     top: 68%;
+     left: 15%;
 }
 
 .choose-photo-item6-2-1 {
@@ -506,8 +620,8 @@
      background-position: center;
      margin: 1%;
      position: fixed;
-     top: 71.3%;
-     left: 25.9%;
+     top: 68%;
+     left: 25%;
 }
 
 /** Frame 6 cut-end **/
@@ -521,8 +635,8 @@
      background-position: center;
      margin: 1%;
      position: fixed;
-     top: 33.5%;
-     left: 15.5%;
+     top: 28%;
+     left: 14.5%;
 }
 
 .choose-photo-item-0-1 {
@@ -532,8 +646,8 @@
      background-repeat: no-repeat;
      margin: 1%;
      position: fixed;
-     top: 33.5%;
-     left: 25.9%;
+     top: 28%;
+     left: 24.5%;
 }
 
 .choose-photo-item-1-0 {
@@ -543,8 +657,8 @@
      background-repeat: no-repeat;
      margin: 1%;
      position: fixed;
-     top: 46.5%;
-     left: 15.5%;
+     top: 42%;
+     left: 14.5%;
 }
 
 .choose-photo-item-1-1 {
@@ -554,8 +668,8 @@
      background-repeat: no-repeat;
      margin: 1%;
      position: fixed;
-     top: 46.5%;
-     left: 25.9%;
+     top: 42%;
+     left: 24.5%;
 }
 
 .choose-photo-item-2-0 {
@@ -565,8 +679,8 @@
      background-repeat: no-repeat;
      margin: 1%;
      position: fixed;
-     top: 59.5%;
-     left: 15.5%;
+     top: 56%;
+     left: 14.5%;
 }
 
 .choose-photo-item-2-1 {
@@ -576,8 +690,8 @@
      background-repeat: no-repeat;
      margin: 1%;
      position: fixed;
-     top: 59.5%;
-     left: 25.9%;
+     top: 56%;
+     left: 24.5%;
 }
 
 .choose-photo-item-3-0 {
@@ -587,8 +701,8 @@
      background-repeat: no-repeat;
      margin: 1%;
      position: fixed;
-     top: 72.5%;
-     left: 15.5%;
+     top: 70%;
+     left: 14.5%;
 }
 
 .choose-photo-item-3-1 {
@@ -598,8 +712,8 @@
      background-repeat: no-repeat;
      margin: 1%;
      position: fixed;
-     top: 72.5%;
-     left: 25.9%;
+     top: 70%;
+     left: 24.5%;
 }
 
 /** Frame 8 cut end **/
@@ -694,7 +808,11 @@
      pointer-events: none;
      /* Prevents clicks on the flash div */
 }
-
+.left-cnt-div{
+     display: flex;
+     flex-direction: column;
+     background-color: red;
+}
 .animate {
      animation: flashAnimation 0.2s ease-out forwards;
 }

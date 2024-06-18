@@ -48,12 +48,12 @@ function App() {
 
   const changeButtonBackground = (type,lang) => {
 if (type==="Enter") {
-  const src = './lets-start.wav';
-  //음성 재생
-  const audio = new Audio(src);
-  audio.muted = true;
-  audio.play();
-  audio.muted = false;
+  // const src = './lets-start.wav';
+  // //음성 재생
+  // const audio = new Audio(src);
+  // audio.muted = true;
+  // audio.play();
+  // audio.muted = false;
 }
   
     if (lang === 'en') {

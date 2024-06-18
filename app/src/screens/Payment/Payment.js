@@ -63,17 +63,17 @@ function Payment() {
   const [vnpayButton, setVnpayButton] = useState(vnpay);
   const [promoButton, setPromoButton] = useState(promo);
     
-  const sound='./choose_pay_method.wav'
-  // const audioRef = useRef(null);
+  // const sound='./choose_pay_method.wav'
+  // // const audioRef = useRef(null);
 
-  useEffect(() => {
-    //음성 재생
-    const audio = new Audio(sound); 
-    audio.muted=true
-    audio.play()
-    audio.muted=false
+  // useEffect(() => {
+  //   //음성 재생
+  //   const audio = new Audio(sound); 
+  //   audio.muted=true
+  //   audio.play()
+  //   audio.muted=false
 
-  }, []);
+  // }, []);
   useEffect(() => {
     const storedLanguage = sessionStorage.getItem('language');
     if (storedLanguage) {

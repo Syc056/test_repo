@@ -26,6 +26,7 @@ import confirm_kr_hover from '../../assets/Frame/Layout/Confirm/kr/confirm_click
 import confirm_vn from '../../assets/Frame/Layout/Confirm/vn/confirm.png';
 import confirm_vn_hover from '../../assets/Frame/Layout/Confirm/vn/confirm_click.png';
 import { originAxiosInstance } from '../../api/config';
+import FrameCarousel from '../../components/FrameCarousel';
 
 function Layout() {
      const [layoutBackground, setLayoutBackground] = useState(null);
@@ -140,61 +141,25 @@ function Layout() {
           const fetchLayoutsByBackground = async () => {
                try {
                     const frame = sessionStorage.getItem('selectedFrame');
-                    console.log("선택 배경>>>",sessionStorage.getItem('styleBg'))
-                         const seasonsBg="Seasons"
-                         const partyBg="Party"
-                         const cartoonBg="Cartoon"
-                         const minBg= "Minimalism"
-                    const seasonsResponse = await originAxiosInstance.get(`${process.env.REACT_APP_BACKEND}/layouts/api/by-background/` + seasonsBg + '/frame/' + JSON.parse(frame).frame);
-                    const seasonsLayoutDatas = seasonsResponse.data
-                    const seasonsNewBackgrounds = seasonsLayoutDatas.map(item => ({
+                    const bgStyle=sessionStorage.getItem('styleBg')
+                    console.log("bg style>>>", sessionStorage.getItem('styleBg'))
+                         // const seasonsBg="Seasons"
+                         // const partyBg="Party"
+                         // const cartoonBg="Cartoon"
+                         // const minBg= "Minimalism"
+                    const response = await originAxiosInstance.get(`${process.env.REACT_APP_BACKEND}/layouts/api/by-background/` + bgStyle + '/frame/' + JSON.parse(frame).frame);
+                    const layoutDatas = response.data
+                    console.log("layout datas>>>",layoutDatas)
+                    const newBackgrounds = layoutDatas.map(item => ({
                          title: item.title,
                          photo: process.env.REACT_APP_BACKEND + item.photo,
                          photo_cover: process.env.REACT_APP_BACKEND + item.photo_cover,
                          photo_full: process.env.REACT_APP_BACKEND + item.photo_full
                     }));
-                    const partyResponse = await originAxiosInstance.get(`${process.env.REACT_APP_BACKEND}/layouts/api/by-background/` + partyBg + '/frame/' + JSON.parse(frame).frame);
-                    const partyLayoutDatas =partyResponse.data
-                    const partyNewBackgrounds = partyLayoutDatas.map(item => ({
-                         title: item.title,
-                         photo: process.env.REACT_APP_BACKEND + item.photo,
-                         photo_cover: process.env.REACT_APP_BACKEND + item.photo_cover,
-                         photo_full: process.env.REACT_APP_BACKEND + item.photo_full
-                    }));
-                    const cartoonResponse = await originAxiosInstance.get(`${process.env.REACT_APP_BACKEND}/layouts/api/by-background/` + cartoonBg + '/frame/' + JSON.parse(frame).frame);
-                    const cartoonLayoutDatas =cartoonResponse.data
-                    const cartoonNewBackgrounds = cartoonLayoutDatas.map(item => ({
-                         title: item.title,
-                         photo: process.env.REACT_APP_BACKEND + item.photo,
-                         photo_cover: process.env.REACT_APP_BACKEND + item.photo_cover,
-                         photo_full: process.env.REACT_APP_BACKEND + item.photo_full
-                    }));
-                    const minResponse = await originAxiosInstance.get(`${process.env.REACT_APP_BACKEND}/layouts/api/by-background/` + minBg + '/frame/' + JSON.parse(frame).frame);
-                    const minLayoutDatas =minResponse.data
-                    const minNewBackgrounds = minLayoutDatas.map(item => ({
-                         title: item.title,
-                         photo: process.env.REACT_APP_BACKEND + item.photo,
-                         photo_cover: process.env.REACT_APP_BACKEND + item.photo_cover,
-                         photo_full: process.env.REACT_APP_BACKEND + item.photo_full
-                    }));
-                    const resAll=[[seasonsNewBackgrounds],[partyNewBackgrounds],[cartoonNewBackgrounds],[minNewBackgrounds]]
+                   
+                    const resAll=newBackgrounds//[...seasonsNewBackgrounds,...partyNewBackgrounds,...cartoonNewBackgrounds,...minNewBackgrounds]
                     setLayouts(resAll);
-                    let idx=0;
-                    if(sessionStorage.getItem('styleBg')===seasonsBg){
-                         idx=0
-                    }
-                    else if(sessionStorage.getItem('styleBg')===partyBg){
-                         idx=1
-                    }
-                    else if(sessionStorage.getItem('styleBg')===cartoonBg){
-                         idx=2
-                    }
-                    else if(sessionStorage.getItem('styleBg')===minBg){
-                         idx=3
-                    }
-                    console.log('스타일 ex season',sessionStorage.getItem('styleBg'))
-                    setSliceIdx(idx)
-                    setSlicedLayouts(...resAll[idx])
+                   
                } catch (error) {
                     console.error(error)
                }
@@ -206,7 +171,7 @@ function Layout() {
      const handleClick = (index,clickedTitle) => {
           if (draging)return
          //라우팅 할 때 리스트 한번에 보내기
-          // sessionStorage.setItem('selectedLayout', JSON.stringify(layouts[index]));
+          // sessionStorage.setItem('selectedLayout', JSON.stringify(layouts));
           // setClickedIndex(index === clickedIndex ? null : index);
           if (clickedTitles.includes(clickedTitle)) {
                setClickedTitles(prevTitles => prevTitles.filter(clickedTitle => clickedTitle != clickedTitle));
@@ -225,7 +190,7 @@ function Layout() {
          
           if (confirmClick === confirmButton) {
                const selectedLayouts=[]
-            console.log("버튼 클릭",layouts,clickedTitles)
+       
             for (let i = 0; i < layouts.length; i++) {
                     const fiveLayout = layouts[i];
                     for (let j = 0; j < fiveLayout.length; j++) {
@@ -247,7 +212,8 @@ function Layout() {
                     }
                     
                }
-               sessionStorage.setItem('selectedLayout', JSON.stringify(selectedLayouts));
+               console.log("버튼 클릭",clickedTitles,layouts.filter(layout=>clickedTitles.includes(layout.title)))
+               sessionStorage.setItem('selectedLayout', JSON.stringify(layouts.filter(layout=>clickedTitles.includes(layout.title))));
                // sessionStorage.setItem('selectedLayout', JSON.stringify(layouts[index]));
           
                // navigate('/payment');
@@ -368,25 +334,11 @@ const getBackground=(sliceIdx)=>{
                style={{
                }}
                >
-                    {slicedLayouts.map((item, index) => (
-                         <div key={item.id} 
-                         draggable={false}
-                         className="style-column">
-                              <div className="image-style-div"
-                              draggable={false}
-                              >
-                                   <img
-                                   draggable={!draging}
-                                   className={`${selectedFrame === '2cut-x2' || selectedFrame === '4-cutx2' ? 'layout-overlay-cut' : 'layout-overlay'} ${clickedTitles.includes(item.title) ? 'clicked' : ''}`}
-                                   src={item.photo_full}
-                                   onClick={() => handleClick(index,item.title)}
-                                   />
-                                   {/* <div 
-                                     draggable={false}
-                                   className={`${selectedFrame === '2cut-x2' || selectedFrame === '4-cutx2' ? 'layout-overlay-cut' : 'layout-overlay'} ${clickedTitles.includes(item.title) ? 'clicked' : ''}`} style={{ backgroundImage: `url(${item.photo_full})` }} onClick={() => handleClick(index,item.title)}></div> */}
-                              </div>
-                         </div>
-                    ))}
+                    <FrameCarousel 
+               clickedTitles={clickedTitles}
+               images={layouts}
+                  handleClick={ handleClick}
+               />
                </div>
                <div
                     className="confirm-layout-button"

@@ -1,19 +1,19 @@
 import axios from "axios";
 
-// //Env variable
-// //Django
-// const OriginBaseURL="http://118.33.212.138:8000"
-// //Flask
-// export const BaseURL = "http://118.33.212.138:5000"//"http://118.33.212.138:8000"
-const checkBaseUrl="http://127.0.0.1:9000"
+//Env variable
+//Django
+const OriginBaseURL="http://118.33.212.138:8000"
+//Flask
+export const BaseURL = "http://118.33.212.138:5000"//"http://118.33.212.138:8000"
+const checkBaseUrl="http://118.33.212.138:9000"
 const checkAxiosInstance = axios.create({
   baseURL: checkBaseUrl,
 });
 
-// // Django
-const OriginBaseURL="http://127.0.0.1:8000"
-// //Flask
-export const BaseURL = "http://172.22.247.48:5000"//"http://118.33.212.138:8000"
+// // // Django
+// const OriginBaseURL="http://127.0.0.1:8000"
+// // //Flask
+// export const BaseURL = "http://172.22.247.48:5000"//"http://118.33.212.138:8000"
 
 // Created an axios instance adding our api BaseURL
  const axiosInstance = axios.create({

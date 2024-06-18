@@ -43,17 +43,17 @@ function Frame() {
   const [frameBackground, setFrameBackground] = useState([]);
 
   const [goBackBg, setGoBackBg] = useState([]);
-const src='./choose_frame_layout.wav'
-  // const audioRef = useRef(null);
+// const src='./choose_frame_layout.wav'
+//   // const audioRef = useRef(null);
 
-  useEffect(() => {
-    //음성 재생
-    const audio = new Audio(src); 
-    audio.muted=true
-    audio.play()
-    audio.muted=false
+//   useEffect(() => {
+//     //음성 재생
+//     const audio = new Audio(src); 
+//     audio.muted=true
+//     audio.play()
+//     audio.muted=false
 
-  }, []);
+//   }, []);
 
   useEffect(() => {
     const storedLanguage = sessionStorage.getItem('language');
