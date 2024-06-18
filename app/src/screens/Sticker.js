@@ -87,7 +87,7 @@ function Sticker() {
      const [clickPrint, setClickPrint] = useState(false);
      const [orderCode, setOrderCode] = useState(null);
      const [language, setLanguage] = useState('en');
-   
+
      const [backgroundImage, setBackgroundImage] = useState(background_en);
      //스크롤 인덱스
      const [scrollIdx, setScrollIdx] = useState(0)
@@ -101,7 +101,7 @@ function Sticker() {
      const [cartoon, setCartoon] = useState(null);
      const [y2k, setY2k] = useState(null);
      const [printButton, setPrintButton] = useState(null);
-
+     const [printRefs,setPrintRefs]=useState([])
      const [goBackButton, setGoBackButton] = useState(goback_en);
      const [clickedButton, setClickedButton] = useState(false);
      const [stickerDrag,setStickerDrag]=useState(false)
@@ -117,7 +117,6 @@ const [height,setHeight]=useState(0)
      const [tempImage,setTempImage]=useState()
      // const stageRef = useRef(null);
      const [stageRefs,setStageRefs]=useState([])
-     const [printRefs,setPrintRefs]=useState([])
      const [frameSize,setFrameSize]=useState({
           width:"",
           height:""
@@ -184,7 +183,6 @@ if (photos===null)return;
                     parsedSelectedLayout
                       .map((_, i) => refs[i] || createRef()),
                   );
-                
                const imgs=[]
           for (let i = 0; i < parsedSelectedLayout.length; i++) {
              imgs.push([])
@@ -400,9 +398,8 @@ if (photos===null)return;
           try {
                // for (let i = 0; i < stageRefs.length; i++) {
                     // for (let i = 0; i < 1; i++) {
-                        // const stageRef = stageRefs[bgIdx];
-                        const stageRef = printRefs[bgIdx];
-                        const originalDataURL = stageRef.current.toDataURL();
+                         const stageRef = printRefs[bgIdx];
+                    const originalDataURL = stageRef.current.toDataURL();
                     let rotated=null
                     rotateImageDataURL(originalDataURL, 90)
                     .then(rotatedDataURL => {
@@ -424,7 +421,6 @@ if (photos===null)return;
                         .then(response => {
                              const data = response.data;
                              if (data.photo_url) {
-                                console.log(data.photo_url)
                                   sessionStorage.setItem('uploadedCloudPhotoUrl', data.photo_url);
                              }
                         })
@@ -874,11 +870,10 @@ src={selectedItems[3].url}
          
           return { x: newStickerX, y: newStickerY, width: newStickerWidth, height: newStickerHeight };
       }
-      
      //백그라운드
      useEffect(() => {
           if (frameSize.width === "" || frameSize.height === "") return;
-        
+      
           const loadImages = () => {
       //
               const tempImgs = selectedPhotos.map(index => {
@@ -886,7 +881,7 @@ src={selectedItems[3].url}
                   const tempImg = new Image();
                   tempImg.crossOrigin = 'Anonymous';
                   tempImg.src = photo.url;
-                //   applyStyles(tempImg, { width: 800, height: 800, filter: photo.filter });
+                  applyStyles(tempImg, { width: 800, height: 800, filter: photo.filter });
                   return tempImg;
               });
       
@@ -944,8 +939,327 @@ src={selectedItems[3].url}
       
           loadImages();
       }, [selectedPhotos,myBackgrounds]);
-
-      const showKonvaImgLayout = (selectedFrame, width, height, imgTag) => {
+      //레이아웃 선택
+      useEffect(() => {
+          if (frameSize.width === "" || frameSize.height === "") return;
+      
+          const loadImages = () => {
+           
+      
+          //     if (selectedLayout.length === 0 || !backgroundList[0]?.src) {
+                  const element = document.querySelector('.image');
+                  if (element) {
+                      const targetWidth = frameSize.width;
+                      const targetHeight = frameSize.height;
+      
+                      const loadedImages = selectedLayout.map((imageUrl) => {
+                          return new Promise((resolve, reject) => {
+                              const img = new Image();
+                              img.crossOrigin = 'Anonymous';
+                              img.src = imageUrl;
+      
+                              img.onload = () => {
+                                  const aspectRatio = img.width / img.height;
+      
+                                  let width, height;
+                                  if (aspectRatio > 1) {
+                                      // Landscape
+                                      width = targetWidth;
+                                      height = targetWidth / aspectRatio;
+                                  } else {
+                                      // Portrait or square
+                                      height = targetHeight;
+                                      width = targetHeight * aspectRatio;
+                                  }
+      
+                                  setWidth(width);
+                                  setHeight(height);
+      
+                                  resolve({
+                                      img,
+                                      width,
+                                      height
+                                  });
+                              };
+                              img.onerror = (err) => reject(err);
+                          });
+                      });
+      
+                      Promise.all(loadedImages)
+                          .then((images) => {
+                              setLayoutList(images)
+                          })
+                          .catch((error) => {
+                              console.error("Error loading images:", error);
+                          });
+                  }
+          //     }
+          };
+      
+          loadImages();
+      }, [selectedLayout]);
+    
+      //정사각형에 가까운거
+ 
+     //  const showKonvaImgLayout=(selectedFrame,width,height,imgTag)=>{
+     //      if (selectedFrame==="6-cutx2") {
+     //           const calcedWidth=width/2 -22
+     //           const calcedHeight=height/3 - 28
+     //           const x11=17
+     //           const x12=calcedWidth+x11+10
+     //           const y1=18
+     //           //
+     //           const x21=20
+     //           const x22=x12
+     //           const y2=calcedHeight+y1+10 
+     //            //
+     //            const x31=20
+     //            const x32=x22
+     //            const y3=calcedHeight+y2+10 
+     //           return   imgTag.length===0?<></>:   <>
+     //           {/* 11 */}
+     //           <KonvaImage
+     //           width={calcedWidth}
+     //           height={calcedHeight}
+     //           x={x11}
+     //           y={y1}
+     //           image={applyFilters(imgTag[0], imgTag[0].filter)}
+            
+     //        />
+     //      {/* 12 */}
+     //        <KonvaImage
+     //           width={calcedWidth}
+     //           height={calcedHeight}
+     //           x={x12}
+     //           y={y1}
+     //           image={applyFilters(imgTag[1], imgTag[1].filter)}
+            
+     //        />
+     //         {/* 21 */}
+     //         <KonvaImage
+     //           width={calcedWidth}
+     //           height={calcedHeight}
+     //           x={x21}
+     //           y={y2}
+     //           image={applyFilters(imgTag[2], imgTag[2].filter)}
+            
+     //        />
+     //      {/* 22 */}
+     //        <KonvaImage
+     //           width={calcedWidth}
+     //           height={calcedHeight}
+     //           x={x22}
+     //           y={y2}
+     //           image={applyFilters(imgTag[3], imgTag[3].filter)}
+            
+     //        />
+     //           {/* 31 */}
+     //           <KonvaImage
+     //           width={calcedWidth}
+     //           height={calcedHeight}
+     //           x={x31}
+     //           y={y3}
+     //           image={applyFilters(imgTag[4], imgTag[4].filter)}
+            
+     //        />
+     //      {/* 32 */}
+     //        <KonvaImage
+     //           width={calcedWidth}
+     //           height={calcedHeight}
+     //           x={x32}
+     //           y={y3}
+     //           image={applyFilters(imgTag[5], imgTag[5].filter)}
+            
+     //        />
+     //        </>  
+     //      }
+     //     else if (selectedFrame==="Stripx2") {
+     //           const calcedWidth=width/2 - 18
+     //           const calcedHeight=height/4 - 20
+     //           //1 row
+     //           const x11=8
+     //           const x12=calcedWidth+x11+20
+     //           const y1=22 
+     //           //2 row
+     //           const x21=x11
+     //           const x22=x12
+     //           const y2=calcedHeight+y1+8 
+     //            //3 row
+     //            const x31=x11
+     //            const x32=x22
+     //            const y3=calcedHeight+y2+8 
+     //                         //4 row
+     //                         const x41=x11
+     //                         const x42=x32
+     //                         const y4=calcedHeight+y3+6 
+     //           return    imgTag.length===0?<></>:   <>
+     //           {/* 11 */}
+     //           <KonvaImage
+     //           width={calcedWidth}
+     //           height={calcedHeight}
+     //           x={x11}
+     //           y={y1}
+     //           image={applyFilters(imgTag[0], imgTag[0].filter)}
+            
+     //        />
+     //      {/* 12 */}
+     //        <KonvaImage
+     //           width={calcedWidth}
+     //           height={calcedHeight}
+     //           x={x12}
+     //           y={y1}
+     //           image={applyFilters(imgTag[1], imgTag[1].filter)}
+            
+     //        />
+     //         {/* 21 */}
+     //         <KonvaImage
+     //           width={calcedWidth}
+     //           height={calcedHeight}
+     //           x={x21}
+     //           y={y2}
+     //           image={applyFilters(imgTag[2], imgTag[2].filter)}
+            
+     //        />
+     //      {/* 22 */}
+     //        <KonvaImage
+     //           width={calcedWidth}
+     //           height={calcedHeight}
+     //           x={x22}
+     //           y={y2}
+     //           image={applyFilters(imgTag[3], imgTag[3].filter)}
+            
+     //        />
+     //           {/* 31 */}
+     //           <KonvaImage
+     //           width={calcedWidth}
+     //           height={calcedHeight}
+     //           x={x31}
+     //           y={y3}
+     //           image={applyFilters(imgTag[4], imgTag[4].filter)}
+            
+     //        />
+     //      {/* 32 */}
+     //        <KonvaImage
+     //           width={calcedWidth}
+     //           height={calcedHeight}
+     //           x={x32}
+     //           y={y3}
+     //           image={applyFilters(imgTag[5], imgTag[5].filter)}
+            
+     //        />
+     //          {/* 41 */}
+     //          <KonvaImage
+     //           width={calcedWidth}
+     //           height={calcedHeight}
+     //           x={x41}
+     //           y={y4}
+     //           image={applyFilters(imgTag[6], imgTag[6].filter)}
+     //        />
+     //      {/* 42 */}
+     //        <KonvaImage
+     //           width={calcedWidth}
+     //           height={calcedHeight}
+     //           x={x42}
+     //           y={y4}
+     //           image={applyFilters(imgTag[7], imgTag[7].filter)}
+            
+     //        />
+     //        </>  
+     //      }
+     //      else if(selectedFrame==="2cut-x2"){
+     //           const calcedWidth=width/2 - 32
+     //           const calcedHeight=height-90
+     //           const x11=26
+     //           const x12=calcedWidth+x11+14
+     //           const y1=48
+     //           //
+     //           const x21=36
+     //           const x22=x12
+     //           const y2=calcedHeight+y1+10 
+     //            //
+     //            const x31=36
+     //            const x32=x22
+     //            const y3=calcedHeight+y2+10 
+     //           return   imgTag.length===0?<></>:    <>
+     //           {/* 11 */}
+     //           <KonvaImage
+     //           width={calcedWidth}
+     //           height={calcedHeight}
+     //           x={x11}
+     //           y={y1}
+     //        image={applyFilters(imgTag[0], imgTag[0].filter)}
+            
+     //        />
+     //      {/* 12 */}
+     //        <KonvaImage
+     //           width={calcedWidth}
+     //           height={calcedHeight}
+     //           x={x12}
+     //           y={y1}
+     //           image={applyFilters(imgTag[1], imgTag[1].filter)}
+            
+     //        /></>
+     //      }
+     //      else if(selectedFrame==="4-cutx2"){
+     //           const calcedWidth=width/2 - 70
+     //           const calcedHeight=height/2 - 30
+     //           //1 row
+     //           const x11=62
+     //           const x12=calcedWidth+x11+18
+     //           const y1=25
+     //           //2 row
+     //           const x21=x11
+     //           const x22=x12
+     //           const y2=calcedHeight+y1+10
+     //            //
+     //            const x31=36
+     //            const x32=x22
+     //            const y3=calcedHeight+y2+10 
+     //           return   imgTag.length===0?<></>:    <>
+     //           {/* 11 */}
+     //           <KonvaImage
+     //           width={calcedWidth}
+     //           height={calcedHeight}
+     //           x={x11}
+     //           y={y1}
+     //           image={applyFilters(imgTag[0], imgTag[0].filter)}
+            
+     //        />
+     //      {/* 12 */}
+     //        <KonvaImage
+     //           width={calcedWidth}
+     //           height={calcedHeight}
+     //           x={x12}
+     //           y={y1}
+     //           image={applyFilters(imgTag[1], imgTag[1].filter)}
+            
+     //        />
+     //        {/* 21 */}
+     //        <KonvaImage
+     //           width={calcedWidth}
+     //           height={calcedHeight}
+     //           x={x21}
+     //           y={y2}
+     //           image={applyFilters(imgTag[2], imgTag[2].filter)}
+            
+     //        />
+     //      {/* 22 */}
+     //        <KonvaImage
+     //           width={calcedWidth}
+     //           height={calcedHeight}
+     //           x={x22}
+     //           y={y2}
+     //           image={applyFilters(imgTag[3], imgTag[3].filter)}
+            
+     //        />
+     //        </>
+     //      }
+     //      else {
+     //            return        <></>
+     //      }
+         
+     //  }
+     const showKonvaImgPrintLayout = (selectedFrame, width, height, imgTag) => {
         if (selectedFrame === "3-cutx2") {
             const calcedWidth = width / 2 - 22;
             const calcedHeight = height / 2 - 30;
@@ -1050,11 +1364,11 @@ src={selectedItems[3].url}
              );
         }
         else {
-            const calcedWidth = width / 2.5 - 18;
-            const calcedHeight = calcedWidth;
-            const x11 = 12;
-            const x12 = calcedWidth + x11 + 12;
-            const y1 = 22;
+            const calcedWidth = 550;
+            const calcedHeight = 400;
+            const x11 = 35;
+            const x12 = calcedWidth + x11 + 30;
+            const y1 =60;
     
             return imgTag.length === 0 ? <></> : (
                 <>
@@ -1069,7 +1383,7 @@ src={selectedItems[3].url}
                                     width={calcedWidth}
                                     height={calcedHeight}
                                     x={x}
-                                    y={y-720}
+                                    y={y}
                                     image={applyFilters(tag, tag.filter)}
                                 />
                             );
@@ -1079,10 +1393,205 @@ src={selectedItems[3].url}
             );
         }
     };
+     const showKonvaImgLayout = (selectedFrame, width, height, imgTag,ratio) => {
+          if (selectedFrame === "3-cutx2") {
+              const calcedWidth = width / 2 - 22;
+              const calcedHeight = height / 2 - 30;
+              const x11 = 17;
+              const x12 = calcedWidth + x11 + 10;
+              const y1 = 18;
+      
+              // First row
+              return imgTag.length === 0 ? <></> : (
+                  <>
+                      {/* 11 */}
+                      <KonvaImage
+                          width={calcedWidth * 2 + 10}
+                          height={calcedHeight}
+                          x={x11}
+                          y={y1}
+                          image={applyFilters(imgTag[0], imgTag[0].filter)}
+                      />
+                      {/* Rest rows */}
+                      {chunkArray(imgTag.slice(1), 2).map((row, rowIndex) => (
+                          row.map((tag, photoIndex) => {
+                              const x = photoIndex === 0 ? x11 : x12;
+                              const y = calcedHeight + y1 + 10 + rowIndex * (calcedHeight + 10);
+                              return (
+                                  <KonvaImage
+                                   //    key={`${rowIndex}-${photoIndex}`}
+                                      width={calcedWidth}
+                                      height={calcedHeight}
+                                      x={x}
+                                      y={y}
+                                      image={applyFilters(tag, tag.filter)}
+                                  />
+                              );
+                          })
+                      ))}
+                  </>
+              );
+          } else if (selectedFrame === "5-cutx2") {
+              const calcedWidth = width / 2 - 22;
+              const calcedHeight = height / 2 - 30;
+              const x11 = 17;
+              const x12 = calcedWidth + x11 + 10;
+              const y1 = 18;
+      
+              return imgTag.length === 0 ? <></> : (
+                  <>
+                      {chunkArray(imgTag.slice(0, 4), 2).map((row, rowIndex) => (
+                          row.map((tag, photoIndex) => {
+                              const x = photoIndex === 0 ? x11 : x12;
+                              const y = y1 + rowIndex * (calcedHeight + 10);
+                              return (
+                                  <KonvaImage
+                                   //    key={`${rowIndex}-${photoIndex}`}
+                                      width={calcedWidth}
+                                      height={calcedHeight}
+                                      x={x}
+                                      y={y}
+                                      image={applyFilters(tag, tag.filter)}
+                                  />
+                              );
+                          })
+                      ))}
+                      {/* 마지막 줄 */}
+                      <KonvaImage
+                          width={calcedWidth * 2 + 10}
+                          height={calcedHeight}
+                          x={x11}
+                          y={y1 + 2 * (calcedHeight + 10)}
+                          image={applyFilters(imgTag[4], imgTag[4].filter)}
+                      />
+                  </>
+              );
+          } 
+          else if(selectedFrame==="Stripx2"){
+
+               const calcedWidth = width / 2.2 - 18;
+               const calcedHeight = calcedWidth/1.5;
+               const x11 = 22;
+               const x12 = calcedWidth + x11 + 22;
+               const y1 = 40;
+       
+               return imgTag.length === 0 ? <></> : (
+                   <>
+                 
+                       {chunkArray(imgTag, 2).map((row, rowIndex) => (
+                           row.map((tag, photoIndex) => {
+                               const x = photoIndex === 0 ? x11 : x12;
+                               const y = y1 + rowIndex * (calcedHeight + 22);
+                               return (
+                                   <KonvaImage
+                                   //     key={`${rowIndex}-${photoIndex}`}
+                                       width={calcedWidth*ratio}
+                                       height={calcedHeight*ratio}
+                                       x={x*ratio}
+                                       y={y*ratio}
+                                       image={applyFilters(tag, tag.filter)}
+                                   />
+                               );
+                           })
+                       ))}
+                   </>
+               );
+          }
+          else if(selectedFrame==="2cut-x2"){
+            const calcedWidth = width / 2.3;
+            const calcedHeight =width / 2;
+            const x11 = 20;
+            const x12 = calcedWidth + x11 + 20;
+            const y1 = 42;
+    
+            return imgTag.length === 0 ? <></> : (
+                <>
+              
+                    {chunkArray(imgTag, 2).map((row, rowIndex) => (
+                        row.map((tag, photoIndex) => {
+                            const x = photoIndex === 0 ? x11 : x12;
+                            const y = y1 + rowIndex * (calcedHeight + 12);
+                            return (
+                                <KonvaImage
+                                 //    key={`${rowIndex}-${photoIndex}`}
+                                    width={calcedWidth*ratio}
+                                    height={calcedHeight*ratio}
+                                    x={x*ratio}
+                                    y={y*ratio}
+                                    image={applyFilters(tag, tag.filter)}
+                                />
+                            );
+                        })
+                    ))}
+                </>
+            );
+          }
+          else if(selectedFrame==="4-cutx2"){
+            const calcedWidth = width / 2.3;
+            const calcedHeight =width / 3.8;
+            const x11 = 20;
+            const x12 = calcedWidth + x11 + 20;
+            const y1 = 22;
+    
+            return imgTag.length === 0 ? <></> : (
+                <>
+              
+                    {chunkArray(imgTag, 2).map((row, rowIndex) => (
+                        row.map((tag, photoIndex) => {
+                            const x = photoIndex === 0 ? x11 : x12;
+                            const y = y1 + rowIndex * (calcedHeight + 12);
+                            return (
+                                <KonvaImage
+                                 //    key={`${rowIndex}-${photoIndex}`}
+                                    width={calcedWidth*ratio}
+                                    height={calcedHeight*ratio}
+                                    x={x*ratio}
+                                    y={y*ratio}
+                                    image={applyFilters(tag, tag.filter)}
+                                />
+                            );
+                        })
+                    ))}
+                </>
+            );
+
+          }
+          else {
+              const calcedWidth = width / 2.4;
+              const calcedHeight =width / 2.4;
+              const x11 = 20;
+              const x12 = calcedWidth + x11 + 20;
+              const y1 = 22;
+      
+              return imgTag.length === 0 ? <></> : (
+                  <>
+                
+                      {chunkArray(imgTag, 2).map((row, rowIndex) => (
+                          row.map((tag, photoIndex) => {
+                              const x = photoIndex === 0 ? x11 : x12;
+                              const y = y1 + rowIndex * (calcedHeight + 12);
+                              return (
+                                  <KonvaImage
+                                   //    key={`${rowIndex}-${photoIndex}`}
+                                      width={calcedWidth*ratio}
+                                      height={calcedHeight*ratio}
+                                      x={x*ratio}
+                                      y={y*ratio}
+                                      image={applyFilters(tag, tag.filter)}
+                                  />
+                              );
+                          })
+                      ))}
+                  </>
+              );
+          }
+      };
+     
+      //프레임 유형별로 stageWidth, height
       useEffect(()=>{
 //ui 프레임 크기 조정
 const smallRatio=0.8
-const largeRatio=1.2
+const largeRatio=1.45//1.2
 if (selectedFrame==="6-cutx2") {
      
      setFrameSize({width:257.79*largeRatio,height:384*largeRatio})
@@ -1103,23 +1612,25 @@ else{
       ])
       const getKonvaClassName=(selectedFrame)=>{
           if (selectedFrame==="6-cutx2"||selectedFrame==="Stripx2") {
-               return "konva-vertical-image"
+               return "konva-vertical-image-print"
           } else {
-               return "konva-horizontal-image"
+               return "konva-horizontal-image-print"
           }
       }
-
+   
 return (
      <div className='sticker-container' style={{ backgroundImage: `url(${backgroundImage})` }}>
          <div className="go-back" style={{ backgroundImage: `url(${goBackButton})` }} onClick={() => navigate("/filter")} onMouseEnter={hoverGoBackButton} onMouseLeave={hoverGoBackButton}></div>
         {/* 프린트용 */}
-         <Stage
-                                 width={600} // Adjusted stage width
-                                 height={720} // Adjusted stage height
+        <div
+        className='print'
+        >  <Stage
+        width={frameSize.width*1.5} // Adjusted stage width
+        height={frameSize.height*1.5} // Adjusted stage height
                                  scale={{ x: 1, y: 1 }} // Ensure the scale is 1:1
                                  x={0}
                                  y={0}
-                                
+                               
                                  onClick={handleCanvasClick}
                                  onTap={handleCanvasClick}
                                  className={getKonvaClassName(selectedFrame)}
@@ -1135,13 +1646,13 @@ return (
                                      {backgroundList[bgIdx] && (
                                          <KonvaImage
                                              image={backgroundList[bgIdx].img}
-                                             width={600} // Adjusted stage width
-                                             height={720} // Adjusted stage height
+                                             width={frameSize.width*1.5} // Adjusted stage width
+                                             height={frameSize.height*1.5} // Adjusted stage height
                                              x={0}
-                                             y={-720}
+                                             y={0}
                                          />
                                      )}
-                                     {/* {tempImage && showKonvaImgLayout(selectedFrame, frameSize.width, frameSize.height, tempImage)} */}
+                                     {tempImage && showKonvaImgLayout(selectedFrame, frameSize.width, frameSize.height, tempImage,1.5)}
                                  </Layer>
                                  <Layer
                                    //   width={frameSize.width}
@@ -1150,8 +1661,8 @@ return (
                                      {layoutList[bgIdx] && (
                                          <KonvaImage
                                              image={layoutList[bgIdx].img}
-                                             width={frameSize.width} // Adjusted stage width
-                                             height={frameSize.height} // Adjusted stage height
+                                             width={frameSize.width*1.5} // Adjusted stage width
+                                             height={frameSize.height*1.5} // Adjusted stage height
                                              x={0}
                                              y={0}
                                          />
@@ -1188,8 +1699,9 @@ return (
                                      ))}
                                  </Layer>
                              
-                             </Stage>
-         <div className="left-sticker">
+                             </Stage></div>
+                    
+                             <div className="left-sticker">
              <div className='frame-box' style={{ backgroundImage: `url(${frame_box})` }} />
  
              <div className='v-carousel-container' ref={carouselRef}>
@@ -1222,7 +1734,7 @@ return (
                                              y={0}
                                          />
                                      )}
-                                     {/* {tempImage && showKonvaImgLayout(selectedFrame, frameSize.width, frameSize.height, tempImage)} */}
+                                     {tempImage && showKonvaImgLayout(selectedFrame, frameSize.width, frameSize.height, tempImage,1)}
                                  </Layer>
                                  <Layer
                                    //   width={frameSize.width}

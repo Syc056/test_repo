@@ -1842,6 +1842,8 @@ import { useNavigate } from 'react-router-dom';
 import "../../css/Photo.css";
 import countdownImg from '../../assets/Photo/Snap/countdown.png';
 import photocountImg from '../../assets/Photo/Snap/photocount.png';
+import previewImg from '../../assets/Photo/Snap/previewField.png';
+import previewDefaultImg from '../../assets/Photo/Snap/previewDefault.png';
 import axios from 'axios';
 import background_en from '../../assets/Photo/Snap/BG.png';
 import background_kr from '../../assets/Photo/Snap/kr/BG.png';
@@ -1973,12 +1975,42 @@ function Photo() {
 
     return (
         <div className={`photo-container ${flash ? 'animate' : ''}`} style={{ backgroundImage: `url(${backgroundImage})` }}>
-            <div className="left-photo-div" style={{ backgroundImage: `url(${countdownImg})` }}>
+          
+             <div className="left-photo-div" style={{ backgroundImage: `url(${countdownImg})` }}>
                 <div className="photo-countdown">{countdown}</div>
             </div>
             <div className="right-photo-div" style={{ backgroundImage: `url(${photocountImg})` }}>
                 <div className="photo-count">{photoCount}/8</div>
             </div>
+            <div  className="right-preview-ul">          <div  className="preview-default-0" style={{ backgroundImage: `url(${previewDefaultImg})` }}>
+                <div
+                className='preview-cnt'
+                >1/8</div>
+                </div>
+            <div  className="preview-default-1" style={{ backgroundImage: `url(${previewDefaultImg})` }}> <div
+                className='preview-cnt'
+                >2/8</div> </div>
+            <div  className="preview-default-2" style={{ backgroundImage: `url(${previewDefaultImg})` }}> <div
+                className='preview-cnt'
+                >3/8</div></div>
+            <div  className="preview-default-3" style={{ backgroundImage: `url(${previewDefaultImg})` }}> <div
+                className='preview-cnt'
+                >4/8</div></div>
+<div  className="preview-default-4" style={{ backgroundImage: `url(${previewDefaultImg})` }}> <div
+                className='preview-cnt'
+                >5/8</div></div>
+                <div  className="preview-default-5" style={{ backgroundImage: `url(${previewDefaultImg})` }}> <div
+                className='preview-cnt'
+                >6/8</div></div>
+       <div  className="preview-default-6" style={{ backgroundImage: `url(${previewDefaultImg})` }}> <div
+                className='preview-cnt'
+                >7/8</div></div>
+                   <div  className="preview-default-7" style={{ backgroundImage: `url(${previewDefaultImg})` }}> <div
+                className='preview-cnt'
+                >8/8</div></div></div>
+            <div  className="right-preview-div" style={{ backgroundImage: `url(${previewImg})` }}>
+  
+          </div>
             <div className="middle-photo-div">
                 {!capturing && (
                     <img

@@ -47,7 +47,6 @@ isStickerDrag,
           };
     
           tr.update();
-          console.log("리사이징 앵커", bot)
           tr.getLayer().batchDraw();
         }
       }, [isSelected,resizeImgae]);
@@ -86,7 +85,6 @@ isStickerDrag,
         }
     }, [isHovered]);
 
-   console.log("리사이징 앵커 보이기",showResize)
    const anchorStyleFunc = (anchor) => {
     if (anchor.hasName('bottom-left')) {
       return {
