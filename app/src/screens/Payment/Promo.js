@@ -57,6 +57,7 @@ import goback_vn from '../../assets/Common/vn/goback.png';
 import goback_vn_hover from '../../assets/Common/vn/gobackhover.png';
 
 import axios from 'axios';
+import { checkPromotionCode } from '../../api/config';
 
 function Cash() {
      const { t } = useTranslation();
