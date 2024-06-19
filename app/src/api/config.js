@@ -51,6 +51,7 @@ export const sendDongNum = async (dongNum, checkCoupon) => {
   }
 };
 export const getPhotos=async()=>{
+  console.log("in get photo>>>")
   const { data } = await originAxiosInstance.get('/get_photo/')
   return data
 }
