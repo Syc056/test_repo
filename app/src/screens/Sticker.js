@@ -422,7 +422,8 @@ if (photos===null)return;
                              const data = response.data;
                              if (data.photo_url) {
                                   sessionStorage.setItem('uploadedCloudPhotoUrl', data.photo_url);
-                             }
+                             console.log("data url>>>",data.photo_url)
+                                }
                         })
                         .catch(error => {
                              console.log(error);
@@ -1002,19 +1003,55 @@ src={selectedItems[3].url}
   //merge
    
      const showKonvaImgLayout = (selectedFrame, width, height, imgTag,ratio) => {
-   
+        const getCrop = (image, newSize) => {
+            const aspectRatio = newSize.width / newSize.height;
+            const imageRatio = image.width / image.height;
+    
+            let newWidth = image.width;
+            let newHeight = image.height;
+            let x = 0;
+            let y = 0;
+    
+            if (imageRatio > aspectRatio) {
+                // 이미지가 너무 넓은 경우 좌우 자르기
+                newWidth = image.height * aspectRatio;
+                x = (image.width - newWidth) / 2;
+            } else {
+                // 이미지가 너무 높은 경우 위아래 자르기
+                newHeight = image.width / aspectRatio;
+                y = (image.height - newHeight) / 2;
+            }
+    
+            return {
+                x: x,
+                y: y,
+                width: newWidth,
+                height: newHeight
+            };
+        };
+    
           if (selectedFrame === "3-cutx2") {
-              const calcedWidth = width / 2 - 22;
-              const calcedHeight = height / 2 - 30;
+            // 6칸짜리 1.02 : 1
+            const calcedHeight = height/5.3; // 1:1.13 비율로 계산 
+            const calcedWidth = calcedHeight*1.02 ;
               const x11 = 17;
               const x12 = calcedWidth + x11 + 10;
               const y1 = 18;
-      
+              const crop1 = getCrop(
+                { width: imgTag[0].width, height: imgTag[0].height }, // 원본 이미지 크기
+                { width: calcedWidth, height: calcedHeight } // 타겟 크기
+            );
               // First row
               return imgTag.length === 0 ? <></> : (
                   <>
                       {/* 11 */}
                       <KonvaImage
+                            crop={{
+                                x: crop1.x,
+                                y: crop1.y,
+                                width: crop1.width-crop1.x,
+                                height: crop1.height
+                            }}
                           width={calcedWidth * 2 + 10}
                           height={calcedHeight}
                           x={x11}
@@ -1026,9 +1063,19 @@ src={selectedItems[3].url}
                           row.map((tag, photoIndex) => {
                               const x = photoIndex === 0 ? x11 : x12;
                               const y = calcedHeight + y1 + 10 + rowIndex * (calcedHeight + 10);
+                              const crop = getCrop(
+                                { width: tag.width, height: tag.height }, // 원본 이미지 크기
+                                { width: calcedWidth, height: calcedHeight } // 타겟 크기
+                            );
                               return (
                                   <KonvaImage
                                    //    key={`${rowIndex}-${photoIndex}`}
+                                   crop={{
+                                    x: crop.x,
+                                    y: crop.y,
+                                    width: crop.width-crop.x,
+                                    height: crop.height
+                                }}
                                       width={calcedWidth}
                                       height={calcedHeight}
                                       x={x}
@@ -1077,9 +1124,10 @@ src={selectedItems[3].url}
               );
           } 
           else if(selectedFrame==="Stripx2"){
-
-               const calcedWidth = width / 2.2 - 18;
-               const calcedHeight = calcedWidth/1.5;
+            // 1.47 : 1
+                   const calcedHeight = height/5.3; // 1:1.13 비율로 계산 
+                   const calcedWidth = calcedHeight*1.47 ;
+    
                const x11 = 22;
                const x12 = calcedWidth + x11 + 22;
                const y1 = 40;
@@ -1091,9 +1139,19 @@ src={selectedItems[3].url}
                            row.map((tag, photoIndex) => {
                                const x = photoIndex === 0 ? x11 : x12;
                                const y = y1 + rowIndex * (calcedHeight + 22);
+                               const crop = getCrop(
+                                { width: tag.width, height: tag.height }, // 원본 이미지 크기
+                                { width: calcedWidth, height: calcedHeight } // 타겟 크기
+                            );
                                return (
                                    <KonvaImage
                                    //     key={`${rowIndex}-${photoIndex}`}
+                                   crop={{
+                                    x: crop.x,
+                                    y: crop.y,
+                                    width: crop.width-crop.x,
+                                    height: crop.height
+                                }}
                                        width={calcedWidth*ratio}
                                        height={calcedHeight*ratio}
                                        x={x*ratio}
@@ -1107,33 +1165,7 @@ src={selectedItems[3].url}
                );
           }
   
-          const getCrop = (image, newSize) => {
-            const aspectRatio = newSize.width / newSize.height;
-            const imageRatio = image.width / image.height;
-    
-            let newWidth = image.width;
-            let newHeight = image.height;
-            let x = 0;
-            let y = 0;
-    
-            if (imageRatio > aspectRatio) {
-                // 이미지가 너무 넓은 경우 좌우 자르기
-                newWidth = image.height * aspectRatio;
-                x = (image.width - newWidth) / 2;
-            } else {
-                // 이미지가 너무 높은 경우 위아래 자르기
-                newHeight = image.width / aspectRatio;
-                y = (image.height - newHeight) / 2;
-            }
-    
-            return {
-                x: x,
-                y: y,
-                width: newWidth,
-                height: newHeight
-            };
-        };
-    
+     
         if (selectedFrame === "2cut-x2") {
             const calcedWidth = width / 2.3;
             const calcedHeight = calcedWidth * 1.13; // 1:1.13 비율로 계산
@@ -1177,10 +1209,11 @@ src={selectedItems[3].url}
             );
         } 
           else if(selectedFrame==="4-cutx2"){
-            const calcedWidth = width / 2.3;
-            const calcedHeight =width / 3.8;
-            const x11 = 20;
-            const x12 = calcedWidth + x11 + 20;
+            // 1.33 : 1
+            const calcedHeight = height/2.4; // 1:1.13 비율로 계산 
+            const calcedWidth = calcedHeight*1.33 ;
+            const x11 = 50;
+            const x12 = calcedWidth + x11 + 30;
             const y1 = 22;
     
             return imgTag.length === 0 ? <></> : (
@@ -1244,7 +1277,7 @@ const smallRatio=0.8
 const largeRatio=1.45//1.2
 if (selectedFrame==="6-cutx2") {
      
-     setFrameSize({width:257.79*largeRatio,height:384*largeRatio})
+     setFrameSize({width:1920*1/6,height:2900*1/6})
 } 
 else if(selectedFrame==="Stripx2") {
      setFrameSize({width:257.79*largeRatio,height:384*largeRatio})
@@ -1298,9 +1331,9 @@ return (
                                          <KonvaImage
                                              image={backgroundList[bgIdx].img}
                                              width={frameSize.width*1.5} // Adjusted stage width
-                                             height={frameSize.height*1.5} // Adjusted stage height
+                                             height={frameSize.height*1.5-20} // Adjusted stage height
                                              x={0}
-                                             y={0}
+                                             y={10}
                                          />
                                      )}
                                      {tempImage && showKonvaImgLayout(selectedFrame, frameSize.width, frameSize.height, tempImage,1.5)}
@@ -1313,9 +1346,9 @@ return (
                                          <KonvaImage
                                              image={layoutList[bgIdx].img}
                                              width={frameSize.width*1.5} // Adjusted stage width
-                                             height={frameSize.height*1.5} // Adjusted stage height
+                                             height={frameSize.height*1.5-20} // Adjusted stage height
                                              x={0}
-                                             y={0}
+                                             y={10}
                                          />
                                      )}
                                  </Layer>
