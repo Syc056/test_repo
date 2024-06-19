@@ -90,7 +90,7 @@ function Photo() {
                 const imageName = latestImage.url.split('/').pop();
                 const formattedImage = {
                     ...latestImage,
-                    url: `${process.env.REACT_APP_BACKEND}/get_photo/${imageName}`
+                    url: `${process.env.REACT_APP_BACKEND}/get_photo/uploads/${imageName}`
                 };
                 console.log("Latest photo", formattedImage);
 
