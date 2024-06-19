@@ -1309,8 +1309,8 @@ return (
         <div
         className='print'
         >  <Stage
-        width={frameSize.width*1.5} // Adjusted stage width
-        height={frameSize.height*1.5} // Adjusted stage height
+        width={frameSize.width*3} // Adjusted stage width
+        height={frameSize.height*3} // Adjusted stage height
                                  scale={{ x: 1, y: 1 }} // Ensure the scale is 1:1
                                  x={0}
                                  y={0}
@@ -1330,13 +1330,13 @@ return (
                                      {backgroundList[bgIdx] && (
                                          <KonvaImage
                                              image={backgroundList[bgIdx].img}
-                                             width={frameSize.width*1.5} // Adjusted stage width
-                                             height={frameSize.height*1.5-20} // Adjusted stage height
+                                             width={frameSize.width*3} // Adjusted stage width
+                                             height={frameSize.height*3-20} // Adjusted stage height
                                              x={0}
                                              y={10}
                                          />
                                      )}
-                                     {tempImage && showKonvaImgLayout(selectedFrame, frameSize.width, frameSize.height, tempImage,1.5)}
+                                     {tempImage && showKonvaImgLayout(selectedFrame, frameSize.width, frameSize.height, tempImage,3)}
                                  </Layer>
                                  <Layer
                                    //   width={frameSize.width}
@@ -1345,8 +1345,8 @@ return (
                                      {layoutList[bgIdx] && (
                                          <KonvaImage
                                              image={layoutList[bgIdx].img}
-                                             width={frameSize.width*1.5} // Adjusted stage width
-                                             height={frameSize.height*1.5-20} // Adjusted stage height
+                                             width={frameSize.width*3} // Adjusted stage width
+                                             height={frameSize.height*3-20} // Adjusted stage height
                                              x={0}
                                              y={10}
                                          />
