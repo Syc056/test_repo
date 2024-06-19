@@ -1002,7 +1002,7 @@ src={selectedItems[3].url}
   //merge
    
      const showKonvaImgLayout = (selectedFrame, width, height, imgTag,ratio) => {
-        console.log("show konva func>>>")
+   
           if (selectedFrame === "3-cutx2") {
               const calcedWidth = width / 2 - 22;
               const calcedHeight = height / 2 - 30;
@@ -1106,27 +1106,68 @@ src={selectedItems[3].url}
                    </>
                );
           }
-          else if(selectedFrame==="2cut-x2"){
+  
+          const getCrop = (image, newSize) => {
+            const aspectRatio = newSize.width / newSize.height;
+            const imageRatio = image.width / image.height;
+    
+            let newWidth = image.width;
+            let newHeight = image.height;
+            let x = 0;
+            let y = 0;
+    
+            if (imageRatio > aspectRatio) {
+                // 이미지가 너무 넓은 경우 좌우 자르기
+                newWidth = image.height * aspectRatio;
+                x = (image.width - newWidth) / 2;
+            } else {
+                // 이미지가 너무 높은 경우 위아래 자르기
+                newHeight = image.width / aspectRatio;
+                y = (image.height - newHeight) / 2;
+            }
+    
+            return {
+                x: x,
+                y: y,
+                width: newWidth,
+                height: newHeight
+            };
+        };
+    
+        if (selectedFrame === "2cut-x2") {
             const calcedWidth = width / 2.3;
-            const calcedHeight =width / 2;
+            const calcedHeight = calcedWidth * 1.13; // 1:1.13 비율로 계산
             const x11 = 20;
             const x12 = calcedWidth + x11 + 20;
-            const y1 = 42;
+            const y1 = 40;
     
             return imgTag.length === 0 ? <></> : (
                 <>
-              
                     {chunkArray(imgTag, 2).map((row, rowIndex) => (
                         row.map((tag, photoIndex) => {
                             const x = photoIndex === 0 ? x11 : x12;
                             const y = y1 + rowIndex * (calcedHeight + 12);
+                            const crop = getCrop(
+                                { width: tag.width, height: tag.height }, // 원본 이미지 크기
+                                { width: calcedWidth, height: calcedHeight } // 타겟 크기
+                            );
                             return (
                                 <KonvaImage
-                                 //    key={`${rowIndex}-${photoIndex}`}
-                                    width={calcedWidth*ratio}
-                                    height={calcedHeight*ratio}
-                                    x={x*ratio}
-                                    y={y*ratio}
+                                    // key={`${rowIndex}-${photoIndex}`}
+                                    crop={{
+                                        x: crop.x,
+                                        y: crop.y,
+                                        width: crop.width-crop.x,
+                                        height: crop.height
+                                    }}
+                                    // scale={{
+                                    //     x: 1, // 원본 비율 유지
+                                    //     y: 1  // 원본 비율 유지
+                                    // }}
+                                    width={calcedWidth * ratio}
+                                    height={calcedHeight * ratio}
+                                    x={x * ratio}
+                                    y={y * ratio}
                                     image={applyFilters(tag, tag.filter)}
                                 />
                             );
@@ -1134,7 +1175,7 @@ src={selectedItems[3].url}
                     ))}
                 </>
             );
-          }
+        } 
           else if(selectedFrame==="4-cutx2"){
             const calcedWidth = width / 2.3;
             const calcedHeight =width / 3.8;
@@ -1221,11 +1262,12 @@ else{
       ])
       const getKonvaClassName=(selectedFrame)=>{
           if (selectedFrame==="6-cutx2"||selectedFrame==="Stripx2") {
-               return "konva-vertical-image-print"
+               return "konva-vertical-image"
           } else {
-               return "konva-horizontal-image-print"
+               return "konva-horizontal-image"
           }
       }
+
    
 return (
      <div className='sticker-container' style={{ backgroundImage: `url(${backgroundImage})` }}>
@@ -1309,7 +1351,6 @@ return (
                                  </Layer>
                              
                              </Stage></div>
-                    
                              <div className="left-sticker">
              <div className='frame-box' style={{ backgroundImage: `url(${frame_box})` }} />
  {/* //merge */}
@@ -1401,7 +1442,8 @@ return (
                  </div>
              </div>
          </div>
- 
+      
+                  
          <div className="middle-sticker"
              draggable={true}
              onDragStart={onDragStart}
