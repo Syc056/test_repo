@@ -105,7 +105,10 @@ isStickerDrag,
             draggable
             x={image.x}
             y={image.y}
-            onTransform={onTransform}
+            onTransform={(newWidth)=>{
+              console.log("리사이즈!!!")
+              // updateStickerSize(sticker.id, newWidth);
+            }}
             onDragStart={()=>{setIsDragging(true)
               setStickerDrag(true)
               // setIsDown(false)
@@ -214,8 +217,12 @@ rotateEnabled={false}
               return oldBox;
             }
             console.log("transformer drag end11",newBox);
+            if (newBox) {
+              onTransform(oldBox.x,oldBox.y,newBox.width,newBox.height)
+            }
             // setStickerDrag(false);
             // requestAnimationFrame(() => setStickerDrag(false));
+            // onTransform(newBox)
             return newBox;
           }}
         />}

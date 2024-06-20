@@ -151,9 +151,10 @@ function Photo() {
                         className={`preview-default-${index}`}
                         style={{ 
                             borderRadius:"20px", 
+                            backgroundColor:"white",
                             backgroundImage: capturing 
-                                ? `url(${previewDefaultImg})` 
-                                : `url(${capturePhotos[index]?.url || previewDefaultImg})`
+                                ? null 
+                                : `url(${capturePhotos[index]?.url || null})`
                         }}
                     >
                         <div className='preview-cnt'>{index + 1}/8</div>
@@ -164,9 +165,10 @@ function Photo() {
                         className={`preview-default-${index}`}
                         style={{ 
                             borderRadius:"20px", 
+                            backgroundColor:"white",
                             backgroundImage: capturing 
-                                ? `url(${previewDefaultImg})` 
-                                : `url(${capturePhotos[index]?.url || previewDefaultImg})`
+                            ? null 
+                            : `url(${capturePhotos[index]?.url || null})`
                         }}
                     >
                         <div className='preview-cnt'>{index + 1}/8</div>
