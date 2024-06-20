@@ -1890,6 +1890,7 @@ function Filter() {
                         element.style.backgroundImage = oldBackgroundImage;
                         element.style.backgroundColor = '';
                         sessionStorage.setItem('downloaded-image', data.photo_url);
+                        navigate('/sticker'); 
                     }
                 })
                 .catch((error) => {
@@ -2056,7 +2057,7 @@ function Filter() {
                             key={photoIndex}
                             className={displayClassNameForPhoto(rowIndex, photoIndex)}
                             style={{
-                                transform: 'scale(0.7)',
+                                // transform: 'scale(0.7)',
                                 backgroundImage: `url(${photos[selectedIndex].url})`,
                                 filter: getImageStyle(selectedIndex),
                             }}
@@ -2186,12 +2187,12 @@ function Filter() {
         setClickedButton(true);
         const withFilterPhotos = photos.map((p) => ({
             ...p,
-            filter: getImageStyle(p.index),
+            filter: getImageStyle(p.id),
         }));
         sessionStorage.setItem('photos', JSON.stringify(withFilterPhotos));
         sessionStorage.setItem('filter', JSON.stringify(filterEffect));
         storeImageCanvas();
-        navigate('/sticker');
+        // navigate('/sticker');
     };
 
     const hoverFilterEffect = (effect) => {
@@ -2271,7 +2272,7 @@ function Filter() {
             <div className="go-back" style={{ backgroundImage: `url(${goBackButton})` }} onClick={() => navigate("/photo-choose")} onMouseEnter={() => hoverGoBackButton()} onMouseLeave={() => hoverGoBackButton()}></div>
             <div className="left-big-frame">
                 <div className={displayClassNameForBackground()} style={{ backgroundImage: `url(${myBackground})` }}>
-                    {showSelectedPhotos()}
+                    {photos&&showSelectedPhotos()}
                 </div>
                 <div className={displayClassNameForLayout()} style={{ backgroundImage: `url(${selectedLayout})` }}></div>
                 {showClickArea()}
