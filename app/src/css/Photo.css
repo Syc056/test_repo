@@ -502,27 +502,27 @@
 
 /** Frame 2cut **/
 .choose-photo-item-2cut-0-0 {
-     width: 380px;
-     height: 480px;
+     width: 300px;
+     height: 339px;
      background-size: cover;
      background-repeat: revert-layer;
      background-position: center;
      margin: 1%;
      position: fixed;
-     top: 28%;
-     left: 7%;
+     top: 33%;
+     left: 8%;
 }
 
 .choose-photo-item-2cut-0-1 {
-     width: 350px;
-     height: 480px;
+     width: 300px;
+     height: 339px;
      background-size: cover;
      background-repeat: no-repeat;
      background-position: center;
      margin: 1%;
      position: fixed;
-     top: 28%;
-     left: 24%;
+     top: 33%;
+     left: 25%;
 }
 
 /** Frame 6 cut **/
