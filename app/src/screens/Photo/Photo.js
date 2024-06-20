@@ -124,18 +124,18 @@ function Photo() {
     };
 
     console.log("photos>>>", capturePhotos);
-    useEffect(() => {
-        const initializeLiveView = async () => {
-            await startLiveView();
-        };
+    // useEffect(() => {
+    //     const initializeLiveView = async () => {
+    //         await startLiveView();
+    //     };
 
-        initializeLiveView();
-        startTimer();
+    //     initializeLiveView();
+    //     startTimer();
 
-        return () => {
-            clearInterval(timerRef.current);
-        };
-    }, []);
+    //     return () => {
+    //         clearInterval(timerRef.current);
+    //     };
+    // }, []);
     return (
         <div className={`photo-container ${flash ? 'animate' : ''}`} style={{ backgroundImage: `url(${backgroundImage})` }}>
             <div className="left-photo-div" style={{ backgroundImage: `url(${countdownImg})` }}>

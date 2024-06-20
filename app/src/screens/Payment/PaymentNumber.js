@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import background_en from '../../assets/Payment/num-BG.png';
-import background_vn from '../../assets/Payment/Common/vn/BG.png';
-import backgrond_kr from '../../assets/Payment/Common/kr/BG.png';
+import background_en from '../../assets/PaymentNum/Common/BG.png';
+import background_vn from '../../assets/PaymentNum/Common/vn/BG.png';
+import backgrond_kr from '../../assets/PaymentNum/Common/kr/BG.png';
 //btns
 import numField from '../../assets/Common/number-field.png';
 import priceField from '../../assets/Common/price-field.png';
@@ -52,7 +52,20 @@ function PaymentNumber(props) {
         }
       }
       useEffect(()=>{
-        setGoBackBg(goback_en);
+        const lang=sessionStorage.getItem("language")
+        setLanguage(lang)
+        console.log("lang in num>>>",lang)
+        if (lang==="ko") {
+          setBackground(backgrond_kr)
+          setGoBackBg(goback_kr);
+          setConfirmButton(confirm_kr)
+        }
+        else if(lang==="vi"){
+          setBackground(background_vn)
+          setGoBackBg(goback_vn);
+          setConfirmButton(confirm_vn)
+        }
+        // setGoBackBg(goback_en);
         setMinusBtn(minusDefault)
       },[])
       const onCheck=()=>{
@@ -75,11 +88,17 @@ const res=await sendDongNum(dongNum,checkCoupon===true?1:0)
             //  navigate('/payment-number');
         // }
    }
-const onMouseConfirmEnter=()=>{
-  setConfirmUrl(confirmPressed)
+const onMouseConfirmEnter=(lang)=>{
+  // setConfirmUrl(confirmPressed)
+  if (lang==="kr") {
+    console.log("confirm enter>>>",lang)
+    setConfirmButton(confirm_kr_hover)
+  }
 }
-const onMouseConfirmLeave=()=>{
-  setConfirmUrl(confirmDefault)
+const onMouseConfirmLeave=(lang)=>{
+  if (lang==="kr") {
+    setConfirmButton(confirm_kr)
+  }
 }
 const onMouseMinusEnter=()=>{
   setMinusBtn(minusPressed)
@@ -115,6 +134,7 @@ return amount+50000*(photoNum-1)
         
         <div
         className='payment-number-center'
+
         >
  <div className="minus-default"  style={{ backgroundImage: `url(${minusBtn})` }} 
  onClick={onMinus}
@@ -139,21 +159,30 @@ return amount+50000*(photoNum-1)
     className='price'
     >{getDong()}đ</div>
  </div>
- <div className="check-box"  style={{ backgroundImage: `url(${checkBox})` }} 
+ <div className="check-box"  style={{
+  // top: "106%",
+  // left: "5%",
+  // width:"20%",
+  // height:"14%",
+ }} 
  
  onClick={onCheck}
  >
    {check&& <div
     className='check'
+  
     />}
  </div>
         </div>
         <div
                     className="payment-number-confirm-layout-button"
-                    style={{ backgroundImage: `url(${confirmUrl})` }}
+                    style={{ backgroundImage: `url(${confirmButton})`,
+                  }}
                     onClick={(e)=>{goToPayment(photoNum,check)}}
-                    onMouseEnter={onMouseConfirmEnter}
-                    onMouseLeave={onMouseConfirmLeave}
+                  
+                    onMouseEnter={()=>{
+                      onMouseConfirmEnter(language)}}
+                    onMouseLeave={()=>{onMouseConfirmLeave(language)}}
                ></div>
         </div>
     );

@@ -40,10 +40,18 @@ function App() {
     setDisplayLanguage(t(`language.${selectedLanguage}`));
 
     changeButtonBackground(selectedLanguage);
+    if (selectedLanguage === 'en') {
+      setButtonBackground(buttonBackground === start_en ? start_click_en : start_en);
+    } else if (selectedLanguage === 'vi') {
+      setButtonBackground(buttonBackground === start_vn ? start_click_vn : start_vn);
+    } else if (selectedLanguage === 'ko') {
+      setButtonBackground(buttonBackground === start_kr ? start_click_kr : start_kr);
+    }
   };
 
   const toggleShowLangOption = () => {
     setShowLangOption(!showLangOption);
+    
   };
 
   const changeButtonBackground = (type,lang) => {
