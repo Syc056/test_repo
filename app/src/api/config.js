@@ -19,6 +19,9 @@ const checkAxiosInstance = axios.create({
  const axiosInstance = axios.create({
   baseURL: BaseURL,
 });
+const testInstance = axios.create({
+  baseURL: "http://localhost:3000",
+});
 export const originAxiosInstance = axios.create({
   baseURL: OriginBaseURL,
 });
@@ -55,8 +58,14 @@ export const getPhotos=async()=>{
   const { data } = await originAxiosInstance.get('/get_photo/')
   return data
 }
+export const getMyIp=async()=>{
+
+  const res=originAxiosInstance.get('https://ipapi.co/json/')
+  console.log("IP>>>",res)
+}
 export const checkPromotionCode=async(payload)=>{
   const { data,status } = await checkAxiosInstance.post('/api/check_promotion_code',payload)
   return [data,status]
 }
+
 // export const 

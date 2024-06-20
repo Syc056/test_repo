@@ -57,7 +57,7 @@ import goback_vn from '../../assets/Common/vn/goback.png';
 import goback_vn_hover from '../../assets/Common/vn/gobackhover.png';
 
 import axios from 'axios';
-import { checkPromotionCode } from '../../api/config';
+import { checkPromotionCode, getMyIp } from '../../api/config';
 
 function Cash() {
      const { t } = useTranslation();
@@ -157,8 +157,23 @@ function Cash() {
                setGoBackButton(goBackButton == goback_vn_hover ? goback_vn : goback_vn_hover);
           }
      }
+     const [ip, setIp] = useState()
 
+     const getIp = async () => {
+       // Connect ipapi.co with fetch()
+       const response = await fetch("https://ipapi.co/json/")
+       const data = await response.json()
+       console.log("ip data>>>",data.ip)
+       // Set the IP address to the constant `ip`
+       setIp(data.ip)
+     }
+   
+     // Run `getIP` function above just once when the page is rendered
      useEffect(() => {
+       getIp()
+     }, [])
+     useEffect(() => {
+     
           const storedLanguage = sessionStorage.getItem('language');
           if (storedLanguage) {
                i18n.changeLanguage(storedLanguage);
@@ -177,6 +192,7 @@ function Cash() {
                // const response = await fetch(`${process.env.REACT_APP_BE_PROD}/payments/api/redeem?device=${deviceNumber}&code=${redeemCode}&amount=${frameAmount}`);
               const response=await checkPromotionCode({
                code:redeemCode,
+               ip:ip
               })
                const paymentData = await response[0];
                // console.log("체크 프로모션 코드",paymentData)
