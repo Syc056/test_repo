@@ -21,6 +21,7 @@ function Photo() {
     const [backgroundImage, setBackgroundImage] = useState(background_en);
     const [capturing, setCapturing] = useState(false);
     const [capturePhotos, setCapturePhotos] = useState([]);
+    const [showFirstSet, setShowFirstSet] = useState(true);
     const timerRef = useRef(null);
 
     const sleep = (ms) => {
@@ -68,19 +69,6 @@ function Photo() {
         }, 1000);
     };
 
-    useEffect(() => {
-        const initializeLiveView = async () => {
-            await startLiveView();
-        };
-
-        initializeLiveView();
-        startTimer();
-
-        return () => {
-            clearInterval(timerRef.current);
-        };
-    }, []);
-
     const getLatestPhoto = async (currentPhotoCount) => {
         const photos = await getPhotos();
         console.log("axios photos", photos);
@@ -108,6 +96,10 @@ function Photo() {
         if (photoCount > 0) {
             getLatestPhoto(photoCount - 1);
         }
+        if (photoCount>4) {
+            setShowFirstSet(false)
+        }
+        
     }, [photoCount]);
 
     useEffect(() => {
@@ -127,8 +119,23 @@ function Photo() {
         }
     }, []);
     
+    const togglePreviewSet = () => {
+        setShowFirstSet((prevShowFirstSet) => !prevShowFirstSet);
+    };
+
     console.log("photos>>>", capturePhotos);
-    
+    useEffect(() => {
+        const initializeLiveView = async () => {
+            await startLiveView();
+        };
+
+        initializeLiveView();
+        startTimer();
+
+        return () => {
+            clearInterval(timerRef.current);
+        };
+    }, []);
     return (
         <div className={`photo-container ${flash ? 'animate' : ''}`} style={{ backgroundImage: `url(${backgroundImage})` }}>
             <div className="left-photo-div" style={{ backgroundImage: `url(${countdownImg})` }}>
@@ -138,18 +145,35 @@ function Photo() {
                 <div className="photo-count">{photoCount}/8</div>
             </div>
             <div className="right-preview-ul">
-                {Array.from({ length: 8 }).map((_, index) => 
+                {showFirstSet?Array.from({ length: 8 }).map((_, index) => 
                     <div
                         key={index}
                         className={`preview-default-${index}`}
                         style={{ 
-                                              borderRadius:"20px", 
-                            backgroundImage: capturing?`url(${ previewDefaultImg})`:`url(${capturePhotos[index]?.url || previewDefaultImg})` }}
+                            borderRadius:"20px", 
+                            backgroundImage: capturing 
+                                ? `url(${previewDefaultImg})` 
+                                : `url(${capturePhotos[index]?.url || previewDefaultImg})`
+                        }}
                     >
                         <div className='preview-cnt'>{index + 1}/8</div>
                     </div>
-                )}
+                ).slice(0,4):Array.from({ length: 8 }).map((_, index) => 
+                    <div
+                        key={index}
+                        className={`preview-default-${index}`}
+                        style={{ 
+                            borderRadius:"20px", 
+                            backgroundImage: capturing 
+                                ? `url(${previewDefaultImg})` 
+                                : `url(${capturePhotos[index]?.url || previewDefaultImg})`
+                        }}
+                    >
+                        <div className='preview-cnt'>{index + 1}/8</div>
+                    </div>
+                ).slice(4,8)}
             </div>
+            <div className="right-preview-ul-arrow" onClick={togglePreviewSet} />
             <div className="right-preview-div" style={{ backgroundImage: `url(${previewImg})` }}></div>
             <div className="middle-photo-div">
                 {!capturing && (
@@ -165,7 +189,6 @@ function Photo() {
 }
 
 export default Photo;
-
 // import React, { useEffect, useState, useRef } from 'react';
 // import { useTranslation } from 'react-i18next';
 // import { useNavigate } from 'react-router-dom';
@@ -257,18 +280,18 @@ export default Photo;
 //         }, 1000);
 //     };
 
-//     useEffect(() => {
-//         const initializeLiveView = async () => {
-//             await startLiveView();
-//         };
+    // useEffect(() => {
+    //     const initializeLiveView = async () => {
+    //         await startLiveView();
+    //     };
 
-//         initializeLiveView();
-//         startTimer();
+    //     initializeLiveView();
+    //     startTimer();
 
-//         return () => {
-//             clearInterval(timerRef.current);
-//         };
-//     }, []);
+    //     return () => {
+    //         clearInterval(timerRef.current);
+    //     };
+    // }, []);
 
 //     useEffect(() => {
 //         if (photoCount === 8) {

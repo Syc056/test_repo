@@ -68,6 +68,17 @@
      width: 15%;
      height: 80%;
      overflow: hidden;
+     /* background-color: red; */
+}
+.right-preview-ul-arrow{
+     position: absolute;
+     z-index: 999;
+     top: 87%;
+     right: 9%;
+     width: 15%;
+     height: 5%;
+     cursor: pointer;
+     /* background-color: aqua; */
 }
 .right-preview-div{
      position: absolute;
@@ -80,6 +91,7 @@
      background-position: center;
      overflow: hidden;
 }
+.preview-default-4,
 .preview-default-0{
      /* overflow: hidden;
      border-radius: 20px; */
@@ -93,6 +105,7 @@
      background-repeat: no-repeat;
      background-position: center;
 }
+.preview-default-5,
 .preview-default-1{
      z-index: 900;
      position: absolute;
@@ -104,6 +117,7 @@
      background-repeat: no-repeat;
      background-position: center;
 }
+.preview-default-6,
 .preview-default-2{
      z-index: 900;
      position: absolute;
@@ -115,6 +129,7 @@
      background-repeat: no-repeat;
      background-position: center;
 }
+.preview-default-7,
 .preview-default-3{
      z-index: 900;
      position: absolute;
@@ -126,51 +141,7 @@
      background-repeat: no-repeat;
      background-position: center;
 }
-.preview-default-4{
-     opacity: 0;
-     z-index: 900;
-     position: absolute;
-     top: 94%;
-     left: 12%;
-     width: 75%;
-     height: 20%;
-     background-size: cover;
-     background-repeat: no-repeat;
-     background-position: center;
-}
-.preview-default-5{
-     z-index: 900;
-     position: absolute;
-     top:115%;
-     left: 12%;
-     width: 75%;
-     height: 20%;
-     background-size: cover;
-     background-repeat: no-repeat;
-     background-position: center;
-}
-.preview-default-6{
-     z-index: 900;
-     position: absolute;
-     top:136%;
-     left: 12%;
-     width: 75%;
-     height: 20%;
-     background-size: cover;
-     background-repeat: no-repeat;
-     background-position: center; 
-}
-.preview-default-7{
-     z-index: 900;
-     position: absolute;
-     top:157%;
-     left: 12%;
-     width: 75%;
-     height: 20%;
-     background-size: cover;
-     background-repeat: no-repeat;
-     background-position: center;
-}
+
 .preview-cnt{
      text-align: start;
      left: 12%;
