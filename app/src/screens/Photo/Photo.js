@@ -125,18 +125,18 @@ function Photo() {
     };
 
     console.log("photos>>>", capturePhotos);
-    // useEffect(() => {
-    //     const initializeLiveView = async () => {
-    //         await startLiveView();
-    //     };
+    useEffect(() => {
+        const initializeLiveView = async () => {
+            await startLiveView();
+        };
 
-    //     initializeLiveView();
-    //     startTimer();
+        initializeLiveView();
+        startTimer();
 
-    //     return () => {
-    //         clearInterval(timerRef.current);
-    //     };
-    // }, []);
+        return () => {
+            clearInterval(timerRef.current);
+        };
+    }, []);
     console.log("포토 js",JSON.parse(sessionStorage.getItem('selectedFrame')).frame)
     const getLiveStyle=()=>{
         const frame=JSON.parse(sessionStorage.getItem('selectedFrame')).frame
