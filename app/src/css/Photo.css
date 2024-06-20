@@ -415,51 +415,51 @@
 /** Frame 4cut **/
 
 .choose-photo-item-4cut-0-0 {
-     width: 320px;
-     height: 230px;
+     width: 232.75px;
+     height: 175px;
      background-size: cover;
      background-repeat: no-repeat;
      background-position: center;
      margin: 1%;
      position: fixed;
-     top: 28%;
-     left: 10%;
+     top: 31%;
+     left: 11%;
 }
 
 .choose-photo-item-4cut-0-1 {
-     width: 320px;
-     height: 230px;
+     width: 232.75px;
+     height: 175px;
      background-size: cover;
      background-repeat: no-repeat;
      background-position: center;
      margin: 1%;
      position: fixed;
-     top: 28%;
-     left: 24%;
+     top: 31%;
+     left: 26%;
 }
 
 .choose-photo-item-4cut-1-0 {
-     width: 320px;
-     height: 230px;
+     width: 232.75px;
+     height: 175px;
      background-size: cover;
      background-repeat: no-repeat;
      background-position: center;
      margin: 1%;
      position: fixed;
-     top: 50%;
-     left: 10%;
+     top: 52%;
+     left: 11%;
 }
 
 .choose-photo-item-4cut-1-1 {
-     width: 320px;
-     height: 230px;
+     width: 232.75px;
+     height: 175px;
      background-size: cover;
      background-repeat: no-repeat;
      background-position: center;
      margin: 1%;
      position: fixed;
-     top: 50%;
-     left: 24%;
+     top: 52%;
+     left: 26%;
 }
 
 /** Frame 3cut **/
