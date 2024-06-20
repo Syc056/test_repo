@@ -5,12 +5,13 @@ import "../../css/Photo.css";
 import countdownImg from '../../assets/Photo/Snap/countdown.png';
 import photocountImg from '../../assets/Photo/Snap/photocount.png';
 import previewImg from '../../assets/Photo/Snap/previewField.png';
-import previewDefaultImg from '../../assets/Photo/Snap/previewDefault.png';
+// import previewDefaultImg from '../../assets/Photo/Snap/previewDefault.png';
 import axios from 'axios';
 import background_en from '../../assets/Photo/Snap/BG.png';
 import background_kr from '../../assets/Photo/Snap/kr/BG.png';
 import background_vn from '../../assets/Photo/Snap/vn/BG.png';
 import { getPhotos, sendCaptureReq } from '../../api/config';
+// import { position } from 'html2canvas/dist/types/css/property-descriptors/position';
 
 function Photo() {
     const { t } = useTranslation();
@@ -136,6 +137,25 @@ function Photo() {
     //         clearInterval(timerRef.current);
     //     };
     // }, []);
+    console.log("포토 js",JSON.parse(sessionStorage.getItem('selectedFrame')).frame)
+    const getLiveStyle=()=>{
+        const frame=JSON.parse(sessionStorage.getItem('selectedFrame')).frame
+        if (frame==="6-cutx2") {
+            return {width:"714px",height:"700px",objectFit:"cover",position:"absolute",left:"12%"}
+        } 
+        else if(frame==="Stripx2"){
+            return {width:"882px",height:"600px",objectFit:"cover",position:"absolute",left:"2%"}
+        }
+        else if(frame==="2cut-x2"){
+            return {width:"600px",height:"678px",objectFit:"cover",position:"absolute",left:"18%"}
+        }
+        else if(frame==="4-cutx2"){
+            return {width:"798px",height:"600px",objectFit:"cover",position:"absolute",left:"6%"} 
+        }
+        else {
+            
+        }
+    }
     return (
         <div className={`photo-container ${flash ? 'animate' : ''}`} style={{ backgroundImage: `url(${backgroundImage})` }}>
             <div className="left-photo-div" style={{ backgroundImage: `url(${countdownImg})` }}>
@@ -181,6 +201,7 @@ function Photo() {
                 {!capturing && (
                     <img
                         src={`http://118.33.212.138:5000/video_feed`}
+                        style={getLiveStyle()}
                         alt="Live View"
                         className='photo-webcam'
                     />
