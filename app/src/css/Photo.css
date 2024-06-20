@@ -527,8 +527,8 @@
 
 /** Frame 6 cut **/
 .choose-photo-item6-0-0 {
-     width: 160px; /* 가로 크기 */
-     height: 163.2px; /* 세로 크기: 가로 크기의 1.02배 */
+     width: 163.2px; /* 가로 크기 */
+     height:160px; /* 세로 크기: 가로 크기의 1.02배 */
      background-size: cover;
      background-repeat: no-repeat;
      background-position: center;
@@ -539,8 +539,8 @@
 }
 
 .choose-photo-item6-0-1 {
-     width: 160px; /* 가로 크기 */
-     height: 163.2px; /* 세로 크기: 가로 크기의 1.02배 */
+     width: 163.2px; /* 가로 크기 */
+     height:160px; /* 세로 크기: 가로 크기의 1.02배 */
      background-size: cover;
      background-repeat: no-repeat;
      background-position: center;
@@ -551,8 +551,8 @@
 }
 
 .choose-photo-item6-1-0 {
-     width: 160px; /* 가로 크기 */
-     height: 163.2px; /* 세로 크기: 가로 크기의 1.02배 */
+     width: 163.2px; /* 가로 크기 */
+     height:160px; /* 세로 크기: 가로 크기의 1.02배 */
      background-size: cover;
      background-repeat: no-repeat;
      background-position: center;
@@ -563,8 +563,8 @@
 }
 
 .choose-photo-item6-1-1 {
-     width: 160px; /* 가로 크기 */
-     height: 163.2px; /* 세로 크기: 가로 크기의 1.02배 */
+     width: 163.2px; /* 가로 크기 */
+     height:160px; /* 세로 크기: 가로 크기의 1.02배 */
      background-size: cover;
      background-repeat: no-repeat;
      background-position: center;
@@ -575,8 +575,8 @@
 }
 
 .choose-photo-item6-2-0 {
-     width: 160px; /* 가로 크기 */
-     height: 163.2px; /* 세로 크기: 가로 크기의 1.02배 */
+     width: 163.2px; /* 가로 크기 */
+     height:160px; /* 세로 크기: 가로 크기의 1.02배 */
      background-size: cover;
      background-repeat: no-repeat;
      background-position: center;
@@ -587,8 +587,8 @@
 }
 
 .choose-photo-item6-2-1 {
-     width: 160px; /* 가로 크기 */
-     height: 163.2px; /* 세로 크기: 가로 크기의 1.02배 */
+     width: 163.2px; /* 가로 크기 */
+     height:160px; /* 세로 크기: 가로 크기의 1.02배 */
      background-size: cover;
      background-repeat: no-repeat;
      background-position: center;
@@ -602,92 +602,92 @@
 
 /** Frame 8 cut **/
 .choose-photo-item-0-0 {
-     width: 225px;
-     height: 151px;
+     width:161.7px;
+     height:110px ;
      background-size: cover;
      background-repeat: no-repeat;
      background-position: center;
      margin: 1%;
      position: fixed;
      top: 28%;
-     left: 14.5%;
+     left: 15.8%;
 }
 
 .choose-photo-item-0-1 {
-     width: 225px;
-     height: 151px;
+     width:161.7px;
+     height:110px ;
      background-size: cover;
      background-repeat: no-repeat;
      margin: 1%;
      position: fixed;
      top: 28%;
-     left: 24.5%;
+     left: 26.1%;
 }
 
 .choose-photo-item-1-0 {
-     width: 225px;
-     height: 151px;
+     width:161.7px;
+     height:110px ;
      background-size: cover;
      background-repeat: no-repeat;
      margin: 1%;
      position: fixed;
      top: 42%;
-     left: 14.5%;
+     left: 15.8%;
 }
 
 .choose-photo-item-1-1 {
-     width: 225px;
-     height: 151px;
+     width:161.7px;
+     height:110px ;
      background-size: cover;
      background-repeat: no-repeat;
      margin: 1%;
      position: fixed;
      top: 42%;
-     left: 24.5%;
+     left: 26.1%;
 }
 
 .choose-photo-item-2-0 {
-     width: 225px;
-     height: 151px;
+     width:161.7px;
+     height:110px ;
      background-size: cover;
      background-repeat: no-repeat;
      margin: 1%;
      position: fixed;
      top: 56%;
-     left: 14.5%;
+     left: 15.8%;
 }
 
 .choose-photo-item-2-1 {
-     width: 225px;
-     height: 151px;
+     width:161.7px;
+     height:110px ;
      background-size: cover;
      background-repeat: no-repeat;
      margin: 1%;
      position: fixed;
      top: 56%;
-     left: 24.5%;
+     left: 26.1%;
 }
 
 .choose-photo-item-3-0 {
-     width: 225px;
-     height: 151px;
+     width:161.7px;
+     height:110px ;
      background-size: cover;
      background-repeat: no-repeat;
      margin: 1%;
      position: fixed;
      top: 70%;
-     left: 14.5%;
+     left: 15.8%;
 }
 
 .choose-photo-item-3-1 {
-     width: 225px;
-     height: 151px;
+     width:161.7px;
+     height:110px ;
      background-size: cover;
      background-repeat: no-repeat;
      margin: 1%;
      position: fixed;
      top: 70%;
-     left: 24.5%;
+     left: 26.1%;
 }
 
 /** Frame 8 cut end **/
