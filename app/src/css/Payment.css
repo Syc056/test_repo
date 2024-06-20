@@ -231,11 +231,11 @@
 
 .code-input-code {
      position: absolute;
-     top: 22%;
+     top: 21%;
      left: 32%;
      width: 55%;
      height: calc(100% - 20px);
-     font-size: 80px;
+     font-size: 76px;
      font-family: fantasy;
 }
 
