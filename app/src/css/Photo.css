@@ -527,75 +527,75 @@
 
 /** Frame 6 cut **/
 .choose-photo-item6-0-0 {
-     width: 200px;
-     height: 200px;
+     width: 160px; /* 가로 크기 */
+     height: 163.2px; /* 세로 크기: 가로 크기의 1.02배 */
      background-size: cover;
      background-repeat: no-repeat;
      background-position: center;
      margin: 1%;
      position: fixed;
      top: 28%;
-     left: 15%;
+     left: 16%;
 }
 
 .choose-photo-item6-0-1 {
-     width: 200px;
-     height: 200px;
+     width: 160px; /* 가로 크기 */
+     height: 163.2px; /* 세로 크기: 가로 크기의 1.02배 */
      background-size: cover;
      background-repeat: no-repeat;
      background-position: center;
      margin: 1%;
      position: fixed;
      top: 28%;
-     left: 25%;
+     left: 26%;
 }
 
 .choose-photo-item6-1-0 {
-     width: 200px;
-     height: 200px;
+     width: 160px; /* 가로 크기 */
+     height: 163.2px; /* 세로 크기: 가로 크기의 1.02배 */
      background-size: cover;
      background-repeat: no-repeat;
      background-position: center;
      margin: 1%;
      position: fixed;
      top: 48%;
-     left: 15%;
+     left: 16%;
 }
 
 .choose-photo-item6-1-1 {
-     width: 200px;
-     height: 200px;
+     width: 160px; /* 가로 크기 */
+     height: 163.2px; /* 세로 크기: 가로 크기의 1.02배 */
      background-size: cover;
      background-repeat: no-repeat;
      background-position: center;
      margin: 1%;
      position: fixed;
      top: 48%;
-     left: 25%;
+     left: 26%;
 }
 
 .choose-photo-item6-2-0 {
-     width: 200px;
-     height: 200px;
+     width: 160px; /* 가로 크기 */
+     height: 163.2px; /* 세로 크기: 가로 크기의 1.02배 */
      background-size: cover;
      background-repeat: no-repeat;
      background-position: center;
      margin: 1%;
      position: fixed;
      top: 68%;
-     left: 15%;
+     left: 16%;
 }
 
 .choose-photo-item6-2-1 {
-     width: 200px;
-     height: 200px;
+     width: 160px; /* 가로 크기 */
+     height: 163.2px; /* 세로 크기: 가로 크기의 1.02배 */
      background-size: cover;
      background-repeat: no-repeat;
      background-position: center;
      margin: 1%;
      position: fixed;
      top: 68%;
-     left: 25%;
+     left: 26%;
 }
 
 /** Frame 6 cut-end **/

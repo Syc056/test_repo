@@ -161,7 +161,7 @@ function Photo() {
                     </div>
                 ).slice(0,4):Array.from({ length: 8 }).map((_, index) => 
                     <div
-                        key={index}
+                        key={index} 
                         className={`preview-default-${index}`}
                         style={{ 
                             borderRadius:"20px", 

@@ -1113,10 +1113,12 @@ function Choose() {
         }
 
         const sessionSelectedLayout = sessionStorage.getItem('selectedLayout');
+    
         if (sessionSelectedLayout) {
             const parsedSelectedLayout = JSON.parse(sessionSelectedLayout);
-            setMyBackground(parsedSelectedLayout.photo);
-            setSelectedLayout(parsedSelectedLayout.photo_cover);
+    // console.log("in choose>>>",parsedSelectedLayout)
+            setMyBackground(parsedSelectedLayout[0].photo);
+            setSelectedLayout(parsedSelectedLayout[0].photo_cover);
         }
     }, []);
 
@@ -1417,7 +1419,25 @@ function Choose() {
                 );
             }
 
-        } else {
+        }
+      
+        else if(selectedFrame==="6-cutx2") { 
+            const selectedPhotoRows = chunkArray(selectedPhotos, 2);
+            return (
+                selectedPhotoRows.map((row, rowIndex) => (
+                    <div key={rowIndex} className="choose-photo-row">
+                        {row.map((selectedIndex, photoIndex) => (
+                            <div
+                                key={photoIndex}
+                                className={displayClassNameForPhoto(rowIndex, photoIndex)}
+                                style={{ backgroundImage: `url(${formattedPhotos[selectedIndex].url})` }}
+                            />
+                        ))}
+                    </div>
+                ))
+            );
+        }
+        else {
             const selectedPhotoRows = chunkArray(selectedPhotos, 2);
             return (
                 selectedPhotoRows.map((row, rowIndex) => (
