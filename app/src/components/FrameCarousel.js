@@ -6,7 +6,8 @@ const FrameCarousel = ({ images,handleClick ,clickedTitles}) => {
     const [isDown, setIsDown] = useState(false);
     const [startX, setStartX] = useState(0);
     const [scrollLeft, setScrollLeft] = useState(0);
-
+    const storedSelectedFrame = JSON.parse(sessionStorage.getItem('selectedFrame'));
+    console.log("in carousel>>>",storedSelectedFrame.frame)
     useEffect(() => {
         const carousel = carouselRef.current;
 
@@ -62,6 +63,9 @@ const FrameCarousel = ({ images,handleClick ,clickedTitles}) => {
         >
             {images.map((img, index) => (
                 <img
+                style={{
+                    height:storedSelectedFrame.frame==="4-cutx2"?"210px":"auto"
+                }}
                 className={`frame-carousel-img ${clickedTitles.includes(img.title)?"clicked":""}`}
                 onClick={() => handleClick(index,img.title)}
                 key={index} src={img.photo_full} alt={`Image ${index + 1}`} />

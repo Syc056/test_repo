@@ -2683,11 +2683,13 @@ const updateStickerPositionAndSize = (index, newX, newY, newWidth, newHeight) =>
     const getCarouselStyle=(selFrame)=>{
         //  return "77%"
         if (selFrame==="Stripx2") {
-            return {height:"82%",bottom:"13%",right:"12%"}
+            return {height:"78%",bottom:"16%",right:"12%"}
         }
         else if(selFrame==="6-cutx2")
             {
-                return { transform:"scale(1.1)",height:"77%",bottom:"12%",right:"8%"}
+                return {
+                    //  transform:"scale(1.1)",
+                     height:"77%",bottom:"12%",right:"8%"}
             }
             else if(selFrame==="2cut-x2"){
                 return {
