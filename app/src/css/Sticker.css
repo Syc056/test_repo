@@ -417,15 +417,18 @@ gap: 6%;
 .print{
      /* 프린트용은 화면밖으로 밀어내기 */
      margin-left: -1500px ;
+     margin-bottom: 200px;
      width: 200vw;
      /* background-color: red; */
 }
 .konva-vertical-image{
 /* padding-top: 10px; */
-margin-top: 50px;
+/* margin-top: 50px; */
+
 /* padding-bottom: 30px; */
 
 }
 .konva-horizontal-image{
-     /* background-color: red; */
+     padding-left: 2%;
+     margin-top: 10%;
 }

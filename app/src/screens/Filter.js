@@ -1704,7 +1704,6 @@ function Filter() {
     };
 
     const photos = JSON.parse(sessionStorage.getItem('photos'))["images"];
-    console.log("photos in filter>>>>", photos);
 
     useEffect(() => {
         const storedLanguage = sessionStorage.getItem('language');
