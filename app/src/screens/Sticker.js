@@ -2688,8 +2688,8 @@ const updateStickerPositionAndSize = (index, newX, newY, newWidth, newHeight) =>
         else if(selFrame==="6-cutx2")
             {
                 return {
-                    //  transform:"scale(1.1)",
-                     height:"77%",bottom:"12%",right:"8%"}
+                     transform:"scale(1.1)",
+                     height:"70%",bottom:"18%",right:"8%"}
             }
             else if(selFrame==="2cut-x2"){
                 return {
