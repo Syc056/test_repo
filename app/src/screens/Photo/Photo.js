@@ -10,7 +10,7 @@ import axios from 'axios';
 import background_en from '../../assets/Photo/Snap/BG.png';
 import background_kr from '../../assets/Photo/Snap/kr/BG.png';
 import background_vn from '../../assets/Photo/Snap/vn/BG.png';
-import { getPhotos, sendCaptureReq } from '../../api/config';
+import { getAudio, getPhotos, sendCaptureReq } from '../../api/config';
 // import { position } from 'html2canvas/dist/types/css/property-descriptors/position';
 
 function Photo() {
@@ -95,6 +95,7 @@ function Photo() {
 
     useEffect(() => {
         if (photoCount > 0) {
+            playTakePhotoAudio()
             getLatestPhoto(photoCount - 1);
         }
         if (photoCount>4) {
@@ -137,6 +138,20 @@ function Photo() {
             clearInterval(timerRef.current);
         };
     }, []);
+    const playTakePhotoAudio = async() => {
+        const res=await getAudio({file_name:"take_photo.wav"})
+        console.log("audio :",res)
+          }
+    useEffect(()=>{
+    playAudio()
+    },[])
+    const playAudio = async() => {
+        const res=await getAudio({file_name:"look_up_smile.wav"})
+        console.log("audio :",res)
+          }
+   useEffect(()=>{
+    playAudio()
+   },[])
     console.log("포토 js",JSON.parse(sessionStorage.getItem('selectedFrame')).frame)
     const getLiveStyle=()=>{
         const frame=JSON.parse(sessionStorage.getItem('selectedFrame')).frame

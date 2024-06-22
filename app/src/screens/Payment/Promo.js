@@ -57,7 +57,7 @@ import goback_vn from '../../assets/Common/vn/goback.png';
 import goback_vn_hover from '../../assets/Common/vn/gobackhover.png';
 
 import axios from 'axios';
-import { checkPromotionCode, getMyIp } from '../../api/config';
+import { checkPromotionCode, getAudio, getMyIp } from '../../api/config';
 
 function Cash() {
      const { t } = useTranslation();
@@ -210,7 +210,13 @@ function Cash() {
                console.error(error);
           }
      }
-
+     const playAudio = async() => {
+          const res=await getAudio({file_name:"enter_pro.wav"})
+          console.log("audio :",res)
+            }
+     useEffect(()=>{
+      playAudio()
+     },[])
      return (
           <div className='promo-container' style={{ backgroundImage: `url(${background})` }}>
                <div className="go-back" style={{ backgroundImage: `url(${goBackButton})` }} onClick={() => navigate("/payment")}></div>

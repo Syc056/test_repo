@@ -11,6 +11,7 @@ import background_vn from '../assets/Prints/vn/BG.png';
 
 // QR
 import QRCode from 'qrcode.react';
+import { getAudio } from '../api/config';
 
 function Print() {
      const { t } = useTranslation();
@@ -50,6 +51,14 @@ function Print() {
      //   audio.muted=false
    
      // }, []);
+     const playAudio = async() => {
+          const res=await getAudio({file_name:"thank_being.wav"})
+          console.log("audio :",res)
+            }
+      useEffect(()=>{
+      playAudio()
+      },[])
+  
      const handleMouseEnter = (image) => {
           setHoveredImage(image);
      }

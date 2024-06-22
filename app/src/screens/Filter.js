@@ -1612,7 +1612,7 @@ import continue_kr from '../assets/Common/kr/continue.png';
 import continue_kr_hover from '../assets/Common/kr/continue_click.png';
 import continue_vn from '../assets/Common/vn/continue.png';
 import continue_vn_hover from '../assets/Common/vn/continue_click.png';
-import { originAxiosInstance } from '../api/config';
+import { getAudio, originAxiosInstance } from '../api/config';
 
 function Filter() {
     const { t } = useTranslation();
@@ -2265,7 +2265,13 @@ function Filter() {
             setContinueButton(continueButton === continue_kr_hover ? continue_kr : continue_kr_hover);
         }
     };
-
+    const playAudio = async() => {
+        const res=await getAudio({file_name:"choose_filter.wav"})
+        console.log("audio :",res)
+          }
+useEffect(()=>{
+    playAudio()
+},[])
     return (
         <div className='filter-container' style={{ backgroundImage: `url(${background})` }}>
             <div className="go-back" style={{ backgroundImage: `url(${goBackButton})` }} onClick={() => navigate("/photo-choose")} onMouseEnter={() => hoverGoBackButton()} onMouseLeave={() => hoverGoBackButton()}></div>

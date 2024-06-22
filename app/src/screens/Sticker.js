@@ -1513,7 +1513,7 @@ import print_vn_click from '../assets/Sticker/vn/print-pressed.png';
 import frame_box from '../assets/Sticker/frame_box.png';
 import CustomCarousel from '../components/CustomCarousel';
 import VerticalCustomCarousel from '../components/VerticalCustomCarousel';
-import { originAxiosInstance } from '../api/config';
+import { getAudio, originAxiosInstance } from '../api/config';
 
 function Sticker() {
     const { t } = useTranslation();
@@ -1818,6 +1818,7 @@ const addStickerToPanel = ({ bgIdx, src, width, x, y }) => {
         if (clickPrint === true) {
             return;
         }
+        playPrintAudio()
         setClickPrint(true);
 
         callPrinter();
@@ -2704,6 +2705,18 @@ const updateStickerPositionAndSize = (index, newX, newY, newWidth, newHeight) =>
             }
           
     }
+    const playPrintAudio = async() => {
+        const res=await getAudio({file_name:"print.wav"})
+        console.log("audio :",res)
+          }
+
+    const playAudio = async() => {
+        const res=await getAudio({file_name:"add_emoji.wav"})
+        console.log("audio :",res)
+          }
+    useEffect(()=>{
+        playAudio()
+    },[])
     return (
         <div className='sticker-container' style={{ backgroundImage: `url(${backgroundImage})` }}>
             <div className="go-back" style={{ backgroundImage: `url(${goBackButton})` }} onClick={() => navigate("/filter")} onMouseEnter={hoverGoBackButton} onMouseLeave={hoverGoBackButton}></div>

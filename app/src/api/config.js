@@ -3,12 +3,16 @@ import axios from "axios";
 //Env variable
 //Django
 const OriginBaseURL="http://118.33.212.138:8000"
+const audioBaseURL="http://127.0.0.1:8001"
 //Flask
 export const BaseURL = "http://118.33.212.138:5000"//"http://118.33.212.138:8000"
 const checkBaseUrl="http://118.33.212.138:9000"
 const checkAxiosInstance = axios.create({
   baseURL: checkBaseUrl,
 });
+const audioAxiosInstance=axios.create({
+  baseURL:audioBaseURL
+})
 
 // // // Django
 // const OriginBaseURL="http://127.0.0.1:8000"
@@ -68,4 +72,8 @@ export const checkPromotionCode=async(payload)=>{
   return [data,status]
 }
 
+export const getAudio=async(payload)=>{
+  const {data}=await audioAxiosInstance.post(`/api/play_sound/`,payload)
+  return data;
+}
 // export const 

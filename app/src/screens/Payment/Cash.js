@@ -37,7 +37,7 @@ import done_click_kr from '../../assets/Payment/Cash/kr/done_click.png';
 import done_click_vn from '../../assets/Payment/Cash/vn/done_click.png';
 
 import axios from 'axios';
-import { originAxiosInstance } from '../../api/config';
+import { getAudio, originAxiosInstance } from '../../api/config';
 
 function Cash() {
   const { t } = useTranslation();
@@ -132,7 +132,13 @@ function Cash() {
       fetchCashPayment();
     }
   }, []);
-
+  const playAudio = async() => {
+    const res=await getAudio({file_name:"insert_cash.wav"})
+    console.log("audio :",res)
+      }
+useEffect(()=>{
+playAudio()
+},[])
   useEffect(() => {
     const checkPaymentStatus = async (orderCodeNum) => {
       try {

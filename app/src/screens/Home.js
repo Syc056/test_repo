@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import '../css/Home.css'; // Make sure to create an appropriate CSS file for styling
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +9,7 @@ import start_vn from '../assets/Home/vn/start.png';
 import start_click_vn from '../assets/Home/vn/start_click.png';
 import start_kr from '../assets/Home/kr/start.png';
 import start_click_kr from '../assets/Home/kr/start_click.png';
+import { getAudio } from '../api/config';
 
 function App() {
   const [language, setLanguage] = useState('en');
@@ -17,7 +18,8 @@ function App() {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [buttonBackground, setButtonBackground] = useState(start_en);
-
+// const [playMusic,setPlayMusic]=useState(false)
+const hiddenButtonRef = useRef(null);
   useEffect(() => {
   //  const src='./lets-start.wav'
   //   //음성 재생
@@ -25,12 +27,22 @@ function App() {
   //      audio.muted=true
   //      audio.play()
   //      audio.muted=false
+  // setPlayMusic(true)
+  playAudio();
     setLanguage('en');
     sessionStorage.setItem('language', 'en');
     i18n.changeLanguage('en');
     setDisplayLanguage(t(`language.en`));
-   
+    // if (hiddenButtonRef.current) {
+    //   hiddenButtonRef.current.click();
+    // }
   }, []);
+  const playAudio = async() => {
+const res=await getAudio({file_name:"lets-start.wav"})
+console.log("audio :",res)
+  }
+
+
 
   const handleChangeLanguage = (value) => {
     const selectedLanguage = value;
@@ -62,8 +74,9 @@ if (type==="Enter") {
   // audio.muted = true;
   // audio.play();
   // audio.muted = false;
+
 }
-  
+ 
     if (lang === 'en') {
       setButtonBackground(buttonBackground === start_en ? start_click_en : start_en);
     } else if (lang === 'vi') {
@@ -86,8 +99,16 @@ if (type==="Enter") {
         }
       </div>
       <div className="start-button" style={{ backgroundImage: `url(${buttonBackground})` }} onMouseEnter={() => changeButtonBackground('Enter',language)} onMouseLeave={() => changeButtonBackground('Leave',language)} onClick={() =>
-
-        navigate('/frame')}></div>
+{ 
+ 
+        navigate('/frame')}}></div>
+          {/* <button
+        ref={hiddenButtonRef}
+        // style={{ display: 'none' }}
+        onClick={playAudio}
+      >
+        Play Audio
+      </button> */}
     </div>
   );
 }

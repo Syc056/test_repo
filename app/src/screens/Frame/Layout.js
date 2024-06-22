@@ -25,7 +25,7 @@ import confirm_kr from '../../assets/Frame/Layout/Confirm/kr/confirm.png';
 import confirm_kr_hover from '../../assets/Frame/Layout/Confirm/kr/confirm_click.png';
 import confirm_vn from '../../assets/Frame/Layout/Confirm/vn/confirm.png';
 import confirm_vn_hover from '../../assets/Frame/Layout/Confirm/vn/confirm_click.png';
-import { originAxiosInstance } from '../../api/config';
+import { getAudio, originAxiosInstance } from '../../api/config';
 import FrameCarousel from '../../components/FrameCarousel';
 
 function Layout() {
@@ -304,6 +304,13 @@ const getBackground=(sliceIdx)=>{
           setConfirmHoverButton(confirm_vn_hover);
      }
 }
+const playAudio = async() => {
+     const res=await getAudio({file_name:"choose_frame_style.wav"})
+     console.log("audio :",res)
+       }
+useEffect(()=>{
+ playAudio()
+},[])
 // useEffect(() => {
 //      if (!draging) {
 //           // Fetch next set of layouts if not dragging

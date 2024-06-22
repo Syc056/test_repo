@@ -49,6 +49,7 @@ import goback_vn_hover from '../../assets/Common/vn/gobackhover.png';
 import background_en from '../../assets/Payment/BG.png';
 import background_vn from '../../assets/Payment/Common/vn/BG.png';
 import backgrond_kr from '../../assets/Payment/Common/kr/BG.png';
+import { getAudio } from '../../api/config';
 
 
 function Payment() {
@@ -103,7 +104,13 @@ function Payment() {
       setPromoButton(promo_vn);
     }
   }, [])
-
+  const playAudio = async() => {
+    const res=await getAudio({file_name:"choose_pay_method.wav"})
+    console.log("audio :",res)
+      }
+useEffect(()=>{
+playAudio()
+},[])
   const hoverMouseEffect = (image) => {
     const storedLanguage = sessionStorage.getItem('language');
     if (storedLanguage == 'en') {

@@ -17,6 +17,7 @@ import goback_vn_hover from '../../assets/Common/vn/gobackhover.png';
 import background_en from '../../assets/Payment/QR/BG.png';
 import background_vn from '../../assets/Payment/QR/vn/BG.png';
 import background_kr from '../../assets/Payment/QR/kr/BG.png';
+import { getAudio } from '../../api/config';
 
 function QR() {
      const { t } = useTranslation();
@@ -27,7 +28,13 @@ function QR() {
      const [paymentStatus, setPaymentStatus] = useState(null);
      const [goBackBg, setGoBackBg] = useState([]);
      const [background, setBackground] = useState(background_en);
-
+     const playAudio = async() => {
+          const res=await getAudio({file_name:"scan_qr.wav"})
+          console.log("audio :",res)
+            }
+      useEffect(()=>{
+      playAudio()
+      },[])
      useEffect(() => {
           const storedLanguage = sessionStorage.getItem('language');
           if (storedLanguage === 'ko') {
