@@ -1513,7 +1513,7 @@ import print_vn_click from '../assets/Sticker/vn/print-pressed.png';
 import frame_box from '../assets/Sticker/frame_box.png';
 import CustomCarousel from '../components/CustomCarousel';
 import VerticalCustomCarousel from '../components/VerticalCustomCarousel';
-import { getAudio, originAxiosInstance } from '../api/config';
+import { getAudio, getClickAudio, originAxiosInstance } from '../api/config';
 
 function Sticker() {
     const { t } = useTranslation();
@@ -1811,6 +1811,7 @@ const addStickerToPanel = ({ bgIdx, src, width, x, y }) => {
     };
 
     const filterStickerByCategory = (category) => {
+        getClickAudio()
         setSelectedCategory(category);
     };
 
@@ -1818,6 +1819,7 @@ const addStickerToPanel = ({ bgIdx, src, width, x, y }) => {
         if (clickPrint === true) {
             return;
         }
+        
         playPrintAudio()
         setClickPrint(true);
 

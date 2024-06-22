@@ -17,7 +17,7 @@ import goback_kr from '../../assets/Common/kr/goback.png';
 import goback_kr_hover from '../../assets/Common/kr/gobackhover.png';
 import goback_vn from '../../assets/Common/vn/goback.png';
 import goback_vn_hover from '../../assets/Common/vn/gobackhover.png';
-import { getAudio, originAxiosInstance } from '../../api/config';
+import { getAudio, getClickAudio, originAxiosInstance } from '../../api/config';
 
 
 function Frame() {
@@ -140,6 +140,7 @@ playAudio()
 
   const goToBackground = (titleFrame, price) => {
     // save the selected frame in session storage
+    getClickAudio()
     sessionStorage.setItem('selectedFrame', JSON.stringify({
       frame: titleFrame
     }))
@@ -150,7 +151,9 @@ playAudio()
   return (
     <div className='frame-container' style={{ backgroundImage: `url(${frameBackground})` }}>
         {/* <audio ref={audioRef} src="/choose_frame_layout.wav" controls autoPlay /> */}
-      <div className="go-back" style={{ backgroundImage: `url(${goBackBg})` }} onClick={() => navigate("/")} onMouseEnter={() => hoverGoBackBtn(language)} onMouseLeave={() => hoverGoBackBtn(language)}></div>
+      <div className="go-back" style={{ backgroundImage: `url(${goBackBg})` }} onClick={() =>{
+        getClickAudio()
+        navigate("/")}} onMouseEnter={() => hoverGoBackBtn(language)} onMouseLeave={() => hoverGoBackBtn(language)}></div>
       <div className="topSection">
         <div className="column">
           <div className="imageDiv-top-left" style={{ backgroundImage: `url( ${hoveredImage === frameRow11 ? frameRow11Hover : frameRow11})` }} onMouseEnter={() => handleMouseEnter(frameRow11)} onMouseLeave={handleMouseLeave} onClick={() => goToBackground('Stripx2', 70000)}></div>

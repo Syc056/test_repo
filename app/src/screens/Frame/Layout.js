@@ -25,7 +25,7 @@ import confirm_kr from '../../assets/Frame/Layout/Confirm/kr/confirm.png';
 import confirm_kr_hover from '../../assets/Frame/Layout/Confirm/kr/confirm_click.png';
 import confirm_vn from '../../assets/Frame/Layout/Confirm/vn/confirm.png';
 import confirm_vn_hover from '../../assets/Frame/Layout/Confirm/vn/confirm_click.png';
-import { getAudio, originAxiosInstance } from '../../api/config';
+import { getAudio, getClickAudio, originAxiosInstance } from '../../api/config';
 import FrameCarousel from '../../components/FrameCarousel';
 
 function Layout() {
@@ -173,6 +173,7 @@ function Layout() {
          //라우팅 할 때 리스트 한번에 보내기
           // sessionStorage.setItem('selectedLayout', JSON.stringify(layouts));
           // setClickedIndex(index === clickedIndex ? null : index);
+          getClickAudio()
           if (clickedTitles.includes(clickedTitle)) {
                setClickedTitles(prevTitles => prevTitles.filter(clickedTitle => clickedTitle != clickedTitle));
 

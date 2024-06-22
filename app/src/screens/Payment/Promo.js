@@ -57,7 +57,7 @@ import goback_vn from '../../assets/Common/vn/goback.png';
 import goback_vn_hover from '../../assets/Common/vn/gobackhover.png';
 
 import axios from 'axios';
-import { checkPromotionCode, getAudio, getMyIp } from '../../api/config';
+import { checkPromotionCode, getAudio, getClickAudio, getMyIp } from '../../api/config';
 
 function Cash() {
      const { t } = useTranslation();
@@ -136,6 +136,7 @@ function Cash() {
                return;
           }
           if (buttonClick) {
+               getClickAudio()
                setRedeemCode(redeemCode + buttonClick);
           }
      }
@@ -145,6 +146,7 @@ function Cash() {
      }
 
      const redeemClick = () => {
+          getClickAudio()
           checkReedeem();
      }
 
@@ -219,7 +221,9 @@ function Cash() {
      },[])
      return (
           <div className='promo-container' style={{ backgroundImage: `url(${background})` }}>
-               <div className="go-back" style={{ backgroundImage: `url(${goBackButton})` }} onClick={() => navigate("/payment")}></div>
+               <div className="go-back" style={{ backgroundImage: `url(${goBackButton})` }} onClick={() =>{
+                    getClickAudio()
+                    navigate("/payment")}}></div>
                <div className="promo-form" style={{ backgroundImage: `url(${promoForm})` }}>
                     <div className="code-input" style={{ backgroundImage: `url(${promo_input})` }}></div>
                     <div className='code-input-code'>{redeemCode}</div>

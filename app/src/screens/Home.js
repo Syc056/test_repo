@@ -9,7 +9,7 @@ import start_vn from '../assets/Home/vn/start.png';
 import start_click_vn from '../assets/Home/vn/start_click.png';
 import start_kr from '../assets/Home/kr/start.png';
 import start_click_kr from '../assets/Home/kr/start_click.png';
-import { getAudio } from '../api/config';
+import { getAudio, getClickAudio } from '../api/config';
 
 function App() {
   const [language, setLanguage] = useState('en');
@@ -35,7 +35,7 @@ const hiddenButtonRef = useRef(null);
     setDisplayLanguage(t(`language.en`));
     // if (hiddenButtonRef.current) {
     //   hiddenButtonRef.current.click();
-    // }
+    // } 
   }, []);
   const playAudio = async() => {
 const res=await getAudio({file_name:"lets-start.wav"})
@@ -45,6 +45,7 @@ console.log("audio :",res)
 
 
   const handleChangeLanguage = (value) => {
+    getClickAudio()
     const selectedLanguage = value;
     setLanguage(selectedLanguage);
     sessionStorage.setItem('language', selectedLanguage);
@@ -100,7 +101,7 @@ if (type==="Enter") {
       </div>
       <div className="start-button" style={{ backgroundImage: `url(${buttonBackground})` }} onMouseEnter={() => changeButtonBackground('Enter',language)} onMouseLeave={() => changeButtonBackground('Leave',language)} onClick={() =>
 { 
- 
+ getClickAudio()
         navigate('/frame')}}></div>
           {/* <button
         ref={hiddenButtonRef}

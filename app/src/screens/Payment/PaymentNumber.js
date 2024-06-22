@@ -27,7 +27,7 @@ import confirm_kr from '../../assets/Frame/Layout/Confirm/kr/confirm.png';
 import confirm_kr_hover from '../../assets/Frame/Layout/Confirm/kr/confirm_click.png';
 import confirm_vn from '../../assets/Frame/Layout/Confirm/vn/confirm.png';
 import confirm_vn_hover from '../../assets/Frame/Layout/Confirm/vn/confirm_click.png';
-import { sendDongNum } from '../../api/config';
+import { getClickAudio, sendDongNum } from '../../api/config';
 
 function PaymentNumber(props) {
     const [background, setBackground] = useState(background_en);
@@ -72,14 +72,16 @@ function PaymentNumber(props) {
         setCheck(p=>!p)
       }
       const onAdd = () => {
+        getClickAudio()
         setPhotoNum(p => (p < 10 ? p + 1 : p));
     };
 
     const onMinus = () => {
+      getClickAudio()
         setPhotoNum(p => (p > 1 ? p - 1 : p));
     };
       const goToPayment = async(dongNum,checkCoupon) => {  
-    
+    getClickAudio()
         // if (confirmClick === confirmButton) {
 const res=await sendDongNum(dongNum,checkCoupon===true?1:0)
      console.log("res>>>",res)
@@ -130,7 +132,9 @@ return amount+50000*(photoNum-1)
         className='payment-number-container'
         style={{ backgroundImage: `url(${background})` }}
         >
-           <div className="go-back" style={{ backgroundImage: `url(${goBackBg})` }} onClick={() => navigate("/layout")} onMouseEnter={() => hoverGoBackBtn(language)} onMouseLeave={() => hoverGoBackBtn(language)}></div>  
+           <div className="go-back" style={{ backgroundImage: `url(${goBackBg})` }} onClick={() => {
+            getClickAudio()
+            navigate("/layout")}} onMouseEnter={() => hoverGoBackBtn(language)} onMouseLeave={() => hoverGoBackBtn(language)}></div>  
         
         <div
         className='payment-number-center'
@@ -141,8 +145,8 @@ return amount+50000*(photoNum-1)
  onMouseEnter={onMouseMinusEnter}
                     onMouseLeave={onMouseMinusLeave}
  />
- <div className="plus-default"  style={{ backgroundImage: `url(${plusBtn})` }}
  onClick={onAdd}
+ <div className="plus-default"  style={{ backgroundImage: `url(${plusBtn})` }}
 
  onMouseEnter={onMousePlusEnter} 
  onMouseLeave={onMousePlusLeave}

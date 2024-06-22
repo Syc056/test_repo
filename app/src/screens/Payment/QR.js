@@ -17,7 +17,7 @@ import goback_vn_hover from '../../assets/Common/vn/gobackhover.png';
 import background_en from '../../assets/Payment/QR/BG.png';
 import background_vn from '../../assets/Payment/QR/vn/BG.png';
 import background_kr from '../../assets/Payment/QR/kr/BG.png';
-import { getAudio } from '../../api/config';
+import { getAudio, getClickAudio } from '../../api/config';
 
 function QR() {
      const { t } = useTranslation();
@@ -121,6 +121,7 @@ function QR() {
      }
 
      const goBack = () => {
+          getClickAudio()
           navigate("/payment");
      }
 

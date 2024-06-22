@@ -37,7 +37,7 @@ import done_click_kr from '../../assets/Payment/Cash/kr/done_click.png';
 import done_click_vn from '../../assets/Payment/Cash/vn/done_click.png';
 
 import axios from 'axios';
-import { getAudio, originAxiosInstance } from '../../api/config';
+import { getAudio, getClickAudio, originAxiosInstance } from '../../api/config';
 
 function Cash() {
   const { t } = useTranslation();
@@ -168,6 +168,7 @@ playAudio()
 
   const continuePay = () => {
     if (orderCode) {
+      getClickAudio()
       if (parseInt(insertedMoney) >= parseInt(amountToPay)) {
         originAxiosInstance.post(
           `${process.env.REACT_APP_BACKEND}/payments/api/cash/stop`,
@@ -208,7 +209,9 @@ playAudio()
 
   return (
     <div className='cash-container' style={{ backgroundImage: `url(${background})` }}>
-      <div className="go-back" style={{ backgroundImage: `url(${goBackButton})` }} onClick={() => navigate("/payment")} onMouseEnter={() => hoverGoBackButton(language)} onMouseLeave={() => handleMouseLeave(language)}></div>
+      <div className="go-back" style={{ backgroundImage: `url(${goBackButton})` }} onClick={() => {
+        getClickAudio()
+        navigate("/payment")}} onMouseEnter={() => hoverGoBackButton(language)} onMouseLeave={() => handleMouseLeave(language)}></div>
       <div className="paid-cash" style={{ backgroundImage: `url(${paidImage})` }}>
         <div className="paid-cash-text">{amountToPay}</div>
       </div>

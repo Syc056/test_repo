@@ -49,7 +49,7 @@ import goback_vn_hover from '../../assets/Common/vn/gobackhover.png';
 import background_en from '../../assets/Payment/BG.png';
 import background_vn from '../../assets/Payment/Common/vn/BG.png';
 import backgrond_kr from '../../assets/Payment/Common/kr/BG.png';
-import { getAudio } from '../../api/config';
+import { getAudio, getClickAudio } from '../../api/config';
 
 
 function Payment() {
@@ -158,6 +158,7 @@ playAudio()
 
   const goToPay = (method) => {
     sessionStorage.setItem("payMethod",method)
+    getClickAudio()
     if (method === 'cash') {
       navigate('/payment-cash');
     } else if (method === 'momo') {

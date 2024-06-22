@@ -76,4 +76,8 @@ export const getAudio=async(payload)=>{
   const {data}=await audioAxiosInstance.post(`/api/play_sound/`,payload)
   return data;
 }
+export const getClickAudio=async()=>{
+  const {data}=await audioAxiosInstance.post(`/api/play_sound/`,{file_name:"click_sound.wav"})
+  return data;
+}
 // export const 

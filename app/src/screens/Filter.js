@@ -1612,7 +1612,7 @@ import continue_kr from '../assets/Common/kr/continue.png';
 import continue_kr_hover from '../assets/Common/kr/continue_click.png';
 import continue_vn from '../assets/Common/vn/continue.png';
 import continue_vn_hover from '../assets/Common/vn/continue_click.png';
-import { getAudio, originAxiosInstance } from '../api/config';
+import { getAudio, getClickAudio, originAxiosInstance } from '../api/config';
 
 function Filter() {
     const { t } = useTranslation();
@@ -1784,6 +1784,7 @@ function Filter() {
     };
 
     const handleFilter = (index) => {
+        getClickAudio()
         setSliderChange(false);
         setPercentage(350);
         setFilterIndex(index);
@@ -1796,6 +1797,7 @@ function Filter() {
 
     const increasePercentage = () => {
         setSliderChange(true);
+        getClickAudio()
         if (percentage < 570) {
             setPercentage(percentage + 50);
         }
@@ -1819,6 +1821,7 @@ function Filter() {
 
     const decreasePercentage = () => {
         setSliderChange(true);
+        getClickAudio()
         if (percentage > 50) {
             setPercentage(percentage - 50);
         }
