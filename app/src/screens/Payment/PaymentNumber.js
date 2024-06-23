@@ -145,8 +145,8 @@ return amount+50000*(photoNum-1)
  onMouseEnter={onMouseMinusEnter}
                     onMouseLeave={onMouseMinusLeave}
  />
- onClick={onAdd}
- <div className="plus-default"  style={{ backgroundImage: `url(${plusBtn})` }}
+
+ <div className="plus-default"  onClick={onAdd} style={{ backgroundImage: `url(${plusBtn})` }}
 
  onMouseEnter={onMousePlusEnter} 
  onMouseLeave={onMousePlusLeave}
