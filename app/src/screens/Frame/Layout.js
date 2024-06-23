@@ -39,7 +39,7 @@ function Layout() {
      const [confirmButton, setConfirmButton] = useState(confirm_en);
      const [confirmHoverButton, setConfirmHoverButton] = useState(confirm_en_hover);
      const [confirmClick, setConfirmClick] = useState(false);
-     const [slicedLayouts,setSlicedLayouts]=useState([])
+     // const [slicedLayouts,setSlicedLayouts]=useState([])
      //드래그 끝나면 기존 레이아웃중에 5개 다음거 담기
      const [sliceIdx,setSliceIdx]=useState(0)
      //드래그 중일때 카드 선택 안되도록 하기
@@ -53,9 +53,9 @@ function Layout() {
           // 0,5
           // 5,10
           console.log("가져오는 인덱스들>>>",5*nextSliceIdx,5*(1+nextSliceIdx))
-    const nextSlicedLayouts = layouts[nextSliceIdx];
+//     const nextSlicedLayouts = layouts[nextSliceIdx];
     getBackground(nextSliceIdx)
-    setSlicedLayouts(...nextSlicedLayouts);
+//     setSlicedLayouts(...nextSlicedLayouts);
     setDraging(false)
       };
       const onDrag=(e)=>{
@@ -231,7 +231,7 @@ function Layout() {
                setGoBackBg(goBackBg === goback_en ? goback_en_hover : goback_en);
           }
      }
-console.log("slide >>>",slicedLayouts)
+// console.log("slide >>>",slicedLayouts)
 const getBackground=(sliceIdx)=>{
      const storedLanguage = sessionStorage.getItem('language');
      if (storedLanguage) {
